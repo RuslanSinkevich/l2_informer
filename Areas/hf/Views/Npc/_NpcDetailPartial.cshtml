@@ -1,0 +1,107 @@
+﻿@using Telerik.Web.Mvc;
+@using Informer.Areas.hf.Models;
+
+<script type="text/javascript">
+    function Npcdrop(e) {
+        $('.toltipDrop').poshytip({
+            className: 'tip-darkgray',
+            offsetX: -25,
+            alignY: 'left',
+            followCursor: true,
+            slide: false,
+            hideTimeout: 0,
+            hideAniDuration: 0,
+            content: function (data2) {
+                var html = $(this).attr("itemId");
+                $.get(
+                    "../../Item/itemTooltip/",
+                    { item_id: html },
+                    function (data) {
+                        data2(data);
+                    }
+                );
+                return "load";
+            }
+        });
+    }
+
+    function Npcspoil(e) {
+        $('.toltipSpoil').poshytip({
+            className: 'tip-darkgray',
+            offsetX: -25,
+            alignY: 'left',
+            followCursor: true,
+            slide: false,
+            hideTimeout: 0,
+            hideAniDuration: 0,
+            content: function (data2) {
+                var html = $(this).attr("itemId");
+                $.get(
+                    "../../Item/itemTooltip/",
+                    { item_id: html },
+                    function (data) {
+                        data2(data);
+                    }
+                );
+                return "load";
+            }
+        });
+    }
+</script>
+
+<div id="NpcDetailDpSp">
+    <fieldset class="NpcDivBloc_r">
+        <legend>@Informer.Resources.Views.Npc.drop_box_fds</legend>
+        @(Html.Telerik().Grid<npc_drop>()
+        .Name("Npcdrop")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.npc_id).Sortable(false)
+                .ClientTemplate("<img class='toltipDrop' title='' itemId ='<#= item_id #>' style='vertical-align: middle;' onerror='NpcdroploadImage(this)' src='" + Url.Content("~/Images/icon/") + "<#= item_img #>.jpg' />")
+                .Title(@Informer.Resources.Views.Npc.drop_vid).Width(36);
+            columns.Bound(c => c.npc_id).Sortable(false)
+                .ClientTemplate("<img src='" + Url.Content("~/Images/cri/") + "<#= item_cry_tip #>.gif' />")
+                .Title(@Informer.Resources.Views.Npc.drop_tip).Width(36).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_chance).Sortable(false)
+                .ClientTemplate(@Html.ActionLink("<#= item_name #>", "details", "Item", new { id = "<#= item_id #>" }, null).ToString())
+                .Title(@Informer.Resources.Views.Npc.drop_name);
+            columns.Bound(c => c.npc_min).Width(65).Title("min").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_max).Width(65).Title("max").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_chance).Width(100).Title(@Informer.Resources.Views.Npc.drop_chance).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.category).Hidden(true);
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_Select_Npcdrop", "Npc", new { npc_id = Model }))
+        .Sortable(config=>config.OrderBy(c=>c.Add(x => x.npc_chance).Descending()))
+        .ClientEvents(clientEvents => clientEvents.OnRowDataBound("NpcdropOnRowDataBound"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBound("Npcdrop"))        
+        .Scrollable(scroll => scroll.Height(295))
+)
+    </fieldset>
+    <fieldset id="NpcSpoilFd"  class="NpcDivBloc_r">
+        <legend>@Informer.Resources.Views.Npc.spoil_box_fds</legend>
+        @(Html.Telerik().Grid<npc_drop>()
+        .Name("NpcSpoil")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.npc_id).Sortable(false)
+                .ClientTemplate("<img class='toltipSpoil' title='' itemId ='<#= item_id #>' style='vertical-align: middle;' onerror='NpcdroploadImage(this)' src='" + Url.Content("~/Images/icon/") + "<#= item_img #>.jpg' />")
+                .Title(@Informer.Resources.Views.Npc.drop_vid).Width(36);
+            columns.Bound(c => c.npc_id).Sortable(false)
+                .ClientTemplate("<img src='" + Url.Content("~/Images/cri/") + "<#= item_cry_tip #>.gif' />")
+                .Title(@Informer.Resources.Views.Npc.drop_tip).Width(36).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_chance).Sortable(false)
+                .ClientTemplate(@Html.ActionLink("<#= item_name #>", "details", "Item", new { id = "<#= item_id #>" }, null).ToString())
+                .Title(@Informer.Resources.Views.Npc.drop_name);
+            columns.Bound(c => c.npc_min).Width(65).Title("min").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_max).Width(65).Title("max").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_chance).Width(100).Title(@Informer.Resources.Views.Npc.drop_chance).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.category).Hidden(true);
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_Select_NpcSpoil", "Npc", new { npc_id = Model }))
+        .ClientEvents(clientEvents => clientEvents.OnRowDataBound("NpcSpoilOnRowDataBound"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBound("Npcspoil"))                
+        .Sortable(config=>config.OrderBy(c=>c.Add(x => x.npc_chance).Descending()))
+
+)
+    </fieldset>
+</div>

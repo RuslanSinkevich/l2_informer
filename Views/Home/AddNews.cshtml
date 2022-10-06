@@ -1,0 +1,228 @@
+﻿@{
+    ViewBag.Title = "Добавить новость, Lineage 2";
+    ViewBag.Description = "Добавить новость, Lineage 2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Informer.Models
+@model home_news
+
+<div class="validation-summary-errors">@ViewBag.StatusMessage</div>
+<div style="width: 70%; float: left">
+    <p>Можно добавлять новости о различных прохождениях сложных квестов, о интересных событиях , о любых интересных и стоящих новостях, об  офф сервере можно размешать любые новости.<br/>
+Если несколько ваших новостей будут действительно интересны и содержать индивидуальный контент, то возможна оплата, обсуждается индивидуально. <br/>
+Запрещено и не будет публиковаться: Сборки серверов, Исходники, Дополнения, Модели, Защита, Шаблоны, Программы, Geodata, Боты, Баги, Читы и тому подобная тематика.
+</p>
+    <h3 class="luserty">Публикация новости </h3>
+    @{
+        Html.BeginForm();
+        @Html.AntiForgeryToken()
+        <table>
+            <tbody>
+                <tr>
+                    <td>Название:</td>
+                    <td>
+                        @Html.TextBoxFor(x => x.title, new { maxlength="150" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>Катигория:</td>
+                    <td>
+                        <select  style="width: 316px; " name="category_id">
+                            <option value="-1" style="color: black">&nbsp;&nbsp;&nbsp;Нет подходящей категории</option>
+                            <option value="5" style="color: black">&nbsp;&nbsp;&nbsp;новости</option>
+                            <option value="1" style="color: black">&nbsp;&nbsp;&nbsp;high five</option>
+                            <option value="2" style="color: black">&nbsp;&nbsp;&nbsp;interlude</option>
+                            <option value="3" style="color: black">&nbsp;&nbsp;&nbsp;epilogue</option>
+                            <option value="4" style="color: black">&nbsp;&nbsp;&nbsp;goddess of destruction</option>
+                        </select> 
+                        <div style="margin-top: 5px">Если нет подходяшей категории поставте "Нет подходящей категории"<br/>
+                            в кратком содержании укажите необходимое имя категории</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3 class="luserty">Краткое содержание:</h3>
+        @Html.TextAreaFor(x => x.preview, new { id = "preview" })
+        <h3 class="luserty">Полная новость:</h3>
+        @Html.TextAreaFor(x => x.content, new { id = "content" })        
+        <p>
+            <button type="submit" value='Предв.просмотр' class="css3button">Добавить</button>
+        </p>
+    }
+</div>
+<div>
+    <div class="news_add_right">
+        <fieldset class="comment_all">
+            <legend>Список ваших новостей</legend>
+            <div id="mc-last">
+                @(Html.Telerik().Grid<home_news>()
+                      .Name("Inventory")
+                      .Columns(columns =>
+                          {
+                              columns.Bound(x => x.data).Format("{0:MM.dd.yy}").Width(50).Title("Дата").HtmlAttributes(new { style = "text-align: center;" });
+                              columns.Bound(c => c.title).Width(150).Title("Название").HtmlAttributes(new { style = "text-align: center;" }).ClientTemplate(
+                                  @Html.ActionLink("<#= title #>", "News", "Home", new { id = "<#= id #>" }, null).ToString()); columns.Bound(c => c.adm_edit).Title("D").Width(20).HeaderHtmlAttributes(new { id = "infoHedGrid", title = "Информация о состоянии" })
+                                      .Filterable(false)
+                             .ClientTemplate(
+                                 "<#if(adm_edit == 1){#>" +
+                                 @Html.ActionLink(" ", "EditNews", "EditUser", new { id = "<#= id #>" }, new { title = "Изменить", style = "background: url('/Images/ediror.png') no-repeat center right;display:block; height:18px; width:20px;" }).ToString() + "<#}#>" +
+                                 "<#if(adm_edit == 2){#>" +
+                                 @"<div title=""На модерации"" style=""background: url('/Images/modr.png') no-repeat center right;display:block; height:18px; width:20px;""><#}#>" +
+                                 "<#if(adm_edit > 2){#>" +
+                                 @"<div title=""Запрещена к публикации"" style=""background: url('/Images/ban.png') no-repeat center right;display:block; height:18px; width:20px;""><#}#>" +
+                                 "<#if(adm_edit == 0){#>" +
+                                 @"<div title=""Проверено"" style=""background: url('/Images/ok.png') no-repeat center right;display:block; height:18px; width:20px;""><#}#>");
+                              columns.Bound(c => c.adm_edit).Title("M").Width(20).HeaderHtmlAttributes(new { id = "infoHedGrid", title = "Информация о состоянии" }).Filterable(false)
+                                     .ClientTemplate(
+                                         "<#if(adm_edit == 1){#>" +
+                                         @Html.ActionLink(" ", "_ifModer", "EditUser", new { newsId = "<#= id #>" }, new { title = "Отправить на модерацию", style = "background: url('/Images/if_moder.png') no-repeat center right;display:block; height:18px; width:20px;" }).ToString() + "<#}#>");
+                          })
+                      .DataBinding(dataBinding => dataBinding.Ajax().Select("_SelectNewsUserId", "EditUser", new { id = WebSecurity.CurrentUserId }))
+                      .Sortable(sorting => sorting
+                                               .OrderBy(sortOrder => sortOrder.Add(o => o.adm_edit).Descending()))
+                      .Scrollable()
+                      .Filterable()
+                      .Pageable(page => page.PageOnScroll(true).Style(GridPagerStyles.NextPrevious).PageSize(50)))
+            </div>
+            <ul>
+                <li style="list-style: none; margin: 8px 0 2px">
+                    <img src="/Images/ok.png" class="toolNpcQ" />
+                    - Статья проверенна</li>
+                <li style="list-style: none">
+                    <img src="/Images/modr.png" class="toolNpcQ" />
+                    - Статья на модерации</li>
+                <li style="list-style: none">
+                    <img src="/Images/ediror.png" class="toolNpcQ" />
+                    - Редактировать статью</li>
+                <li style="list-style: none">
+                    <img src="/Images/if_moder.png" class="toolNpcQ" />
+                    - Отправить статью на проверку</li>
+                <li style="list-style: none">
+                    <img src="/Images/ban.png" class="toolNpcQ" />
+                    - Запрещена к публикации</li>   
+            </ul>
+        </fieldset>
+        <fieldset class="comment_all">
+            <legend style="color: red; font-weight: bold">Важная информация!</legend>
+            <ul style="margin-bottom: 5px; margin-left: 10px">
+                <li style="margin: 6px 0 2px">Вы можете использовать специальные теги для быстрой вставки ссылок, картинок и карты, определённых нпс, итемов, скилов и квестов.
+                </li>
+                <li style="margin: 6px 0 2px">Цифра обозначает id нпс, итема, скила , квеста            
+                </li>
+                <li style="margin: 6px 0 2px">Обработка тэгов произойдёт только после сохранения или редактирования новости.
+                </li>
+                <li style="margin: 6px 0 2px">Информация, полученная после обработки тэгов, будет соответствовать выбранным вами хроникам в верхней части сайта.
+                </li>
+                <li style="margin: 6px 0 2px">Использовать тэги можно только в полной новости.
+                </li>
+                <li style="margin: 6px 0 2px">После создания новости чтобы модератор проверил её, в списке ваших новостей нажмите отправить статью на проверку
+                </li>
+            </ul>
+            <table class="table_quest">
+                <tbody>
+                    <tr>
+                        <th>Тэг </th>
+                        <th>Как выглядит </th>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center"><b>[npc{29020}]</b> </td>
+                        <td><a href="/hf/Npc/details/29020"><span>Баюм  (Baium)</span></a></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center"><b>[npc{29020,m}]</b></td>
+                        <td><a href="/hf/Npc/details/29020"><span>Баюм  (Baium)</span></a> <a data-ajax="true" data-ajax-begin="MapName('Баюм  (Baium)  ', false)" data-ajax-method="POST" data-ajax-success="_Map" href="/hf/Npc/SpawnNpc/29020" title="Баюм  (Baium)" class="toolNpcDetail"></a></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center"><b>[map{29020}]</b></td>
+                        <td>
+                            <a data-ajax="true" data-ajax-begin="MapName('Баюм  (Baium)', false)" data-ajax-method="POST" data-ajax-success="_Map" href="/hf/Npc/SpawnNpc/29020" title="Баюм  (Baium)" class="toolNpcDetail"></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center"><b>[map_x{72704,-72480}]</b></td>
+                        <td>Точка на карте
+                            <img src="/Images/map.png" onclick="MapQuest('','72704,-72480')" class="toolNpcQ" /></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center"><b>[item{16304}]</b></td>
+                        <td>
+                            <img class="News" title="" itemid="16304" onerror="NpcdroploadImage(this)" src="/Images/icon/weapon_tysandy_shield_i01.jpg" />
+                            <a href="/hf/Item/details/16304"><span>Щит Дестино (Moirai Shield) </span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center"><b>[item{16304,n}]</b></td>
+                        <td>
+                            <img class="News" title="" itemid="16304" onerror="NpcdroploadImage(this)" src="/Images/icon/weapon_tysandy_shield_i01.jpg" />
+                            <a href="/hf/Item/details/16304"><span>Щит Дестино (Moirai Shield)</span></a> - <span>Редкий предмет, увеличивает сопротивление магическому урону.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center"><b>[skils{211}]</b></td>
+                        <td>
+                            <img class="News" title="" onerror="NpcdroploadImage(this)" src="/Images/icon/skill0211.jpg" />
+                            <span>Увеличение HP (Boost HP) </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center"><b>[skils{211,n}]</b></td>
+                        <td>
+                            <img class="News" title="" onerror="NpcdroploadImage(this)" src="/Images/icon/skill0211.jpg" />
+                            <a href="/hf/Skils/details/211"><span>Увеличение HP (Boost HP)</span></a> - <span>Увеличивает Макс. HP на 60.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center"><b>[q_end{348}]</b></td>
+                        <td>
+                            <a href="/hf/Quest/details/348">Самонадеянный поиск (An Arrogant Search)</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</div>
+<script type="text/javascript" src="../Scripts/ckeditor/ckeditor.js"></script>
+
+<script type="text/javascript">
+    CKEDITOR.replace('preview', {
+        toolbar: 'Standard',
+        uiColor: '#BEDDF7',
+        width: 811,
+        language: 'ru',
+        filebrowserUploadUrl: '/Image/Upload',
+        filebrowserBrowseUrl: '/Image/Browser',
+        extraPlugins: "preview,justify",
+        scayt_autoStartup: false,
+        disableNativeSpellChecker: false,
+        removePlugins: 'liststyle,tabletools,scayt,menubutton,contextmenu'
+    });
+    CKEDITOR.replace('content', {
+        toolbar: 'Full',
+        uiColor: '#BEDDF7',
+        width: 811,
+        language: 'ru',
+        filebrowserUploadUrl: '/Image/Upload',
+        filebrowserBrowseUrl: '/Image/Browser',
+        extraPlugins: "preview,justify",
+        scayt_autoStartup: false,
+        disableNativeSpellChecker: false,
+        removePlugins: 'liststyle,tabletools,scayt,menubutton,contextmenu'
+    });
+
+</script>
+@{  Html.Telerik().Window()
+        .Name("MapWindow")
+        .Title("Submit")
+        .Effects(fx => fx
+            .Expand())
+        .Content(@<text>
+    <div id="MapL2">Установите <a href="http://get.adobe.com/ru/flashplayer/otherversions/">flash player</a></div>
+    </text>)
+        .Width(450)
+        .Height(450)
+        .Draggable(true)
+        .Visible(false)
+        .Modal(true)
+        .Render();
+}

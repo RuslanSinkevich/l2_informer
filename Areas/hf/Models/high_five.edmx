@@ -1,0 +1,1603 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище high_five_4lUtkeModel" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="Хранилище high_five_4lUtkeModelContainer">
+          <EntitySet Name="class_list" EntityType="Хранилище high_five_4lUtkeModel.class_list" store:Type="Tables" store:Schema="dbo" store:Name="class_list">
+            <DefiningQuery>SELECT 
+      [class_list].[class_name] AS [class_name], 
+      [class_list].[class_id] AS [class_id], 
+      [class_list].[class_parent_id] AS [class_parent_id], 
+      [class_list].[class_max_prof] AS [class_max_prof]
+      FROM [dbo].[class_list] AS [class_list]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="class_race" EntityType="Хранилище high_five_4lUtkeModel.class_race" store:Type="Tables" store:Schema="dbo" store:Name="class_race">
+            <DefiningQuery>SELECT 
+      [class_race].[quest_id] AS [quest_id], 
+      [class_race].[quest_race_ru] AS [quest_race_ru], 
+      [class_race].[quest_race_en] AS [quest_race_en]
+      FROM [dbo].[class_race] AS [class_race]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="class_templates" EntityType="Хранилище high_five_4lUtkeModel.class_templates" store:Type="Tables" store:Schema="dbo" store:Name="class_templates">
+            <DefiningQuery>SELECT 
+      [class_templates].[class_id] AS [class_id], 
+      [class_templates].[class_name_en] AS [class_name_en], 
+      [class_templates].[class_name_ru] AS [class_name_ru], 
+      [class_templates].[class_race_id] AS [class_race_id]
+      FROM [dbo].[class_templates] AS [class_templates]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="item_desc" EntityType="Хранилище high_five_4lUtkeModel.item_desc" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="item_grp" EntityType="Хранилище high_five_4lUtkeModel.item_grp" store:Type="Tables" store:Schema="dbo" store:Name="item_grp">
+            <DefiningQuery>SELECT 
+      [item_grp].[item_id] AS [item_id], 
+      [item_grp].[item_tag] AS [item_tag], 
+      [item_grp].[item_tip] AS [item_tip], 
+      [item_grp].[item_slot] AS [item_slot], 
+      [item_grp].[item_cry_tip] AS [item_cry_tip], 
+      [item_grp].[item_cry_count] AS [item_cry_count], 
+      [item_grp].[item_weight] AS [item_weight], 
+      [item_grp].[item_price] AS [item_price], 
+      [item_grp].[item_mdef] AS [item_mdef], 
+      [item_grp].[item_pdef] AS [item_pdef], 
+      [item_grp].[item_patt] AS [item_patt], 
+      [item_grp].[item_matt] AS [item_matt], 
+      [item_grp].[item_speed_atc] AS [item_speed_atc], 
+      [item_grp].[item_crit_atc] AS [item_crit_atc], 
+      [item_grp].[item_ss_count] AS [item_ss_count], 
+      [item_grp].[item_sps_count] AS [item_sps_count], 
+      [item_grp].[item_mp_consume] AS [item_mp_consume], 
+      [item_grp].[item_mp_bonus] AS [item_mp_bonus], 
+      [item_grp].[item_accuracy] AS [item_accuracy], 
+      [item_grp].[item_img] AS [item_img], 
+      [item_grp].[item_tradeable] AS [item_tradeable], 
+      [item_grp].[item_dropable] AS [item_dropable], 
+      [item_grp].[item_crafr] AS [item_crafr], 
+      [item_grp].[item_hero] AS [item_hero]
+      FROM [dbo].[item_grp] AS [item_grp]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="item_name" EntityType="Хранилище high_five_4lUtkeModel.item_name" store:Type="Tables" store:Schema="dbo" store:Name="item_name">
+            <DefiningQuery>SELECT 
+      [item_name].[item_id] AS [item_id], 
+      [item_name].[item_name_ru] AS [item_name_ru], 
+      [item_name].[item_name_en] AS [item_name_en]
+      FROM [dbo].[item_name] AS [item_name]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="item_recipe" EntityType="Хранилище high_five_4lUtkeModel.item_recipe" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="item_recipe_ingr" EntityType="Хранилище high_five_4lUtkeModel.item_recipe_ingr" store:Type="Tables" store:Schema="dbo" store:Name="item_recipe_ingr">
+            <DefiningQuery>SELECT 
+      [item_recipe_ingr].[rec_id_recipe] AS [rec_id_recipe], 
+      [item_recipe_ingr].[rec_ingredient_id] AS [rec_ingredient_id], 
+      [item_recipe_ingr].[rec_ingredient_count] AS [rec_ingredient_count]
+      FROM [dbo].[item_recipe_ingr] AS [item_recipe_ingr]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="item_seeds" EntityType="Хранилище high_five_4lUtkeModel.item_seeds" store:Type="Tables" store:Schema="dbo" store:Name="item_seeds">
+            <DefiningQuery>SELECT 
+      [item_seeds].[sed_castle_id] AS [sed_castle_id], 
+      [item_seeds].[sed_crop_id] AS [sed_crop_id], 
+      [item_seeds].[sed_seeds_id] AS [sed_seeds_id], 
+      [item_seeds].[sed_mature_id] AS [sed_mature_id], 
+      [item_seeds].[sed_reward1_id] AS [sed_reward1_id], 
+      [item_seeds].[sed_reward2_id] AS [sed_reward2_id], 
+      [item_seeds].[sed_alternative] AS [sed_alternative], 
+      [item_seeds].[sed_level] AS [sed_level], 
+      [item_seeds].[sed_limit_seed] AS [sed_limit_seed], 
+      [item_seeds].[sed_limit_crops] AS [sed_limit_crops]
+      FROM [dbo].[item_seeds] AS [item_seeds]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="item_set" EntityType="Хранилище high_five_4lUtkeModel.item_set" store:Type="Tables" store:Schema="dbo" store:Name="item_set">
+            <DefiningQuery>SELECT 
+      [item_set].[set_id] AS [set_id], 
+      [item_set].[set_option] AS [set_option], 
+      [item_set].[set_structure] AS [set_structure], 
+      [item_set].[set_tip_img] AS [set_tip_img], 
+      [item_set].[set_name_img] AS [set_name_img], 
+      [item_set].[set_bonus_desc_ru] AS [set_bonus_desc_ru], 
+      [item_set].[set_extra_desc_ru] AS [set_extra_desc_ru], 
+      [item_set].[set_enchant_desc_ru] AS [set_enchant_desc_ru], 
+      [item_set].[set_bonus_desc_en] AS [set_bonus_desc_en], 
+      [item_set].[set_extra_desc_en] AS [set_extra_desc_en], 
+      [item_set].[set_enchant_desc_en] AS [set_enchant_desc_en]
+      FROM [dbo].[item_set] AS [item_set]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="multisell_id" EntityType="Хранилище high_five_4lUtkeModel.multisell_id" store:Type="Tables" store:Schema="dbo" store:Name="multisell_id">
+            <DefiningQuery>SELECT 
+      [multisell_id].[shop_id] AS [shop_id], 
+      [multisell_id].[shop_product_id] AS [shop_product_id], 
+      [multisell_id].[shop_product_count] AS [shop_product_count], 
+      [multisell_id].[shop_ingredient_id] AS [shop_ingredient_id], 
+      [multisell_id].[shop_ingredient_count] AS [shop_ingredient_count]
+      FROM [dbo].[multisell_id] AS [multisell_id]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="multisell_shopids" EntityType="Хранилище high_five_4lUtkeModel.multisell_shopids" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="npc_desc_rb" EntityType="Хранилище high_five_4lUtkeModel.npc_desc_rb" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="npc_drop" EntityType="Хранилище high_five_4lUtkeModel.npc_drop" store:Type="Tables" store:Schema="dbo" store:Name="npc_drop">
+            <DefiningQuery>SELECT 
+      [npc_drop].[npc_id] AS [npc_id], 
+      [npc_drop].[category] AS [category], 
+      [npc_drop].[npc_item_id] AS [npc_item_id], 
+      [npc_drop].[npc_min] AS [npc_min], 
+      [npc_drop].[npc_max] AS [npc_max], 
+      [npc_drop].[npc_chance] AS [npc_chance]
+      FROM [dbo].[npc_drop] AS [npc_drop]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="npc_grp" EntityType="Хранилище high_five_4lUtkeModel.npc_grp" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="npc_name" EntityType="Хранилище high_five_4lUtkeModel.npc_name" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="npc_rb_minion" EntityType="Хранилище high_five_4lUtkeModel.npc_rb_minion" store:Type="Tables" store:Schema="dbo" store:Name="npc_rb_minion">
+            <DefiningQuery>SELECT 
+      [npc_rb_minion].[npc_id_rb] AS [npc_id_rb], 
+      [npc_rb_minion].[npc_id_minion] AS [npc_id_minion], 
+      [npc_rb_minion].[npc_minion_count] AS [npc_minion_count]
+      FROM [dbo].[npc_rb_minion] AS [npc_rb_minion]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="npc_skilss" EntityType="Хранилище high_five_4lUtkeModel.npc_skilss" store:Type="Tables" store:Schema="dbo" store:Name="npc_skilss">
+            <DefiningQuery>SELECT 
+      [npc_skilss].[npc_id] AS [npc_id], 
+      [npc_skilss].[npc_skil_id] AS [npc_skil_id], 
+      [npc_skilss].[npc_skil_lvl] AS [npc_skil_lvl]
+      FROM [dbo].[npc_skilss] AS [npc_skilss]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="npc_spawn" EntityType="Хранилище high_five_4lUtkeModel.npc_spawn" store:Type="Tables" store:Schema="dbo" store:Name="npc_spawn">
+            <DefiningQuery>SELECT 
+      [npc_spawn].[npc_id] AS [npc_id], 
+      [npc_spawn].[npc_x] AS [npc_x], 
+      [npc_spawn].[npc_y] AS [npc_y]
+      FROM [dbo].[npc_spawn] AS [npc_spawn]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="quest_desc" EntityType="Хранилище high_five_4lUtkeModel.quest_desc" store:Type="Tables" store:Schema="dbo" store:Name="quest_desc">
+            <DefiningQuery>SELECT 
+      [quest_desc].[quest_id] AS [quest_id], 
+      [quest_desc].[quest_prog] AS [quest_prog], 
+      [quest_desc].[quest_prog_name] AS [quest_prog_name], 
+      [quest_desc].[quest_desc] AS [quest_desc], 
+      [quest_desc].[quest_x] AS [quest_x], 
+      [quest_desc].[quest_y] AS [quest_y]
+      FROM [dbo].[quest_desc] AS [quest_desc]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="quest_full" EntityType="Хранилище high_five_4lUtkeModel.quest_full" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="quest_grp" EntityType="Хранилище high_five_4lUtkeModel.quest_grp" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="quest_items" EntityType="Хранилище high_five_4lUtkeModel.quest_items" store:Type="Tables" store:Schema="dbo" store:Name="quest_items">
+            <DefiningQuery>SELECT 
+      [quest_items].[quest_id] AS [quest_id], 
+      [quest_items].[quest_items_id] AS [quest_items_id], 
+      [quest_items].[quest_items_count] AS [quest_items_count]
+      FROM [dbo].[quest_items] AS [quest_items]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="quest_items_get" EntityType="Хранилище high_five_4lUtkeModel.quest_items_get" store:Type="Tables" store:Schema="dbo" store:Name="quest_items_get">
+            <DefiningQuery>SELECT 
+      [quest_items_get].[quest_id] AS [quest_id], 
+      [quest_items_get].[quest_tag] AS [quest_tag], 
+      [quest_items_get].[quest_prog] AS [quest_prog], 
+      [quest_items_get].[quest_items_id] AS [quest_items_id], 
+      [quest_items_get].[quest_items_count] AS [quest_items_count]
+      FROM [dbo].[quest_items_get] AS [quest_items_get]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="quest_name" EntityType="Хранилище high_five_4lUtkeModel.quest_name" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="quest_npc" EntityType="Хранилище high_five_4lUtkeModel.quest_npc" store:Type="Tables" store:Schema="dbo" store:Name="quest_npc">
+            <DefiningQuery>SELECT 
+      [quest_npc].[quest_id] AS [quest_id], 
+      [quest_npc].[quest_npc_id] AS [quest_npc_id]
+      FROM [dbo].[quest_npc] AS [quest_npc]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="quest_npc_target" EntityType="Хранилище high_five_4lUtkeModel.quest_npc_target" store:Type="Tables" store:Schema="dbo" store:Name="quest_npc_target">
+            <DefiningQuery>SELECT 
+      [quest_npc_target].[quest_id] AS [quest_id], 
+      [quest_npc_target].[quest_prog] AS [quest_prog], 
+      [quest_npc_target].[quest_npc_id] AS [quest_npc_id]
+      FROM [dbo].[quest_npc_target] AS [quest_npc_target]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="skill_grp" EntityType="Хранилище high_five_4lUtkeModel.skill_grp" store:Type="Tables" store:Schema="dbo" store:Name="skill_grp">
+            <DefiningQuery>SELECT 
+      [skill_grp].[skil_id] AS [skil_id], 
+      [skill_grp].[skil_lvl] AS [skil_lvl], 
+      [skill_grp].[skil_oper_type] AS [skil_oper_type], 
+      [skill_grp].[skil_img] AS [skil_img], 
+      [skill_grp].[skil_name_ru] AS [skil_name_ru], 
+      [skill_grp].[skil_name_en] AS [skil_name_en]
+      FROM [dbo].[skill_grp] AS [skill_grp]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="skils_desc_en" EntityType="Хранилище high_five_4lUtkeModel.skils_desc_en" store:Type="Tables" store:Schema="dbo" store:Name="skils_desc_en">
+            <DefiningQuery>SELECT 
+      [skils_desc_en].[skil_id] AS [skil_id], 
+      [skils_desc_en].[skil_lvl] AS [skil_lvl], 
+      [skils_desc_en].[skil_desc] AS [skil_desc], 
+      [skils_desc_en].[skil_desc_add1] AS [skil_desc_add1], 
+      [skils_desc_en].[skil_desc_add2] AS [skil_desc_add2]
+      FROM [dbo].[skils_desc_en] AS [skils_desc_en]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="skils_desc_ru" EntityType="Хранилище high_five_4lUtkeModel.skils_desc_ru" store:Type="Tables" store:Schema="dbo" store:Name="skils_desc_ru">
+            <DefiningQuery>SELECT 
+      [skils_desc_ru].[skil_id] AS [skil_id], 
+      [skils_desc_ru].[skil_lvl] AS [skil_lvl], 
+      [skils_desc_ru].[skil_desc] AS [skil_desc], 
+      [skils_desc_ru].[skil_desc_add1] AS [skil_desc_add1], 
+      [skils_desc_ru].[skil_desc_add2] AS [skil_desc_add2]
+      FROM [dbo].[skils_desc_ru] AS [skils_desc_ru]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="skils_oper_name" EntityType="Хранилище high_five_4lUtkeModel.skils_oper_name" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="skils_tree" EntityType="Хранилище high_five_4lUtkeModel.skils_tree" store:Type="Tables" store:Schema="dbo" store:Name="skils_tree">
+            <DefiningQuery>SELECT 
+      [skils_tree].[skil_class_id] AS [skil_class_id], 
+      [skils_tree].[skil_id] AS [skil_id], 
+      [skils_tree].[skil_lvl] AS [skil_lvl], 
+      [skils_tree].[skil_cost] AS [skil_cost], 
+      [skils_tree].[skil_min_level] AS [skil_min_level], 
+      [skils_tree].[skil_item_id] AS [skil_item_id], 
+      [skils_tree].[skiol_item_count] AS [skiol_item_count], 
+      [skils_tree].[skil_clicked] AS [skil_clicked]
+      FROM [dbo].[skils_tree] AS [skils_tree]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.class_list" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="class_list">
+          <Key>
+            <PropertyRef Name="class_name" />
+            <PropertyRef Name="class_id" />
+            <PropertyRef Name="class_parent_id" />
+            <PropertyRef Name="class_max_prof" />
+          </Key>
+          <Property Name="class_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="class_id" Type="int" Nullable="false" />
+          <Property Name="class_parent_id" Type="int" Nullable="false" />
+          <Property Name="class_max_prof" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.class_race" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="class_race">
+          <Key>
+            <PropertyRef Name="quest_id" />
+            <PropertyRef Name="quest_race_ru" />
+            <PropertyRef Name="quest_race_en" />
+          </Key>
+          <Property Name="quest_id" Type="int" Nullable="false" />
+          <Property Name="quest_race_ru" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="quest_race_en" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.class_templates" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="class_templates">
+          <Key>
+            <PropertyRef Name="class_id" />
+            <PropertyRef Name="class_name_en" />
+            <PropertyRef Name="class_name_ru" />
+            <PropertyRef Name="class_race_id" />
+          </Key>
+          <Property Name="class_id" Type="int" Nullable="false" />
+          <Property Name="class_name_en" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="class_name_ru" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="class_race_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="item_desc">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="item_add_name_ru" Type="nvarchar(max)" />
+          <Property Name="item_add_name_en" Type="nvarchar(max)" />
+          <Property Name="item_desc_ru" Type="nvarchar(max)" />
+          <Property Name="item_desc_en" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.item_grp" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="item_grp">
+          <Key>
+            <PropertyRef Name="item_id" />
+            <PropertyRef Name="item_tag" />
+            <PropertyRef Name="item_tip" />
+            <PropertyRef Name="item_slot" />
+            <PropertyRef Name="item_cry_tip" />
+            <PropertyRef Name="item_cry_count" />
+            <PropertyRef Name="item_weight" />
+            <PropertyRef Name="item_price" />
+            <PropertyRef Name="item_mdef" />
+            <PropertyRef Name="item_pdef" />
+            <PropertyRef Name="item_patt" />
+            <PropertyRef Name="item_matt" />
+            <PropertyRef Name="item_speed_atc" />
+            <PropertyRef Name="item_crit_atc" />
+            <PropertyRef Name="item_ss_count" />
+            <PropertyRef Name="item_sps_count" />
+            <PropertyRef Name="item_mp_consume" />
+            <PropertyRef Name="item_mp_bonus" />
+            <PropertyRef Name="item_accuracy" />
+            <PropertyRef Name="item_img" />
+            <PropertyRef Name="item_tradeable" />
+            <PropertyRef Name="item_dropable" />
+            <PropertyRef Name="item_crafr" />
+            <PropertyRef Name="item_hero" />
+          </Key>
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="item_tag" Type="int" Nullable="false" />
+          <Property Name="item_tip" Type="int" Nullable="false" />
+          <Property Name="item_slot" Type="int" Nullable="false" />
+          <Property Name="item_cry_tip" Type="int" Nullable="false" />
+          <Property Name="item_cry_count" Type="int" Nullable="false" />
+          <Property Name="item_weight" Type="int" Nullable="false" />
+          <Property Name="item_price" Type="int" Nullable="false" />
+          <Property Name="item_mdef" Type="int" Nullable="false" />
+          <Property Name="item_pdef" Type="int" Nullable="false" />
+          <Property Name="item_patt" Type="int" Nullable="false" />
+          <Property Name="item_matt" Type="int" Nullable="false" />
+          <Property Name="item_speed_atc" Type="int" Nullable="false" />
+          <Property Name="item_crit_atc" Type="float" Nullable="false" />
+          <Property Name="item_ss_count" Type="int" Nullable="false" />
+          <Property Name="item_sps_count" Type="int" Nullable="false" />
+          <Property Name="item_mp_consume" Type="int" Nullable="false" />
+          <Property Name="item_mp_bonus" Type="int" Nullable="false" />
+          <Property Name="item_accuracy" Type="float" Nullable="false" />
+          <Property Name="item_img" Type="nvarchar" Nullable="false" MaxLength="60" />
+          <Property Name="item_tradeable" Type="int" Nullable="false" />
+          <Property Name="item_dropable" Type="int" Nullable="false" />
+          <Property Name="item_crafr" Type="int" Nullable="false" />
+          <Property Name="item_hero" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.item_name" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="item_name">
+          <Key>
+            <PropertyRef Name="item_id" />
+            <PropertyRef Name="item_name_ru" />
+            <PropertyRef Name="item_name_en" />
+          </Key>
+          <Property Name="item_id" Type="int" Nullable="false" />
+          <Property Name="item_name_ru" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="item_name_en" Type="nvarchar" Nullable="false" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="item_recipe">
+          <Key>
+            <PropertyRef Name="rec_id_mk" />
+          </Key>
+          <Property Name="rec_id_mk" Type="int" Nullable="false" />
+          <Property Name="rec_tip_mk" Type="int" Nullable="false" />
+          <Property Name="rec_id_recipe" Type="int" Nullable="false" />
+          <Property Name="rec_level_recipe" Type="int" Nullable="false" />
+          <Property Name="rec_id_item" Type="int" Nullable="false" />
+          <Property Name="rec_item_count" Type="int" Nullable="false" />
+          <Property Name="rec_mp_cost" Type="int" Nullable="false" />
+          <Property Name="rec_success_rate" Type="int" Nullable="false" />
+          <Property Name="rec_ingredient_id" Type="nvarchar" Nullable="false" MaxLength="60" />
+          <Property Name="rec_ingredient_count" Type="nvarchar" Nullable="false" MaxLength="60" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.item_recipe_ingr" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="item_recipe_ingr">
+          <Key>
+            <PropertyRef Name="rec_id_recipe" />
+            <PropertyRef Name="rec_ingredient_id" />
+            <PropertyRef Name="rec_ingredient_count" />
+          </Key>
+          <Property Name="rec_id_recipe" Type="int" Nullable="false" />
+          <Property Name="rec_ingredient_id" Type="int" Nullable="false" />
+          <Property Name="rec_ingredient_count" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.item_seeds" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="item_seeds">
+          <Key>
+            <PropertyRef Name="sed_castle_id" />
+            <PropertyRef Name="sed_crop_id" />
+            <PropertyRef Name="sed_seeds_id" />
+            <PropertyRef Name="sed_mature_id" />
+            <PropertyRef Name="sed_reward1_id" />
+            <PropertyRef Name="sed_reward2_id" />
+            <PropertyRef Name="sed_alternative" />
+            <PropertyRef Name="sed_level" />
+            <PropertyRef Name="sed_limit_seed" />
+            <PropertyRef Name="sed_limit_crops" />
+          </Key>
+          <Property Name="sed_castle_id" Type="int" Nullable="false" />
+          <Property Name="sed_crop_id" Type="int" Nullable="false" />
+          <Property Name="sed_seeds_id" Type="int" Nullable="false" />
+          <Property Name="sed_mature_id" Type="int" Nullable="false" />
+          <Property Name="sed_reward1_id" Type="int" Nullable="false" />
+          <Property Name="sed_reward2_id" Type="int" Nullable="false" />
+          <Property Name="sed_alternative" Type="int" Nullable="false" />
+          <Property Name="sed_level" Type="int" Nullable="false" />
+          <Property Name="sed_limit_seed" Type="int" Nullable="false" />
+          <Property Name="sed_limit_crops" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.item_set" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="item_set">
+          <Key>
+            <PropertyRef Name="set_id" />
+            <PropertyRef Name="set_option" />
+          </Key>
+          <Property Name="set_id" Type="int" Nullable="false" />
+          <Property Name="set_option" Type="int" Nullable="false" />
+          <Property Name="set_structure" Type="nvarchar" MaxLength="90" />
+          <Property Name="set_tip_img" Type="nvarchar" MaxLength="50" />
+          <Property Name="set_name_img" Type="nvarchar" MaxLength="50" />
+          <Property Name="set_bonus_desc_ru" Type="nvarchar(max)" />
+          <Property Name="set_extra_desc_ru" Type="nvarchar(max)" />
+          <Property Name="set_enchant_desc_ru" Type="nvarchar(max)" />
+          <Property Name="set_bonus_desc_en" Type="nvarchar(max)" />
+          <Property Name="set_extra_desc_en" Type="nvarchar(max)" />
+          <Property Name="set_enchant_desc_en" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.multisell_id" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="multisell_id">
+          <Key>
+            <PropertyRef Name="shop_id" />
+            <PropertyRef Name="shop_product_id" />
+            <PropertyRef Name="shop_product_count" />
+          </Key>
+          <Property Name="shop_id" Type="int" Nullable="false" />
+          <Property Name="shop_product_id" Type="int" Nullable="false" />
+          <Property Name="shop_product_count" Type="int" Nullable="false" />
+          <Property Name="shop_ingredient_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="shop_ingredient_count" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="multisell_shopids">
+          <Key>
+            <PropertyRef Name="shop_id" />
+          </Key>
+          <Property Name="shop_id" Type="int" Nullable="false" />
+          <Property Name="npc_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="npc_desc_rb">
+          <Key>
+            <PropertyRef Name="npc_id" />
+          </Key>
+          <Property Name="npc_id" Type="int" Nullable="false" />
+          <Property Name="npc_tip_rb" Type="int" Nullable="false" />
+          <Property Name="npc_raid_desc_ru" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="npc_raid_desc_en" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.npc_drop" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="npc_drop">
+          <Key>
+            <PropertyRef Name="npc_id" />
+            <PropertyRef Name="category" />
+            <PropertyRef Name="npc_item_id" />
+            <PropertyRef Name="npc_min" />
+            <PropertyRef Name="npc_max" />
+            <PropertyRef Name="npc_chance" />
+          </Key>
+          <Property Name="npc_id" Type="int" Nullable="false" />
+          <Property Name="category" Type="int" Nullable="false" />
+          <Property Name="npc_item_id" Type="int" Nullable="false" />
+          <Property Name="npc_min" Type="int" Nullable="false" />
+          <Property Name="npc_max" Type="int" Nullable="false" />
+          <Property Name="npc_chance" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="npc_grp">
+          <Key>
+            <PropertyRef Name="npc_id" />
+          </Key>
+          <Property Name="npc_id" Type="int" Nullable="false" />
+          <Property Name="npc_class" Type="int" Nullable="false" />
+          <Property Name="npc_img" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="npc_level" Type="int" Nullable="false" />
+          <Property Name="npc_hp" Type="int" Nullable="false" />
+          <Property Name="npc_exp" Type="int" Nullable="false" />
+          <Property Name="npc_sp" Type="int" Nullable="false" />
+          <Property Name="npc_reit" Type="int" Nullable="false" />
+          <Property Name="npc_spawn" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="npc_name">
+          <Key>
+            <PropertyRef Name="npc_id" />
+          </Key>
+          <Property Name="npc_id" Type="int" Nullable="false" />
+          <Property Name="npc_name_ru" Type="nvarchar" Nullable="false" MaxLength="60" />
+          <Property Name="npc_title_ru" Type="nvarchar" Nullable="false" MaxLength="40" />
+          <Property Name="npc_name_en" Type="nvarchar" Nullable="false" MaxLength="60" />
+          <Property Name="npc_title_en" Type="nvarchar" Nullable="false" MaxLength="40" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.npc_rb_minion" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="npc_rb_minion">
+          <Key>
+            <PropertyRef Name="npc_id_rb" />
+            <PropertyRef Name="npc_id_minion" />
+            <PropertyRef Name="npc_minion_count" />
+          </Key>
+          <Property Name="npc_id_rb" Type="int" Nullable="false" />
+          <Property Name="npc_id_minion" Type="int" Nullable="false" />
+          <Property Name="npc_minion_count" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.npc_skilss" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="npc_skilss">
+          <Key>
+            <PropertyRef Name="npc_id" />
+            <PropertyRef Name="npc_skil_id" />
+            <PropertyRef Name="npc_skil_lvl" />
+          </Key>
+          <Property Name="npc_id" Type="int" Nullable="false" />
+          <Property Name="npc_skil_id" Type="int" Nullable="false" />
+          <Property Name="npc_skil_lvl" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.npc_spawn" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="npc_spawn">
+          <Key>
+            <PropertyRef Name="npc_id" />
+            <PropertyRef Name="npc_x" />
+            <PropertyRef Name="npc_y" />
+          </Key>
+          <Property Name="npc_id" Type="int" Nullable="false" />
+          <Property Name="npc_x" Type="int" Nullable="false" />
+          <Property Name="npc_y" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.quest_desc" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="quest_desc">
+          <Key>
+            <PropertyRef Name="quest_id" />
+            <PropertyRef Name="quest_prog" />
+            <PropertyRef Name="quest_x" />
+            <PropertyRef Name="quest_y" />
+          </Key>
+          <Property Name="quest_id" Type="int" Nullable="false" />
+          <Property Name="quest_prog" Type="int" Nullable="false" />
+          <Property Name="quest_prog_name" Type="nvarchar(max)" />
+          <Property Name="quest_desc" Type="nvarchar(max)" />
+          <Property Name="quest_x" Type="int" Nullable="false" />
+          <Property Name="quest_y" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quest_full">
+          <Key>
+            <PropertyRef Name="quest_id" />
+          </Key>
+          <Property Name="quest_id" Type="int" Nullable="false" />
+          <Property Name="quest_en" Type="nvarchar(max)" />
+          <Property Name="quest_ru" Type="nvarchar(max)" />
+          <Property Name="quest_html" Type="nvarchar(max)" />
+          <Property Name="quest_end" Type="int" Nullable="false" />
+          <Property Name="quest_name_editor" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="quest_grp">
+          <Key>
+            <PropertyRef Name="quest_id" />
+          </Key>
+          <Property Name="quest_id" Type="int" Nullable="false" />
+          <Property Name="quest_lvl_min" Type="int" Nullable="false" />
+          <Property Name="quest_lvl_max" Type="int" Nullable="false" />
+          <Property Name="quest_type" Type="int" Nullable="false" />
+          <Property Name="quest_clan_pet" Type="int" Nullable="false" />
+          <Property Name="quest_complete" Type="int" Nullable="false" />
+          <Property Name="quest_area_id" Type="int" Nullable="false" />
+          <Property Name="quest_npc_id" Type="int" Nullable="false" />
+          <Property Name="quest_npc_x" Type="int" Nullable="false" />
+          <Property Name="quest_npc_y" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.quest_items" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="quest_items">
+          <Key>
+            <PropertyRef Name="quest_id" />
+            <PropertyRef Name="quest_items_id" />
+            <PropertyRef Name="quest_items_count" />
+          </Key>
+          <Property Name="quest_id" Type="int" Nullable="false" />
+          <Property Name="quest_items_id" Type="int" Nullable="false" />
+          <Property Name="quest_items_count" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.quest_items_get" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="quest_items_get">
+          <Key>
+            <PropertyRef Name="quest_id" />
+            <PropertyRef Name="quest_tag" />
+            <PropertyRef Name="quest_prog" />
+            <PropertyRef Name="quest_items_id" />
+            <PropertyRef Name="quest_items_count" />
+          </Key>
+          <Property Name="quest_id" Type="int" Nullable="false" />
+          <Property Name="quest_tag" Type="int" Nullable="false" />
+          <Property Name="quest_prog" Type="int" Nullable="false" />
+          <Property Name="quest_items_id" Type="int" Nullable="false" />
+          <Property Name="quest_items_count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quest_name">
+          <Key>
+            <PropertyRef Name="quest_id" />
+          </Key>
+          <Property Name="quest_id" Type="int" Nullable="false" />
+          <Property Name="quest_names" Type="nvarchar" MaxLength="100" />
+          <Property Name="quest_restricions" Type="nvarchar(max)" />
+          <Property Name="quest_short_desc" Type="nvarchar(max)" />
+          <Property Name="quest_names_en" Type="nvarchar(max)" />
+          <Property Name="quest_restricions_en" Type="nvarchar(max)" />
+          <Property Name="quest_short_desc_en" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.quest_npc" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="quest_npc">
+          <Key>
+            <PropertyRef Name="quest_id" />
+            <PropertyRef Name="quest_npc_id" />
+          </Key>
+          <Property Name="quest_id" Type="int" Nullable="false" />
+          <Property Name="quest_npc_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.quest_npc_target" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="quest_npc_target">
+          <Key>
+            <PropertyRef Name="quest_id" />
+            <PropertyRef Name="quest_prog" />
+            <PropertyRef Name="quest_npc_id" />
+          </Key>
+          <Property Name="quest_id" Type="int" Nullable="false" />
+          <Property Name="quest_prog" Type="int" Nullable="false" />
+          <Property Name="quest_npc_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.skill_grp" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="skill_grp">
+          <Key>
+            <PropertyRef Name="skil_id" />
+            <PropertyRef Name="skil_lvl" />
+            <PropertyRef Name="skil_oper_type" />
+            <PropertyRef Name="skil_img" />
+            <PropertyRef Name="skil_name_ru" />
+            <PropertyRef Name="skil_name_en" />
+          </Key>
+          <Property Name="skil_id" Type="int" Nullable="false" />
+          <Property Name="skil_lvl" Type="int" Nullable="false" />
+          <Property Name="skil_oper_type" Type="int" Nullable="false" />
+          <Property Name="skil_img" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="skil_name_ru" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="skil_name_en" Type="nvarchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.skils_desc_en" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="skils_desc_en">
+          <Key>
+            <PropertyRef Name="skil_id" />
+            <PropertyRef Name="skil_lvl" />
+          </Key>
+          <Property Name="skil_id" Type="int" Nullable="false" />
+          <Property Name="skil_lvl" Type="int" Nullable="false" />
+          <Property Name="skil_desc" Type="nvarchar(max)" />
+          <Property Name="skil_desc_add1" Type="nvarchar(max)" />
+          <Property Name="skil_desc_add2" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.skils_desc_ru" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="skils_desc_ru">
+          <Key>
+            <PropertyRef Name="skil_id" />
+            <PropertyRef Name="skil_lvl" />
+          </Key>
+          <Property Name="skil_id" Type="int" Nullable="false" />
+          <Property Name="skil_lvl" Type="int" Nullable="false" />
+          <Property Name="skil_desc" Type="nvarchar(max)" />
+          <Property Name="skil_desc_add1" Type="nvarchar(max)" />
+          <Property Name="skil_desc_add2" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="skils_oper_name">
+          <Key>
+            <PropertyRef Name="skil_oper_type" />
+          </Key>
+          <Property Name="skil_oper_type" Type="int" Nullable="false" />
+          <Property Name="skil_oper_name_ru" Type="nvarchar" MaxLength="100" />
+          <Property Name="skil_oper_name_en" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+      предупреждение 6002: В таблице или представлении "high_five_4lUtke.dbo.skils_tree" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.
+      -->
+        <EntityType Name="skils_tree">
+          <Key>
+            <PropertyRef Name="skil_class_id" />
+            <PropertyRef Name="skil_id" />
+            <PropertyRef Name="skil_lvl" />
+            <PropertyRef Name="skil_cost" />
+            <PropertyRef Name="skil_min_level" />
+            <PropertyRef Name="skil_item_id" />
+            <PropertyRef Name="skiol_item_count" />
+            <PropertyRef Name="skil_clicked" />
+          </Key>
+          <Property Name="skil_class_id" Type="int" Nullable="false" />
+          <Property Name="skil_id" Type="int" Nullable="false" />
+          <Property Name="skil_lvl" Type="int" Nullable="false" />
+          <Property Name="skil_cost" Type="int" Nullable="false" />
+          <Property Name="skil_min_level" Type="int" Nullable="false" />
+          <Property Name="skil_item_id" Type="int" Nullable="false" />
+          <Property Name="skiol_item_count" Type="int" Nullable="false" />
+          <Property Name="skil_clicked" Type="int" Nullable="false" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="high_five_4lUtkeModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="high_five_4lUtkeEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="class_list" EntityType="high_five_4lUtkeModel.class_list" />
+          <EntitySet Name="class_race" EntityType="high_five_4lUtkeModel.class_race" />
+          <EntitySet Name="class_templates" EntityType="high_five_4lUtkeModel.class_templates" />
+          <EntitySet Name="item_desc" EntityType="high_five_4lUtkeModel.item_desc" />
+          <EntitySet Name="item_grp" EntityType="high_five_4lUtkeModel.item_grp" />
+          <EntitySet Name="item_name" EntityType="high_five_4lUtkeModel.item_name" />
+          <EntitySet Name="item_recipe" EntityType="high_five_4lUtkeModel.item_recipe" />
+          <EntitySet Name="item_recipe_ingr" EntityType="high_five_4lUtkeModel.item_recipe_ingr" />
+          <EntitySet Name="item_seeds" EntityType="high_five_4lUtkeModel.item_seeds" />
+          <EntitySet Name="item_set" EntityType="high_five_4lUtkeModel.item_set" />
+          <EntitySet Name="multisell_id" EntityType="high_five_4lUtkeModel.multisell_id" />
+          <EntitySet Name="multisell_shopids" EntityType="high_five_4lUtkeModel.multisell_shopids" />
+          <EntitySet Name="npc_desc_rb" EntityType="high_five_4lUtkeModel.npc_desc_rb" />
+          <EntitySet Name="npc_drop" EntityType="high_five_4lUtkeModel.npc_drop" />
+          <EntitySet Name="npc_grp" EntityType="high_five_4lUtkeModel.npc_grp" />
+          <EntitySet Name="npc_name" EntityType="high_five_4lUtkeModel.npc_name" />
+          <EntitySet Name="npc_rb_minion" EntityType="high_five_4lUtkeModel.npc_rb_minion" />
+          <EntitySet Name="npc_skilss" EntityType="high_five_4lUtkeModel.npc_skilss" />
+          <EntitySet Name="npc_spawn" EntityType="high_five_4lUtkeModel.npc_spawn" />
+          <EntitySet Name="quest_desc" EntityType="high_five_4lUtkeModel.quest_desc" />
+          <EntitySet Name="quest_full" EntityType="high_five_4lUtkeModel.quest_full" />
+          <EntitySet Name="quest_grp" EntityType="high_five_4lUtkeModel.quest_grp" />
+          <EntitySet Name="quest_items" EntityType="high_five_4lUtkeModel.quest_items" />
+          <EntitySet Name="quest_items_get" EntityType="high_five_4lUtkeModel.quest_items_get" />
+          <EntitySet Name="quest_name" EntityType="high_five_4lUtkeModel.quest_name" />
+          <EntitySet Name="quest_npc" EntityType="high_five_4lUtkeModel.quest_npc" />
+          <EntitySet Name="quest_npc_target" EntityType="high_five_4lUtkeModel.quest_npc_target" />
+          <EntitySet Name="skill_grp" EntityType="high_five_4lUtkeModel.skill_grp" />
+          <EntitySet Name="skils_desc_en" EntityType="high_five_4lUtkeModel.skils_desc_en" />
+          <EntitySet Name="skils_desc_ru" EntityType="high_five_4lUtkeModel.skils_desc_ru" />
+          <EntitySet Name="skils_oper_name" EntityType="high_five_4lUtkeModel.skils_oper_name" />
+          <EntitySet Name="skils_tree" EntityType="high_five_4lUtkeModel.skils_tree" />
+        </EntityContainer>
+        <EntityType Name="class_list">
+          <Key>
+            <PropertyRef Name="class_name" />
+            <PropertyRef Name="class_id" />
+            <PropertyRef Name="class_parent_id" />
+            <PropertyRef Name="class_max_prof" />
+          </Key>
+          <Property Name="class_name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="class_id" Type="Int32" Nullable="false" />
+          <Property Name="class_parent_id" Type="Int32" Nullable="false" />
+          <Property Name="class_max_prof" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="class_race">
+          <Key>
+            <PropertyRef Name="quest_id" />
+            <PropertyRef Name="quest_race_ru" />
+            <PropertyRef Name="quest_race_en" />
+          </Key>
+          <Property Name="quest_id" Type="Int32" Nullable="false" />
+          <Property Name="quest_race_ru" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="quest_race_en" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="class_templates">
+          <Key>
+            <PropertyRef Name="class_id" />
+            <PropertyRef Name="class_name_en" />
+            <PropertyRef Name="class_name_ru" />
+            <PropertyRef Name="class_race_id" />
+          </Key>
+          <Property Name="class_id" Type="Int32" Nullable="false" />
+          <Property Name="class_name_en" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="class_name_ru" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="class_race_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="item_desc">
+          <Key>
+            <PropertyRef Name="item_id" />
+          </Key>
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="item_add_name_ru" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="item_add_name_en" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="item_desc_ru" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="item_desc_en" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="item_grp">
+          <Key>
+            <PropertyRef Name="item_id" />
+            <PropertyRef Name="item_tag" />
+            <PropertyRef Name="item_tip" />
+            <PropertyRef Name="item_slot" />
+            <PropertyRef Name="item_cry_tip" />
+            <PropertyRef Name="item_cry_count" />
+            <PropertyRef Name="item_weight" />
+            <PropertyRef Name="item_price" />
+            <PropertyRef Name="item_mdef" />
+            <PropertyRef Name="item_pdef" />
+            <PropertyRef Name="item_patt" />
+            <PropertyRef Name="item_matt" />
+            <PropertyRef Name="item_speed_atc" />
+            <PropertyRef Name="item_crit_atc" />
+            <PropertyRef Name="item_ss_count" />
+            <PropertyRef Name="item_sps_count" />
+            <PropertyRef Name="item_mp_consume" />
+            <PropertyRef Name="item_mp_bonus" />
+            <PropertyRef Name="item_accuracy" />
+            <PropertyRef Name="item_img" />
+            <PropertyRef Name="item_tradeable" />
+            <PropertyRef Name="item_dropable" />
+            <PropertyRef Name="item_crafr" />
+            <PropertyRef Name="item_hero" />
+          </Key>
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="item_tag" Type="Int32" Nullable="false" />
+          <Property Name="item_tip" Type="Int32" Nullable="false" />
+          <Property Name="item_slot" Type="Int32" Nullable="false" />
+          <Property Name="item_cry_tip" Type="Int32" Nullable="false" />
+          <Property Name="item_cry_count" Type="Int32" Nullable="false" />
+          <Property Name="item_weight" Type="Int32" Nullable="false" />
+          <Property Name="item_price" Type="Int32" Nullable="false" />
+          <Property Name="item_mdef" Type="Int32" Nullable="false" />
+          <Property Name="item_pdef" Type="Int32" Nullable="false" />
+          <Property Name="item_patt" Type="Int32" Nullable="false" />
+          <Property Name="item_matt" Type="Int32" Nullable="false" />
+          <Property Name="item_speed_atc" Type="Int32" Nullable="false" />
+          <Property Name="item_crit_atc" Type="Double" Nullable="false" />
+          <Property Name="item_ss_count" Type="Int32" Nullable="false" />
+          <Property Name="item_sps_count" Type="Int32" Nullable="false" />
+          <Property Name="item_mp_consume" Type="Int32" Nullable="false" />
+          <Property Name="item_mp_bonus" Type="Int32" Nullable="false" />
+          <Property Name="item_accuracy" Type="Double" Nullable="false" />
+          <Property Name="item_img" Type="String" Nullable="false" MaxLength="60" Unicode="true" FixedLength="false" />
+          <Property Name="item_tradeable" Type="Int32" Nullable="false" />
+          <Property Name="item_dropable" Type="Int32" Nullable="false" />
+          <Property Name="item_crafr" Type="Int32" Nullable="false" />
+          <Property Name="item_hero" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="item_name">
+          <Key>
+            <PropertyRef Name="item_id" />
+            <PropertyRef Name="item_name_ru" />
+            <PropertyRef Name="item_name_en" />
+          </Key>
+          <Property Name="item_id" Type="Int32" Nullable="false" />
+          <Property Name="item_name_ru" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+          <Property Name="item_name_en" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="item_recipe">
+          <Key>
+            <PropertyRef Name="rec_id_mk" />
+          </Key>
+          <Property Name="rec_id_mk" Type="Int32" Nullable="false" />
+          <Property Name="rec_tip_mk" Type="Int32" Nullable="false" />
+          <Property Name="rec_id_recipe" Type="Int32" Nullable="false" />
+          <Property Name="rec_level_recipe" Type="Int32" Nullable="false" />
+          <Property Name="rec_id_item" Type="Int32" Nullable="false" />
+          <Property Name="rec_item_count" Type="Int32" Nullable="false" />
+          <Property Name="rec_mp_cost" Type="Int32" Nullable="false" />
+          <Property Name="rec_success_rate" Type="Int32" Nullable="false" />
+          <Property Name="rec_ingredient_id" Type="String" Nullable="false" MaxLength="60" Unicode="true" FixedLength="false" />
+          <Property Name="rec_ingredient_count" Type="String" Nullable="false" MaxLength="60" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="item_recipe_ingr">
+          <Key>
+            <PropertyRef Name="rec_id_recipe" />
+            <PropertyRef Name="rec_ingredient_id" />
+            <PropertyRef Name="rec_ingredient_count" />
+          </Key>
+          <Property Name="rec_id_recipe" Type="Int32" Nullable="false" />
+          <Property Name="rec_ingredient_id" Type="Int32" Nullable="false" />
+          <Property Name="rec_ingredient_count" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="item_seeds">
+          <Key>
+            <PropertyRef Name="sed_castle_id" />
+            <PropertyRef Name="sed_crop_id" />
+            <PropertyRef Name="sed_seeds_id" />
+            <PropertyRef Name="sed_mature_id" />
+            <PropertyRef Name="sed_reward1_id" />
+            <PropertyRef Name="sed_reward2_id" />
+            <PropertyRef Name="sed_alternative" />
+            <PropertyRef Name="sed_level" />
+            <PropertyRef Name="sed_limit_seed" />
+            <PropertyRef Name="sed_limit_crops" />
+          </Key>
+          <Property Name="sed_castle_id" Type="Int32" Nullable="false" />
+          <Property Name="sed_crop_id" Type="Int32" Nullable="false" />
+          <Property Name="sed_seeds_id" Type="Int32" Nullable="false" />
+          <Property Name="sed_mature_id" Type="Int32" Nullable="false" />
+          <Property Name="sed_reward1_id" Type="Int32" Nullable="false" />
+          <Property Name="sed_reward2_id" Type="Int32" Nullable="false" />
+          <Property Name="sed_alternative" Type="Int32" Nullable="false" />
+          <Property Name="sed_level" Type="Int32" Nullable="false" />
+          <Property Name="sed_limit_seed" Type="Int32" Nullable="false" />
+          <Property Name="sed_limit_crops" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="item_set">
+          <Key>
+            <PropertyRef Name="set_id" />
+            <PropertyRef Name="set_option" />
+          </Key>
+          <Property Name="set_id" Type="Int32" Nullable="false" />
+          <Property Name="set_option" Type="Int32" Nullable="false" />
+          <Property Name="set_structure" Type="String" MaxLength="90" Unicode="true" FixedLength="false" />
+          <Property Name="set_tip_img" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="set_name_img" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="set_bonus_desc_ru" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="set_extra_desc_ru" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="set_enchant_desc_ru" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="set_bonus_desc_en" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="set_extra_desc_en" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="set_enchant_desc_en" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="multisell_id">
+          <Key>
+            <PropertyRef Name="shop_id" />
+            <PropertyRef Name="shop_product_id" />
+            <PropertyRef Name="shop_product_count" />
+          </Key>
+          <Property Name="shop_id" Type="Int32" Nullable="false" />
+          <Property Name="shop_product_id" Type="Int32" Nullable="false" />
+          <Property Name="shop_product_count" Type="Int32" Nullable="false" />
+          <Property Name="shop_ingredient_id" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="shop_ingredient_count" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="multisell_shopids">
+          <Key>
+            <PropertyRef Name="shop_id" />
+          </Key>
+          <Property Name="shop_id" Type="Int32" Nullable="false" />
+          <Property Name="npc_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="npc_desc_rb">
+          <Key>
+            <PropertyRef Name="npc_id" />
+          </Key>
+          <Property Name="npc_id" Type="Int32" Nullable="false" />
+          <Property Name="npc_tip_rb" Type="Int32" Nullable="false" />
+          <Property Name="npc_raid_desc_ru" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="npc_raid_desc_en" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="npc_drop">
+          <Key>
+            <PropertyRef Name="npc_id" />
+            <PropertyRef Name="category" />
+            <PropertyRef Name="npc_item_id" />
+            <PropertyRef Name="npc_min" />
+            <PropertyRef Name="npc_max" />
+            <PropertyRef Name="npc_chance" />
+          </Key>
+          <Property Name="npc_id" Type="Int32" Nullable="false" />
+          <Property Name="category" Type="Int32" Nullable="false" />
+          <Property Name="npc_item_id" Type="Int32" Nullable="false" />
+          <Property Name="npc_min" Type="Int32" Nullable="false" />
+          <Property Name="npc_max" Type="Int32" Nullable="false" />
+          <Property Name="npc_chance" Type="Single" Nullable="false" />
+        </EntityType>
+        <EntityType Name="npc_grp">
+          <Key>
+            <PropertyRef Name="npc_id" />
+          </Key>
+          <Property Name="npc_id" Type="Int32" Nullable="false" />
+          <Property Name="npc_class" Type="Int32" Nullable="false" />
+          <Property Name="npc_img" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="npc_level" Type="Int32" Nullable="false" />
+          <Property Name="npc_hp" Type="Int32" Nullable="false" />
+          <Property Name="npc_exp" Type="Int32" Nullable="false" />
+          <Property Name="npc_sp" Type="Int32" Nullable="false" />
+          <Property Name="npc_reit" Type="Int32" Nullable="false" />
+          <Property Name="npc_spawn" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="npc_name">
+          <Key>
+            <PropertyRef Name="npc_id" />
+          </Key>
+          <Property Name="npc_id" Type="Int32" Nullable="false" />
+          <Property Name="npc_name_ru" Type="String" Nullable="false" MaxLength="60" Unicode="true" FixedLength="false" />
+          <Property Name="npc_title_ru" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+          <Property Name="npc_name_en" Type="String" Nullable="false" MaxLength="60" Unicode="true" FixedLength="false" />
+          <Property Name="npc_title_en" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="npc_rb_minion">
+          <Key>
+            <PropertyRef Name="npc_id_rb" />
+            <PropertyRef Name="npc_id_minion" />
+            <PropertyRef Name="npc_minion_count" />
+          </Key>
+          <Property Name="npc_id_rb" Type="Int32" Nullable="false" />
+          <Property Name="npc_id_minion" Type="Int32" Nullable="false" />
+          <Property Name="npc_minion_count" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="npc_skilss">
+          <Key>
+            <PropertyRef Name="npc_id" />
+            <PropertyRef Name="npc_skil_id" />
+            <PropertyRef Name="npc_skil_lvl" />
+          </Key>
+          <Property Name="npc_id" Type="Int32" Nullable="false" />
+          <Property Name="npc_skil_id" Type="Int32" Nullable="false" />
+          <Property Name="npc_skil_lvl" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="npc_spawn">
+          <Key>
+            <PropertyRef Name="npc_id" />
+            <PropertyRef Name="npc_x" />
+            <PropertyRef Name="npc_y" />
+          </Key>
+          <Property Name="npc_id" Type="Int32" Nullable="false" />
+          <Property Name="npc_x" Type="Int32" Nullable="false" />
+          <Property Name="npc_y" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quest_desc">
+          <Key>
+            <PropertyRef Name="quest_id" />
+            <PropertyRef Name="quest_prog" />
+            <PropertyRef Name="quest_x" />
+            <PropertyRef Name="quest_y" />
+          </Key>
+          <Property Name="quest_id" Type="Int32" Nullable="false" />
+          <Property Name="quest_prog" Type="Int32" Nullable="false" />
+          <Property Name="quest_prog_name" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="quest_desc1" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="quest_x" Type="Int32" Nullable="false" />
+          <Property Name="quest_y" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quest_full">
+          <Key>
+            <PropertyRef Name="quest_id" />
+          </Key>
+          <Property Name="quest_id" Type="Int32" Nullable="false" />
+          <Property Name="quest_en" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="quest_ru" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="quest_html" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="quest_end" Type="Int32" Nullable="false" />
+          <Property Type="String" Name="quest_name_editor" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="quest_grp">
+          <Key>
+            <PropertyRef Name="quest_id" />
+          </Key>
+          <Property Name="quest_id" Type="Int32" Nullable="false" />
+          <Property Name="quest_lvl_min" Type="Int32" Nullable="false" />
+          <Property Name="quest_lvl_max" Type="Int32" Nullable="false" />
+          <Property Name="quest_type" Type="Int32" Nullable="false" />
+          <Property Name="quest_clan_pet" Type="Int32" Nullable="false" />
+          <Property Name="quest_complete" Type="Int32" Nullable="false" />
+          <Property Name="quest_area_id" Type="Int32" Nullable="false" />
+          <Property Name="quest_npc_id" Type="Int32" Nullable="false" />
+          <Property Name="quest_npc_x" Type="Int32" Nullable="false" />
+          <Property Name="quest_npc_y" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quest_items">
+          <Key>
+            <PropertyRef Name="quest_id" />
+            <PropertyRef Name="quest_items_id" />
+            <PropertyRef Name="quest_items_count" />
+          </Key>
+          <Property Name="quest_id" Type="Int32" Nullable="false" />
+          <Property Name="quest_items_id" Type="Int32" Nullable="false" />
+          <Property Name="quest_items_count" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quest_items_get">
+          <Key>
+            <PropertyRef Name="quest_id" />
+            <PropertyRef Name="quest_tag" />
+            <PropertyRef Name="quest_prog" />
+            <PropertyRef Name="quest_items_id" />
+            <PropertyRef Name="quest_items_count" />
+          </Key>
+          <Property Name="quest_id" Type="Int32" Nullable="false" />
+          <Property Name="quest_tag" Type="Int32" Nullable="false" />
+          <Property Name="quest_prog" Type="Int32" Nullable="false" />
+          <Property Name="quest_items_id" Type="Int32" Nullable="false" />
+          <Property Name="quest_items_count" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quest_name">
+          <Key>
+            <PropertyRef Name="quest_id" />
+          </Key>
+          <Property Name="quest_id" Type="Int32" Nullable="false" />
+          <Property Name="quest_names" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="quest_restricions" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="quest_short_desc" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="quest_names_en" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="quest_restricions_en" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="quest_short_desc_en" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="quest_npc">
+          <Key>
+            <PropertyRef Name="quest_id" />
+            <PropertyRef Name="quest_npc_id" />
+          </Key>
+          <Property Name="quest_id" Type="Int32" Nullable="false" />
+          <Property Name="quest_npc_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quest_npc_target">
+          <Key>
+            <PropertyRef Name="quest_id" />
+            <PropertyRef Name="quest_prog" />
+            <PropertyRef Name="quest_npc_id" />
+          </Key>
+          <Property Name="quest_id" Type="Int32" Nullable="false" />
+          <Property Name="quest_prog" Type="Int32" Nullable="false" />
+          <Property Name="quest_npc_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="skill_grp">
+          <Key>
+            <PropertyRef Name="skil_id" />
+            <PropertyRef Name="skil_lvl" />
+            <PropertyRef Name="skil_oper_type" />
+            <PropertyRef Name="skil_img" />
+            <PropertyRef Name="skil_name_ru" />
+            <PropertyRef Name="skil_name_en" />
+          </Key>
+          <Property Name="skil_id" Type="Int32" Nullable="false" />
+          <Property Name="skil_lvl" Type="Int32" Nullable="false" />
+          <Property Name="skil_oper_type" Type="Int32" Nullable="false" />
+          <Property Name="skil_img" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="skil_name_ru" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="skil_name_en" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="skils_desc_en">
+          <Key>
+            <PropertyRef Name="skil_id" />
+            <PropertyRef Name="skil_lvl" />
+          </Key>
+          <Property Name="skil_id" Type="Int32" Nullable="false" />
+          <Property Name="skil_lvl" Type="Int32" Nullable="false" />
+          <Property Name="skil_desc" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="skil_desc_add1" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="skil_desc_add2" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="skils_desc_ru">
+          <Key>
+            <PropertyRef Name="skil_id" />
+            <PropertyRef Name="skil_lvl" />
+          </Key>
+          <Property Name="skil_id" Type="Int32" Nullable="false" />
+          <Property Name="skil_lvl" Type="Int32" Nullable="false" />
+          <Property Name="skil_desc" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="skil_desc_add1" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="skil_desc_add2" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="skils_oper_name">
+          <Key>
+            <PropertyRef Name="skil_oper_type" />
+          </Key>
+          <Property Name="skil_oper_type" Type="Int32" Nullable="false" />
+          <Property Name="skil_oper_name_ru" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="skil_oper_name_en" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="skils_tree">
+          <Key>
+            <PropertyRef Name="skil_class_id" />
+            <PropertyRef Name="skil_id" />
+            <PropertyRef Name="skil_lvl" />
+            <PropertyRef Name="skil_cost" />
+            <PropertyRef Name="skil_min_level" />
+            <PropertyRef Name="skil_item_id" />
+            <PropertyRef Name="skiol_item_count" />
+            <PropertyRef Name="skil_clicked" />
+          </Key>
+          <Property Name="skil_class_id" Type="Int32" Nullable="false" />
+          <Property Name="skil_id" Type="Int32" Nullable="false" />
+          <Property Name="skil_lvl" Type="Int32" Nullable="false" />
+          <Property Name="skil_cost" Type="Int32" Nullable="false" />
+          <Property Name="skil_min_level" Type="Int32" Nullable="false" />
+          <Property Name="skil_item_id" Type="Int32" Nullable="false" />
+          <Property Name="skiol_item_count" Type="Int32" Nullable="false" />
+          <Property Name="skil_clicked" Type="Int32" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище high_five_4lUtkeModelContainer" CdmEntityContainer="high_five_4lUtkeEntities">
+          <EntitySetMapping Name="class_list">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.class_list">
+              <MappingFragment StoreEntitySet="class_list">
+                <ScalarProperty Name="class_name" ColumnName="class_name" />
+                <ScalarProperty Name="class_id" ColumnName="class_id" />
+                <ScalarProperty Name="class_parent_id" ColumnName="class_parent_id" />
+                <ScalarProperty Name="class_max_prof" ColumnName="class_max_prof" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="class_race">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.class_race">
+              <MappingFragment StoreEntitySet="class_race">
+                <ScalarProperty Name="quest_id" ColumnName="quest_id" />
+                <ScalarProperty Name="quest_race_ru" ColumnName="quest_race_ru" />
+                <ScalarProperty Name="quest_race_en" ColumnName="quest_race_en" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="class_templates">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.class_templates">
+              <MappingFragment StoreEntitySet="class_templates">
+                <ScalarProperty Name="class_id" ColumnName="class_id" />
+                <ScalarProperty Name="class_name_en" ColumnName="class_name_en" />
+                <ScalarProperty Name="class_name_ru" ColumnName="class_name_ru" />
+                <ScalarProperty Name="class_race_id" ColumnName="class_race_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_desc">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.item_desc">
+              <MappingFragment StoreEntitySet="item_desc">
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="item_add_name_ru" ColumnName="item_add_name_ru" />
+                <ScalarProperty Name="item_add_name_en" ColumnName="item_add_name_en" />
+                <ScalarProperty Name="item_desc_ru" ColumnName="item_desc_ru" />
+                <ScalarProperty Name="item_desc_en" ColumnName="item_desc_en" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_grp">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.item_grp">
+              <MappingFragment StoreEntitySet="item_grp">
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="item_tag" ColumnName="item_tag" />
+                <ScalarProperty Name="item_tip" ColumnName="item_tip" />
+                <ScalarProperty Name="item_slot" ColumnName="item_slot" />
+                <ScalarProperty Name="item_cry_tip" ColumnName="item_cry_tip" />
+                <ScalarProperty Name="item_cry_count" ColumnName="item_cry_count" />
+                <ScalarProperty Name="item_weight" ColumnName="item_weight" />
+                <ScalarProperty Name="item_price" ColumnName="item_price" />
+                <ScalarProperty Name="item_mdef" ColumnName="item_mdef" />
+                <ScalarProperty Name="item_pdef" ColumnName="item_pdef" />
+                <ScalarProperty Name="item_patt" ColumnName="item_patt" />
+                <ScalarProperty Name="item_matt" ColumnName="item_matt" />
+                <ScalarProperty Name="item_speed_atc" ColumnName="item_speed_atc" />
+                <ScalarProperty Name="item_crit_atc" ColumnName="item_crit_atc" />
+                <ScalarProperty Name="item_ss_count" ColumnName="item_ss_count" />
+                <ScalarProperty Name="item_sps_count" ColumnName="item_sps_count" />
+                <ScalarProperty Name="item_mp_consume" ColumnName="item_mp_consume" />
+                <ScalarProperty Name="item_mp_bonus" ColumnName="item_mp_bonus" />
+                <ScalarProperty Name="item_accuracy" ColumnName="item_accuracy" />
+                <ScalarProperty Name="item_img" ColumnName="item_img" />
+                <ScalarProperty Name="item_tradeable" ColumnName="item_tradeable" />
+                <ScalarProperty Name="item_dropable" ColumnName="item_dropable" />
+                <ScalarProperty Name="item_crafr" ColumnName="item_crafr" />
+                <ScalarProperty Name="item_hero" ColumnName="item_hero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_name">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.item_name">
+              <MappingFragment StoreEntitySet="item_name">
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="item_name_ru" ColumnName="item_name_ru" />
+                <ScalarProperty Name="item_name_en" ColumnName="item_name_en" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_recipe">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.item_recipe">
+              <MappingFragment StoreEntitySet="item_recipe">
+                <ScalarProperty Name="rec_id_mk" ColumnName="rec_id_mk" />
+                <ScalarProperty Name="rec_tip_mk" ColumnName="rec_tip_mk" />
+                <ScalarProperty Name="rec_id_recipe" ColumnName="rec_id_recipe" />
+                <ScalarProperty Name="rec_level_recipe" ColumnName="rec_level_recipe" />
+                <ScalarProperty Name="rec_id_item" ColumnName="rec_id_item" />
+                <ScalarProperty Name="rec_item_count" ColumnName="rec_item_count" />
+                <ScalarProperty Name="rec_mp_cost" ColumnName="rec_mp_cost" />
+                <ScalarProperty Name="rec_success_rate" ColumnName="rec_success_rate" />
+                <ScalarProperty Name="rec_ingredient_id" ColumnName="rec_ingredient_id" />
+                <ScalarProperty Name="rec_ingredient_count" ColumnName="rec_ingredient_count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_recipe_ingr">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.item_recipe_ingr">
+              <MappingFragment StoreEntitySet="item_recipe_ingr">
+                <ScalarProperty Name="rec_id_recipe" ColumnName="rec_id_recipe" />
+                <ScalarProperty Name="rec_ingredient_id" ColumnName="rec_ingredient_id" />
+                <ScalarProperty Name="rec_ingredient_count" ColumnName="rec_ingredient_count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_seeds">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.item_seeds">
+              <MappingFragment StoreEntitySet="item_seeds">
+                <ScalarProperty Name="sed_castle_id" ColumnName="sed_castle_id" />
+                <ScalarProperty Name="sed_crop_id" ColumnName="sed_crop_id" />
+                <ScalarProperty Name="sed_seeds_id" ColumnName="sed_seeds_id" />
+                <ScalarProperty Name="sed_mature_id" ColumnName="sed_mature_id" />
+                <ScalarProperty Name="sed_reward1_id" ColumnName="sed_reward1_id" />
+                <ScalarProperty Name="sed_reward2_id" ColumnName="sed_reward2_id" />
+                <ScalarProperty Name="sed_alternative" ColumnName="sed_alternative" />
+                <ScalarProperty Name="sed_level" ColumnName="sed_level" />
+                <ScalarProperty Name="sed_limit_seed" ColumnName="sed_limit_seed" />
+                <ScalarProperty Name="sed_limit_crops" ColumnName="sed_limit_crops" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_set">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.item_set">
+              <MappingFragment StoreEntitySet="item_set">
+                <ScalarProperty Name="set_id" ColumnName="set_id" />
+                <ScalarProperty Name="set_option" ColumnName="set_option" />
+                <ScalarProperty Name="set_structure" ColumnName="set_structure" />
+                <ScalarProperty Name="set_tip_img" ColumnName="set_tip_img" />
+                <ScalarProperty Name="set_name_img" ColumnName="set_name_img" />
+                <ScalarProperty Name="set_bonus_desc_ru" ColumnName="set_bonus_desc_ru" />
+                <ScalarProperty Name="set_extra_desc_ru" ColumnName="set_extra_desc_ru" />
+                <ScalarProperty Name="set_enchant_desc_ru" ColumnName="set_enchant_desc_ru" />
+                <ScalarProperty Name="set_bonus_desc_en" ColumnName="set_bonus_desc_en" />
+                <ScalarProperty Name="set_extra_desc_en" ColumnName="set_extra_desc_en" />
+                <ScalarProperty Name="set_enchant_desc_en" ColumnName="set_enchant_desc_en" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="multisell_id">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.multisell_id">
+              <MappingFragment StoreEntitySet="multisell_id">
+                <ScalarProperty Name="shop_id" ColumnName="shop_id" />
+                <ScalarProperty Name="shop_product_id" ColumnName="shop_product_id" />
+                <ScalarProperty Name="shop_product_count" ColumnName="shop_product_count" />
+                <ScalarProperty Name="shop_ingredient_id" ColumnName="shop_ingredient_id" />
+                <ScalarProperty Name="shop_ingredient_count" ColumnName="shop_ingredient_count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="multisell_shopids">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.multisell_shopids">
+              <MappingFragment StoreEntitySet="multisell_shopids">
+                <ScalarProperty Name="shop_id" ColumnName="shop_id" />
+                <ScalarProperty Name="npc_id" ColumnName="npc_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="npc_desc_rb">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.npc_desc_rb">
+              <MappingFragment StoreEntitySet="npc_desc_rb">
+                <ScalarProperty Name="npc_id" ColumnName="npc_id" />
+                <ScalarProperty Name="npc_tip_rb" ColumnName="npc_tip_rb" />
+                <ScalarProperty Name="npc_raid_desc_ru" ColumnName="npc_raid_desc_ru" />
+                <ScalarProperty Name="npc_raid_desc_en" ColumnName="npc_raid_desc_en" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="npc_drop">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.npc_drop">
+              <MappingFragment StoreEntitySet="npc_drop">
+                <ScalarProperty Name="npc_id" ColumnName="npc_id" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="npc_item_id" ColumnName="npc_item_id" />
+                <ScalarProperty Name="npc_min" ColumnName="npc_min" />
+                <ScalarProperty Name="npc_max" ColumnName="npc_max" />
+                <ScalarProperty Name="npc_chance" ColumnName="npc_chance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="npc_grp">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.npc_grp">
+              <MappingFragment StoreEntitySet="npc_grp">
+                <ScalarProperty Name="npc_id" ColumnName="npc_id" />
+                <ScalarProperty Name="npc_class" ColumnName="npc_class" />
+                <ScalarProperty Name="npc_img" ColumnName="npc_img" />
+                <ScalarProperty Name="npc_level" ColumnName="npc_level" />
+                <ScalarProperty Name="npc_hp" ColumnName="npc_hp" />
+                <ScalarProperty Name="npc_exp" ColumnName="npc_exp" />
+                <ScalarProperty Name="npc_sp" ColumnName="npc_sp" />
+                <ScalarProperty Name="npc_reit" ColumnName="npc_reit" />
+                <ScalarProperty Name="npc_spawn" ColumnName="npc_spawn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="npc_name">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.npc_name">
+              <MappingFragment StoreEntitySet="npc_name">
+                <ScalarProperty Name="npc_id" ColumnName="npc_id" />
+                <ScalarProperty Name="npc_name_ru" ColumnName="npc_name_ru" />
+                <ScalarProperty Name="npc_title_ru" ColumnName="npc_title_ru" />
+                <ScalarProperty Name="npc_name_en" ColumnName="npc_name_en" />
+                <ScalarProperty Name="npc_title_en" ColumnName="npc_title_en" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="npc_rb_minion">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.npc_rb_minion">
+              <MappingFragment StoreEntitySet="npc_rb_minion">
+                <ScalarProperty Name="npc_id_rb" ColumnName="npc_id_rb" />
+                <ScalarProperty Name="npc_id_minion" ColumnName="npc_id_minion" />
+                <ScalarProperty Name="npc_minion_count" ColumnName="npc_minion_count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="npc_skilss">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.npc_skilss">
+              <MappingFragment StoreEntitySet="npc_skilss">
+                <ScalarProperty Name="npc_id" ColumnName="npc_id" />
+                <ScalarProperty Name="npc_skil_id" ColumnName="npc_skil_id" />
+                <ScalarProperty Name="npc_skil_lvl" ColumnName="npc_skil_lvl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="npc_spawn">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.npc_spawn">
+              <MappingFragment StoreEntitySet="npc_spawn">
+                <ScalarProperty Name="npc_id" ColumnName="npc_id" />
+                <ScalarProperty Name="npc_x" ColumnName="npc_x" />
+                <ScalarProperty Name="npc_y" ColumnName="npc_y" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quest_desc">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.quest_desc">
+              <MappingFragment StoreEntitySet="quest_desc">
+                <ScalarProperty Name="quest_id" ColumnName="quest_id" />
+                <ScalarProperty Name="quest_prog" ColumnName="quest_prog" />
+                <ScalarProperty Name="quest_prog_name" ColumnName="quest_prog_name" />
+                <ScalarProperty Name="quest_desc1" ColumnName="quest_desc" />
+                <ScalarProperty Name="quest_x" ColumnName="quest_x" />
+                <ScalarProperty Name="quest_y" ColumnName="quest_y" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quest_full">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.quest_full">
+              <MappingFragment StoreEntitySet="quest_full">
+                <ScalarProperty Name="quest_name_editor" ColumnName="quest_name_editor" />
+                <ScalarProperty Name="quest_id" ColumnName="quest_id" />
+                <ScalarProperty Name="quest_en" ColumnName="quest_en" />
+                <ScalarProperty Name="quest_ru" ColumnName="quest_ru" />
+                <ScalarProperty Name="quest_html" ColumnName="quest_html" />
+                <ScalarProperty Name="quest_end" ColumnName="quest_end" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quest_grp">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.quest_grp">
+              <MappingFragment StoreEntitySet="quest_grp">
+                <ScalarProperty Name="quest_id" ColumnName="quest_id" />
+                <ScalarProperty Name="quest_lvl_min" ColumnName="quest_lvl_min" />
+                <ScalarProperty Name="quest_lvl_max" ColumnName="quest_lvl_max" />
+                <ScalarProperty Name="quest_type" ColumnName="quest_type" />
+                <ScalarProperty Name="quest_clan_pet" ColumnName="quest_clan_pet" />
+                <ScalarProperty Name="quest_complete" ColumnName="quest_complete" />
+                <ScalarProperty Name="quest_area_id" ColumnName="quest_area_id" />
+                <ScalarProperty Name="quest_npc_id" ColumnName="quest_npc_id" />
+                <ScalarProperty Name="quest_npc_x" ColumnName="quest_npc_x" />
+                <ScalarProperty Name="quest_npc_y" ColumnName="quest_npc_y" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quest_items">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.quest_items">
+              <MappingFragment StoreEntitySet="quest_items">
+                <ScalarProperty Name="quest_id" ColumnName="quest_id" />
+                <ScalarProperty Name="quest_items_id" ColumnName="quest_items_id" />
+                <ScalarProperty Name="quest_items_count" ColumnName="quest_items_count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quest_items_get">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.quest_items_get">
+              <MappingFragment StoreEntitySet="quest_items_get">
+                <ScalarProperty Name="quest_id" ColumnName="quest_id" />
+                <ScalarProperty Name="quest_tag" ColumnName="quest_tag" />
+                <ScalarProperty Name="quest_prog" ColumnName="quest_prog" />
+                <ScalarProperty Name="quest_items_id" ColumnName="quest_items_id" />
+                <ScalarProperty Name="quest_items_count" ColumnName="quest_items_count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quest_name">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.quest_name">
+              <MappingFragment StoreEntitySet="quest_name">
+                <ScalarProperty Name="quest_id" ColumnName="quest_id" />
+                <ScalarProperty Name="quest_names" ColumnName="quest_names" />
+                <ScalarProperty Name="quest_restricions" ColumnName="quest_restricions" />
+                <ScalarProperty Name="quest_short_desc" ColumnName="quest_short_desc" />
+                <ScalarProperty Name="quest_names_en" ColumnName="quest_names_en" />
+                <ScalarProperty Name="quest_restricions_en" ColumnName="quest_restricions_en" />
+                <ScalarProperty Name="quest_short_desc_en" ColumnName="quest_short_desc_en" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quest_npc">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.quest_npc">
+              <MappingFragment StoreEntitySet="quest_npc">
+                <ScalarProperty Name="quest_id" ColumnName="quest_id" />
+                <ScalarProperty Name="quest_npc_id" ColumnName="quest_npc_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quest_npc_target">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.quest_npc_target">
+              <MappingFragment StoreEntitySet="quest_npc_target">
+                <ScalarProperty Name="quest_id" ColumnName="quest_id" />
+                <ScalarProperty Name="quest_prog" ColumnName="quest_prog" />
+                <ScalarProperty Name="quest_npc_id" ColumnName="quest_npc_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skill_grp">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.skill_grp">
+              <MappingFragment StoreEntitySet="skill_grp">
+                <ScalarProperty Name="skil_id" ColumnName="skil_id" />
+                <ScalarProperty Name="skil_lvl" ColumnName="skil_lvl" />
+                <ScalarProperty Name="skil_oper_type" ColumnName="skil_oper_type" />
+                <ScalarProperty Name="skil_img" ColumnName="skil_img" />
+                <ScalarProperty Name="skil_name_ru" ColumnName="skil_name_ru" />
+                <ScalarProperty Name="skil_name_en" ColumnName="skil_name_en" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skils_desc_en">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.skils_desc_en">
+              <MappingFragment StoreEntitySet="skils_desc_en">
+                <ScalarProperty Name="skil_id" ColumnName="skil_id" />
+                <ScalarProperty Name="skil_lvl" ColumnName="skil_lvl" />
+                <ScalarProperty Name="skil_desc" ColumnName="skil_desc" />
+                <ScalarProperty Name="skil_desc_add1" ColumnName="skil_desc_add1" />
+                <ScalarProperty Name="skil_desc_add2" ColumnName="skil_desc_add2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skils_desc_ru">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.skils_desc_ru">
+              <MappingFragment StoreEntitySet="skils_desc_ru">
+                <ScalarProperty Name="skil_id" ColumnName="skil_id" />
+                <ScalarProperty Name="skil_lvl" ColumnName="skil_lvl" />
+                <ScalarProperty Name="skil_desc" ColumnName="skil_desc" />
+                <ScalarProperty Name="skil_desc_add1" ColumnName="skil_desc_add1" />
+                <ScalarProperty Name="skil_desc_add2" ColumnName="skil_desc_add2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skils_oper_name">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.skils_oper_name">
+              <MappingFragment StoreEntitySet="skils_oper_name">
+                <ScalarProperty Name="skil_oper_type" ColumnName="skil_oper_type" />
+                <ScalarProperty Name="skil_oper_name_ru" ColumnName="skil_oper_name_ru" />
+                <ScalarProperty Name="skil_oper_name_en" ColumnName="skil_oper_name_en" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="skils_tree">
+            <EntityTypeMapping TypeName="high_five_4lUtkeModel.skils_tree">
+              <MappingFragment StoreEntitySet="skils_tree">
+                <ScalarProperty Name="skil_class_id" ColumnName="skil_class_id" />
+                <ScalarProperty Name="skil_id" ColumnName="skil_id" />
+                <ScalarProperty Name="skil_lvl" ColumnName="skil_lvl" />
+                <ScalarProperty Name="skil_cost" ColumnName="skil_cost" />
+                <ScalarProperty Name="skil_min_level" ColumnName="skil_min_level" />
+                <ScalarProperty Name="skil_item_id" ColumnName="skil_item_id" />
+                <ScalarProperty Name="skiol_item_count" ColumnName="skiol_item_count" />
+                <ScalarProperty Name="skil_clicked" ColumnName="skil_clicked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

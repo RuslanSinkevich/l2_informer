@@ -1,0 +1,11 @@
+﻿@model Informer.Models.MsgLsFrom
+@{
+    ViewBag.Title = "Reply";
+}
+<p>
+@* ReSharper disable PossibleInvalidOperationException *@
+    <h4 id="lsH4"><span id="lsId" style="display: none">@Model.Id</span><span id="lsTitleEdit">@Html.Raw(Model.Title)</span> (@Model.MsgData.Value.ToShortDateString()) от <span id="lsUserName">@Model.UserName</span></h4>
+@* ReSharper restore PossibleInvalidOperationException *@
+
+    @Html.Raw(Model.SubJ)
+</p>

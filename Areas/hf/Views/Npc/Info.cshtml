@@ -1,0 +1,309 @@
+﻿@{
+    ViewBag.Title = "NPC, Мобы дроп и спойл а также детали.";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Description = "NPC, Мобы дроп и спойл а также детали. AJAX поиск и вывод информации";
+}
+@using Informer.Areas.hf.Models;
+
+<div id="search">
+    <div style="float: left">
+        <button type="button" class="css3button" title="@Informer.Resources.Views.Npc.button_tooltip" id="hide">@Informer.Resources.Views.Npc.button_hiden</button>
+    </div>
+    <fieldset style="width: 90%;">
+        <legend>@Informer.Resources.Views.Npc.search_fds</legend>
+        <div style="float: left">
+            @(Html.Telerik().AutoComplete()
+                 .HtmlAttributes(new { style = "border-radius:5px; height:15px; width:350px" })
+                .Name("SearchByNameNpc")
+                .DataBinding(binding => binding.Ajax().Select("_searchByNameNpc", "Npc"))
+                .ClientEvents(events => events.OnChange("NpcInfoSearch"))
+                .Filterable(filtering =>
+                      {
+                          filtering.FilterMode(AutoCompleteFilterMode.Contains);
+                          filtering.MinimumChars(3);
+                      })
+        )
+            <span style="margin-left: 10px">@Informer.Resources.Views.Npc.search_span</span>
+        </div>
+    </fieldset>
+</div>
+<div id="NpcOption">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <form name="NpcForm" id="NpcForm">
+                        <fieldset style="float: left">
+                            <legend>@Informer.Resources.Views.Npc.combo_npc</legend>
+                            <input class="npcFormInp" checked="checked" type="radio" id="npc_mobs" name="tip_npc" value="0" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_mobs" class="npcFormLab" style="background: url(/Images/icon/skill11256.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.mobs</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" id="npc_npc" name="tip_npc" value="1" onclick="$('input#npc_all_vulnerability').attr('checked', 'checked'); $('#NpcRateDropDownList').data('tDropDownList').select(0); NpcOptionSelected();"/>
+                            <div class="npcFormdiv">
+                                <label for="npc_npc" class="npcFormLab" style="background: url(/Images/icon/skill1920.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.npc</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" id="npc_rb" name="tip_npc" value="3" onclick="$('#NpcRateDropDownList').data('tDropDownList').select(0); NpcOptionSelected();">
+                            <div class="npcFormdiv" style="width: 63px">
+                                <label for="npc_rb" class="npcFormLab" style="background: url(/Images/icon/skillraid.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.rb</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" id="npc_grand_rb" name="tip_npc" value="4" onclick="$('input#npc_all_vulnerability').attr('checked', 'checked'); $('#NpcRateDropDownList').data('tDropDownList').select(0); NpcOptionSelected();">
+                            <div class="npcFormdiv" style="width: 60px">
+                                <label for="npc_grand_rb" class="npcFormLab" style="background: url(/Images/icon/skillboss.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.grand_rb</label>
+                            </div>
+                        </fieldset>
+
+                        <fieldset style="float: left">
+                            <legend>@Informer.Resources.Views.Npc.combo_vulnerability</legend>
+                            <input class="npcFormInp" checked="checked" type="radio" name="v_b_npc" id="npc_all_vulnerability" value="-100" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_all_vulnerability" class="npcFormLab" style="background: url(/Images/icon/skill1410.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.all</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" name="v_b_npc" id="npc_vulnerability_faer" value="4279" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_vulnerability_faer" class="npcFormLab" style="background: url(/Images/icon/skill4279.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.vb_faer</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" name="v_b_npc" id="npc_vulnerability_water" value="4280" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_vulnerability_water" class="npcFormLab" id="npc_vb_water" style="background: url(/Images/icon/skill4280.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.vb_water</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" name="v_b_npc" id="npc_vulnerability_wind" value="4281" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_vulnerability_wind" class="npcFormLab" id="npc_vb_wind" style="background: url(/Images/icon/skill4281.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.vb_wind</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" name="v_b_npc" id="npc_vulnerability_earth" value="4282" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_vulnerability_earth" class="npcFormLab" id="npc_vb_earth" style="background: url(/Images/icon/skill4282.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.vb_earth</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" name="v_b_npc" id="npc_vulnerability_dark" value="4336" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_vulnerability_dark" class="npcFormLab" id="npc_vb_dark" style="background: url(/Images/icon/skill4336.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.vb_darc</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" name="v_b_npc" id="npc_vulnerability_holy" value="4275" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_vulnerability_holy" class="npcFormLab" id="npc_vb_holy" style="background: url(/Images/icon/skill4275.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.vb_holy</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" name="v_b_npc" id="npc_vulnerability_Blunt" value="4274" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_vulnerability_Blunt" class="npcFormLab" id="npc_vb_Blunt" style="background: url(/Images/icon/skill4274.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.vb_blunt</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" name="v_b_npc" id="npc_vulnerability_Bow" value="4276" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_vulnerability_Bow" class="npcFormLab" id="npc_vb_Bow" style="background: url(/Images/icon/skill4276.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.vb_bow</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" name="v_b_npc" id="npc_vulnerability_Hand_to_hand" value="4457" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_vulnerability_Hand_to_hand" class="npcFormLab" id="npc_vb_Hand_to_hand" style="background: url(/Images/icon/skill4457.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.vb_kastet</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" name="v_b_npc" id="npc_vulnerability_Spear" value="4458" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_vulnerability_Spear" class="npcFormLab" id="npc_vb_Spear" style="background: url(/Images/icon/skill4458.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.vb_spear</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" name="v_b_npc" id="npc_vulnerability_Dual" value="4459" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_vulnerability_Dual" class="npcFormLab" id="npc_vb_Dual" style="background: url(/Images/icon/skill4459.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.vb_dual</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" name="v_b_npc" id="npc_vulnerability_Sword" value="4460" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_vulnerability_Sword" class="npcFormLab" id="npc_vb_Sword" style="background: url(/Images/icon/skill4460.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.vb_sword</label>
+                            </div>
+                            <input class="npcFormInp" type="radio" name="v_b_npc" id="npc_vulnerability_Daggers" value="4461" onclick='NpcOptionSelected();'>
+                            <div class="npcFormdiv">
+                                <label for="npc_vulnerability_Daggers" class="npcFormLab" id="npc_vb_Daggers" style="background: url(/Images/icon/skill4461.jpg) no-repeat 0 0;">
+                                    <br />
+                                    @Informer.Resources.Views.Npc.vb_dager</label>
+                            </div>
+                        </fieldset>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <fieldset style="float: left; width: 226px; margin-right: 4px; padding-left: 14px; height: 55px">
+        <legend>@Informer.Resources.Views.Npc.fd_npc_lvl</legend>
+        @(Html.Telerik().RangeSlider<int>()
+              .Name("NpcLvlSlider")
+              .Min(1)
+              .Max(100)
+              .Values(61, 80)
+              .SmallStep(1)
+              .LargeStep(49)
+              .ClientEvents(events => events
+                  .OnChange("NpcOptionSelected"))
+              .HtmlAttributes(new { style = "width:210px;margin:5px 15px 10px 0" })
+        )
+    </fieldset>
+    <fieldset style="width: 180px; height: 55px">
+        <legend>@Informer.Resources.Views.Npc.fd_npc_raites</legend>
+        @(Html.Telerik().DropDownList()
+                      .Name("NpcRateDropDownList")
+                      .Items(items =>
+                      {
+                          items.Add().Text(@Informer.Resources.Views.Npc.DropDownListReita_all).Value("-100");
+                          items.Add().Text(@Informer.Resources.Views.Npc.DropDownListReita_1).Value("0");
+                          items.Add().Text(@Informer.Resources.Views.Npc.DropDownListReita_1_2).Value("9");
+                          items.Add().Text(@Informer.Resources.Views.Npc.DropDownListReita_1_4).Value("8");
+                          items.Add().Text(@Informer.Resources.Views.Npc.DropDownListReita_2x).Value("10");
+                          items.Add().Text(@Informer.Resources.Views.Npc.DropDownListReita_3x).Value("11");
+                          items.Add().Text(@Informer.Resources.Views.Npc.DropDownListReita_4x).Value("12");
+                          items.Add().Text(@Informer.Resources.Views.Npc.DropDownListReita_5x).Value("13");
+                          items.Add().Text(@Informer.Resources.Views.Npc.DropDownListReita_6x_).Value("14,15,16,17,18,19,20");
+                      })
+                      .SelectedIndex(0)
+                      .ClientEvents(events => events.OnClose("NpcOptionSelected"))
+                      .HtmlAttributes(new { style = "width:170px;margin:5px 13px 7px 3px" })
+              )
+    </fieldset>
+</div>
+
+<div class="NpcDivBloc_h">
+    <fieldset>
+        <legend>@Informer.Resources.Views.Npc.info_box_fds</legend>
+        @(Html.Telerik().Grid<NpcNmGpSk>()
+        .Name("NpcInform")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.npc_id).Hidden(true);
+            columns.Bound(c => c.npc_level).Width(32).Title(@Informer.Resources.Views.Npc.info_lvl)
+                .ClientTemplate("<div  class='toolNpcInform' style='text-align: center;' title='<#= npc_id #>' ><#= npc_level #></div>");
+            columns.Bound(c => c.npc_id).Title(@Informer.Resources.Views.Npc.info_name).Width(300)
+                .ClientTemplate(" <#= npc_name #> <span  style='color:#29088A' ><#= npc_title #></span>");
+            columns.Bound(c => c.npc_id).Title("M").Width(30).HeaderHtmlAttributes(new { id = "MapHedGrid", title = @Informer.Resources.Views.Npc.info_map })
+                .ClientTemplate((
+                "<#if(npc_spawn == 1){#>" +
+                @Ajax.ActionLink(" ", "SpawnNpc",
+                new { @id = "<#= npc_id #>" },
+                new AjaxOptions { HttpMethod = "POST", OnSuccess = "_Map", OnBegin = "MapName('<#= npc_name #>', true)" },
+                new { style = "background: url('/Images/map.png') no-repeat center right;display:block; height:18px; width:20px;" }).ToString())
+                + "<#}#>").Sortable(false);
+            columns.Bound(c => c.npc_id).Title("D").Width(30).HeaderHtmlAttributes(new { id = "infoHedGrid", title = @Informer.Resources.Views.Npc.info_details })
+                .Sortable(false).ClientTemplate((@Html.ActionLink(" ", "details", "Npc", new { id = "<#= npc_id #>" }, new { style = "background: url('/Images/info.png') no-repeat center right;display:block; height:18px; width:20px;" }).ToString()));
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_searchNpcInform", "Npc"))
+        .Pageable(pag => pag.PageSize(20))
+        .Selectable()
+        .Sortable()
+        .ClientEvents(events => events.OnRowSelect("NpcInfoRowSelected"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("NpcSearchOnDataBinding"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBound("NpcInformOnDataBound"))
+        .ClientEvents(events => events.OnLoad("NpcInfoOnLoad"))
+        .RowAction(row =>
+        {
+            row.Selected = false;
+        })
+
+)
+    </fieldset>
+</div>
+<div class="NpcDivBloc_r">
+    <fieldset>
+        <legend>@Informer.Resources.Views.Npc.drop_box_fds</legend>
+        @(Html.Telerik().Grid<npc_drop>()
+        .Name("Npcdrop")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.npc_id).Sortable(false)
+                .ClientTemplate("<img class='toltipDrop' title='' itemId ='<#= item_id #>' style='vertical-align: middle;' onerror='NpcdroploadImage(this)' src='" + Url.Content("~/Images/icon/") + "<#= item_img #>.jpg' />")
+                .Title(@Informer.Resources.Views.Npc.drop_vid).Width(36);
+            columns.Bound(c => c.npc_id).Sortable(false)
+                .ClientTemplate("<img src='" + Url.Content("~/Images/cri/") + "<#= item_cry_tip #>.gif' />")
+                .Title(@Informer.Resources.Views.Npc.drop_tip).Width(36).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_chance)
+                .ClientTemplate(@Html.ActionLink("<#= item_name #>", "details", "Item", new { id = "<#= item_id #>" }, null ).ToString())
+                .Title(@Informer.Resources.Views.Npc.drop_name).Sortable(false);
+            columns.Bound(c => c.npc_min).Width(65).Title("min").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_max).Width(65).Title("max").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_chance).Width(100).Title(@Informer.Resources.Views.Npc.drop_chance).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.category).Hidden(true);
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_Select_Npcdrop", "Npc"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("NpcdropOnDataBinding"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBound("NpcdropOnDataBound"))
+        .ClientEvents(clientEvents => clientEvents.OnRowDataBound("NpcdropOnRowDataBound"))
+        .Sortable()
+        .Scrollable(scroll => scroll.Height(295))
+        .Pageable(page => page.PageOnScroll(true).PageSize(150).Style(GridPagerStyles.Status))
+
+)
+    </fieldset>
+    <fieldset id="NpcSpoilFd" style="margin-top: 5px;">
+        <legend>@Informer.Resources.Views.Npc.spoil_box_fds</legend>
+        @(Html.Telerik().Grid<npc_drop>()
+        .Name("NpcSpoil")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.npc_id).Sortable(false)
+                .ClientTemplate("<img class='toltipSpoil' title='' itemId ='<#= item_id #>' style='vertical-align: middle;' onerror='NpcdroploadImage(this)' src='" + Url.Content("~/Images/icon/") + "<#= item_img #>.jpg' />")
+                .Title(@Informer.Resources.Views.Npc.drop_vid).Width(36);
+            columns.Bound(c => c.npc_id).Sortable(false)
+                .ClientTemplate("<img src='" + Url.Content("~/Images/cri/") + "<#= item_cry_tip #>.gif' />")
+                .Title(@Informer.Resources.Views.Npc.drop_tip).Width(36).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_chance).Sortable(false)
+                .ClientTemplate(@Html.ActionLink("<#= item_name #>", "details", "Item", new { id = "<#= item_id #>" }, null).ToString())
+                .Title(@Informer.Resources.Views.Npc.drop_name);
+            columns.Bound(c => c.npc_min).Width(65).Title("min").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_max).Width(65).Title("max").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_chance).Width(100).Title(@Informer.Resources.Views.Npc.drop_chance).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.category).Hidden(true);
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_Select_NpcSpoil", "Npc"))
+        .Sortable()
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("NpcdropOnDataBinding"))
+        .ClientEvents(clientEvents => clientEvents.OnRowDataBound("NpcSpoilOnRowDataBound"))   
+        .ClientEvents(clientEvents => clientEvents.OnDataBound("NpcspoilOnDataBound"))           
+        .Pageable(page => page.PageOnScroll(true).PageSize(150).Style(GridPagerStyles.Status))
+        .Scrollable(scroll => scroll.Height(111))
+)
+    </fieldset>
+</div>
+@{  Html.Telerik().Window()
+        .Name("MapWindow")
+        .Title("Submit")
+        .Effects(fx => fx
+            .Expand())
+        .Content(@<text>
+    <div id="MapL2">Установите <a href="http://get.adobe.com/ru/flashplayer/otherversions/">flash player</a></div>
+    </text>)
+        .Width(450)
+        .Height(450)
+        .Draggable(true)
+        .Visible(false)
+        .Modal(true)
+        .Render();
+}
+

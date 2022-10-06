@@ -1,0 +1,322 @@
+﻿@{
+    ViewBag.Title = "Quest details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var questName = ViewBag.QuestName as List<quest_name>;
+    var questGrp = ViewBag.QuestGrp as List<quest_grp>;
+    var questDesc = ViewBag.QuestDesc as List<quest_desc>;
+    var questFull = (List<questFull>)ViewBag.QuestFull;
+
+    var questItem1 = ViewBag.QuestItem1 as List<quest_items_get>;
+    var questItem0 = ViewBag.QuestItem0 as List<quest_items_get>;
+}
+@using Informer.Areas.hf.Models;
+@using System.Linq;
+
+@{
+    high_five_4lUtkeEntities northwind = new high_five_4lUtkeEntities();
+}
+<h2>@questName[0].quest_names <> @questName[0].quest_names_en</h2>
+
+@using (Ajax.BeginForm("quest_save", "Quest", null))
+{
+    if (questFull.Count > 0)
+    {
+        @Html.Hidden("id", questFull[0].quest_id)
+        @Html.TextArea("quest_full", questFull[0].quest_fulls, new { @class = "questFull" })
+        @Html.Hidden("quest_end", 0)
+    }
+    else
+    {
+        @Html.Hidden("id", questName[0].quest_id)
+        if (questFull.Count > 0)
+        {
+        @Html.Hidden("quest_end", questFull[0].quest_end)
+        }
+        else
+        {
+           @Html.Hidden("quest_end", 0)
+        }
+        @Html.TextArea("quest_full", "", new { @class = "questFull" })
+    }
+    if (questFull.Count > 0)
+    {
+        if (questFull[0].quest_end == 0 || questFull[0].quest_end == -1)
+        {
+            if (User.IsInRole("Admin") || questFull[0].quest_name_editor == "")
+            {
+                <p>
+                    <input class="css3button" onclick="location.reload()" type="submit" value="Сохранить" />
+                </p>
+            }
+            else if (questFull[0].quest_name_editor == User.Identity.Name)
+            {
+                <p>
+                    <input class="css3button" onclick="location.reload()" type="submit" value="Сохранить" />
+                </p>
+            }
+        }
+    }
+    else
+    {
+                <p>
+                    <input class="css3button" onclick="location.reload()" type="submit" value="Сохранить" />
+                </p>
+
+    }
+
+}
+@if (questFull.Count > 0)
+{
+    if (questFull[0].quest_end == -1)// Квест на модерации = -1
+    {
+        if (User.IsInRole("Admin"))
+        {
+            <p>
+                 @using (Ajax.BeginForm("quest_save_off", "Quest", null))
+                 {
+                     @Html.Hidden("id", questFull[0].quest_id)   
+                     <input  style="color:red"  class="css3button" onclick="location.reload()" type="submit" value="Снять квест с проверки на модерацию" />
+                 }
+            </p>
+            <p>
+                @if (questFull[0].quest_name_editor != "")
+                {
+                    using (Ajax.BeginForm("quest_user_off", "Quest", null))
+                    {
+                        @Html.Hidden("id", questFull[0].quest_id)   
+                        <input  style="color:red"  class="css3button" onclick="location.reload()" type="submit" value="Снять юзера с квеста" />
+                    }
+                }
+            </p>
+            <p>
+                @using (Ajax.BeginForm("quest_save_end", "Quest", null))
+                {
+                    @Html.Hidden("id", questFull[0].quest_id)  
+                    <input class="css3button" onclick="location.reload()" type="submit" value="Квест готов" />
+                }
+            </p>
+        }
+    <p class="quest_moder" title="Квест на модерации">Квест на модерации</p>  
+        if (questFull[0].quest_name_editor != "")
+        {
+                    <p class="quest_moder_us" title="Квест на модерации">редактор @questFull[0].quest_name_editor</p> 
+        }
+    }
+    if (questFull[0].quest_end == 0)// Квест не готов = 0
+    {
+    <p>
+        @if (User.IsInRole("Admin"))
+        {
+            <p>
+            @using (Ajax.BeginForm("quest_save_end", "Quest", null))
+            {
+            @Html.Hidden("id", questFull[0].quest_id)  
+            <input class="css3button" onclick="location.reload()" type="submit" value="Квест готов" />
+            }
+            </p>
+            <p>
+            @if (questFull[0].quest_name_editor != "")
+            {
+                using (Ajax.BeginForm("quest_user_off", "Quest", null))
+                {
+                    @Html.Hidden("id", questFull[0].quest_id)   
+                    <input style="color:red" class="css3button" onclick="location.reload()" type="submit" value="Снять юзера с квеста" />
+                }
+            }
+            </p>
+        }
+        @if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+        {
+            using (Ajax.BeginForm("quest_save_check", "Quest", null))
+            {
+            @Html.Hidden("id", questFull[0].quest_id)  
+                if (questFull[0].quest_name_editor == User.Identity.Name)
+                {
+                <input class="css3button" onclick="location.reload()" type="submit" value="Отправить квест на проверку" />
+                }
+                else
+                {
+                    if (questFull[0].quest_name_editor != "")
+                    {
+                    <p class="quest_moder_us" title="Квест на модерации">Квест занят редактор @questFull[0].quest_name_editor</p> 
+                    }
+                }
+            }
+        }
+    </p>
+    }
+    if (questFull[0].quest_end == 1) // Квест готов = 1
+    { 
+    <p>
+        @if (User.IsInRole("Admin"))
+        {
+            using (Ajax.BeginForm("quest_save_off", "Quest", null))
+            {
+                @Html.Hidden("id", questFull[0].quest_id)   
+                <input  style="color:red"  class="css3button" onclick="location.reload()" type="submit" value="Снять квест с готовности" />
+            }
+            if (questFull[0].quest_name_editor != "")
+            {
+                using (Ajax.BeginForm("quest_user_off", "Quest", null))
+                {
+                    @Html.Hidden("id", questFull[0].quest_id)   
+                    <input  style="color:red"  class="css3button" onclick="location.reload()" type="submit" value="Снять юзера с квеста" />
+                }
+            }
+        }
+    </p>
+    }
+}
+<h1>@questName[0].quest_names</h1>
+<div>@questName[0].quest_short_desc</div>
+<table>
+    <tbody>
+        <tr>
+            <th>Npc:</th>
+            <td style="padding: 5px"><strong>
+
+                @{
+                    int npcname = questGrp[0].quest_npc_id;
+                    var nameNpc = (from npcName in northwind.npc_name where npcName.npc_id == npcname select npcName.npc_name_ru).ToList();
+                        
+                }
+
+                @if (nameNpc.Count > 0)
+                {
+                    <span>[npc{@npcname,map}имя @nameNpc[0]]</span>
+                }
+                else
+                {
+                    <span>[npc{npcname,map}имя ] [map_x{@questGrp[0].quest_npc_x,@questGrp[0].quest_npc_y}]</span>
+                }
+            </strong>
+            </td>
+        </tr>
+        <tr>
+            <th>Тип:</th>
+            <td style="padding: 5px"><strong>[tip{@questGrp[0].quest_type}]</strong></td>
+        </tr>
+        <tr>
+            <th>Уровень:</th>
+            <td style="padding: 5px">@questGrp[0].quest_lvl_min
+                @if (questGrp[0].quest_lvl_max > 0)
+                {
+                    <span>-  @questGrp[0].quest_lvl_max</span>
+                }
+            </td>
+        </tr>
+        @if (questName[0].quest_restricions != "")
+        {
+            <tr>
+                <th>Информация:</th>
+                <td style="padding: 5px"><strong>[ru_en{ @questName[0].quest_restricions : @questName[0].quest_restricions_en}]</strong></td>
+            </tr>
+        }
+        @if (questGrp[0].quest_complete != 0)
+        {
+            <tr>
+                <th>Законченный квест:</th>
+                <td style="padding: 5px">Необходим выполненный квест <strong>[q_end{@questGrp[0].quest_complete}]</strong></td>
+            </tr>
+        }
+        @if (questItem0.Count != 0)
+        {
+        if (questItem0[0].quest_id > 0)
+         {
+             <tr>
+                 <th>Награда:</th>
+                 <td style="padding: 5px">
+                     @{
+                         string nagrada = "";
+                         <ul>
+                             @foreach (var item in questItem0)
+                             {
+                                 <li>
+                                     @{
+                                         int z = Convert.ToInt32(item.quest_items_id);
+                                         var img = (from itemGrp in northwind.item_grp where itemGrp.item_id == z select itemGrp.item_img).ToList();
+                                         var name = (from itemGrp in northwind.item_name where itemGrp.item_id == z select itemGrp.item_name_ru).ToList();
+                                     }
+                                     <img src="/Images/icon/@string.Format("{0}.jpg", img[0])" onerror=" NpcdroploadImage(this) " style="vertical-align: middle; margin-bottom: 5px">
+                                     @name[0]
+                                     <strong>[item{@item.quest_items_id,  @item.quest_items_count ,0} @name[0] ]</strong>
+                                     @{ nagrada += "[item{" + @item.quest_items_id + ",  " + @item.quest_items_count + " ,0}" + @name[0] + " ]"; }
+                                 </li>
+                             }
+                         </ul>
+                         @nagrada
+                         ;
+                     }
+
+                 </td>
+             </tr>
+         }
+        }
+        @if (questItem1.Count > 0)
+        {
+            if (questItem1[0].quest_id > 0)
+            {
+            <tr>
+                <th>Итемы:</th>
+                <td style="background-color: #fef5c7">
+
+                    <ul>
+                        @foreach (var item in questItem1)
+                        {
+                            <li>
+                                @{
+                            try
+                            {
+                                int z2 = Convert.ToInt32(item.quest_items_id);
+                                var img = (from itemGrp in northwind.item_grp where itemGrp.item_id == z2 select itemGrp.item_img).ToList();
+                                var name = (from itemGrp in northwind.item_name where itemGrp.item_id == z2 select itemGrp.item_name_ru).ToList();
+
+                                <img src="/Images/icon/@string.Format("{0}.jpg", img[0])" onerror="NpcdroploadImage(this)" style="vertical-align: middle; margin-bottom:5px">
+                                @name[0]
+                                <strong>[item{@item.quest_items_id,  @item.quest_items_count} @name[0] ]</strong>
+                            }
+                            catch (Exception)
+                            { }
+                                }
+                                
+                            </li>
+                        }
+                    </ul>
+
+                </td>
+            </tr>
+            }
+        }
+    </tbody>
+</table>
+<div>
+    @{var xx = 1;
+        <ul style="width: 1000px">
+            @foreach (var item in questDesc)
+            {
+                <li style="margin-bottom: 15px">
+                    @xx:    <span>@item.quest_prog_name </span><strong>@item.quest_desc1 </strong>
+                    <a class="map" onclick="MapQuest('@item.quest_x,@item.quest_y')"></a>
+                    <span>[map_x{@item.quest_x,@item.quest_y}]</span>
+                </li>
+                xx++;
+            }
+
+        </ul>
+    }
+</div>
+@{  Html.Telerik().Window()
+        .Name("MapWindow")
+        .Title("Submit")
+        .Effects(fx => fx
+            .Expand())
+        .Content(@<text>
+    <div id="MapL2">Установите <a href="http://get.adobe.com/ru/flashplayer/otherversions/">flash player</a></div>
+    </text>)
+        .Width(450)
+        .Height(450)
+        .Draggable(true)
+        .Visible(false)
+        .Modal(true)
+        .Render();
+}

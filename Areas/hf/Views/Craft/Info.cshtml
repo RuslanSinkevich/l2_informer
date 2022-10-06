@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Крафт, поиск рецепта и его состав";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Description = "Lineage 2 крафт, поиск рецепта и его состав";
+}
+
+
+@using Telerik.Web.Mvc;
+@using Informer.Areas.hf.Models;
+<fieldset style="height: 45px; float: left">
+    <legend>@Informer.Resources.Views.Craft.fds_param</legend>
+    @(Html.Telerik().DropDownList()
+                      .Name("CraftLvl")
+                      .Items(items =>
+                      {
+                          items.Add().Text(@Informer.Resources.Views.Craft.lvl_1).Value("1");
+                          items.Add().Text(@Informer.Resources.Views.Craft.lvl_2).Value("2");
+                          items.Add().Text(@Informer.Resources.Views.Craft.lvl_3).Value("3");
+                          items.Add().Text(@Informer.Resources.Views.Craft.lvl_4).Value("4");
+                          items.Add().Text(@Informer.Resources.Views.Craft.lvl_5).Value("5");
+                          items.Add().Text(@Informer.Resources.Views.Craft.lvl_6).Value("6");
+                          items.Add().Text(@Informer.Resources.Views.Craft.lvl_7).Value("7");
+                          items.Add().Text(@Informer.Resources.Views.Craft.lvl_8).Value("8");
+                          items.Add().Text(@Informer.Resources.Views.Craft.lvl_9).Value("9");
+                          items.Add().Text(@Informer.Resources.Views.Craft.lvl_10).Value("10");
+                      })
+                      .SelectedIndex(0)
+                      .ClientEvents(events => events.OnClose("CraftLvlOnClose"))
+                      .HtmlAttributes(new { style = "width:135px;margin:5px 13px 7px 3px" })
+              )
+</fieldset>
+<fieldset style="height: 45px; float: left">
+    <legend>@Informer.Resources.Views.Craft.fds_param</legend>
+    @(Html.Telerik().DropDownList()
+                      .Name("CRaftTip")
+                      .Items(items =>
+                      {
+                          items.Add().Text(@Informer.Resources.Views.Craft.tip_all).Value("100");
+                          items.Add().Text(@Informer.Resources.Views.Craft.tip_weapon).Value("0");
+                          items.Add().Text(@Informer.Resources.Views.Craft.tip_armor).Value("1");
+                          items.Add().Text(@Informer.Resources.Views.Craft.tip_etc).Value("2");
+
+                      })
+                      .SelectedIndex(0)
+                      .ClientEvents(events => events.OnClose("CRaftTipOnClose"))
+                      .HtmlAttributes(new { style = "width:100px;margin:5px 13px 7px 3px" })
+              )
+</fieldset>
+<fieldset style="height: 45px; overflow: hidden; width: 10%; margin-left: 10px">
+    <legend>@Informer.Resources.Views.Craft.fds_param</legend>
+    @(Html.Telerik().DropDownList()
+                      .Name("CraftChance")
+                      .Items(items =>
+                      {
+                          items.Add().Text(@Informer.Resources.Views.Craft.tip_all).Value("-100");
+                          items.Add().Text(@Informer.Resources.Views.Craft.chance_100).Value("100");
+                          items.Add().Text(@Informer.Resources.Views.Craft.chance_70).Value("70");
+                          items.Add().Text(@Informer.Resources.Views.Craft.chance_60).Value("60");
+                      })
+                      .SelectedIndex(0)
+                      .ClientEvents(events => events.OnClose("CraftChanceOnClose"))
+                      .HtmlAttributes(new { style = "width:100px;margin:5px 13px 7px 3px" })
+              )
+</fieldset>
+
+<div class="NpcDivBloc_h">
+    <fieldset>
+        <legend>@Informer.Resources.Views.Craft.fds_rec</legend>
+        @(Html.Telerik().Grid<CraftSql>()
+        .Name("Craft")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.item_id).Hidden(true);
+            columns.Bound(c => c.item_id).Sortable(false)
+                .ClientTemplate(
+                " <img class='toltipDrop' title='' itemId ='<#= item_id #>' style='vertical-align: middle;' onerror='NpcdroploadImage(this)' src='" + Url.Content("~/Images/icon/") + "<#= item_img #>.jpg' />").Title(@Informer.Resources.Views.Npc.drop_vid).Width(40);
+            columns.Bound(c => c.item_id).Sortable(false)
+                .ClientTemplate("<img src='" + Url.Content("~/Images/cri/") + "<#= item_cry_tip #>.gif' />")
+                .Title(@Informer.Resources.Views.Npc.drop_tip).Width(36).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_name)
+                .Title(@Informer.Resources.Views.Npc.info_name)
+                .Width(220);
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_SelectCraftRec", "Craft"))
+        .Pageable(page => page.PageSize(20))
+        .Scrollable(scroll => scroll.Height(390))
+        .Sortable()
+        .Selectable()
+        .ClientEvents(events => events.OnRowSelect("CraftRowSelected"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("CraftOnDataBinding"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBound("NpcdropOnDataBound"))
+        .RowAction(row =>
+        {
+            row.Selected = row.DataItem.item_id.Equals("");
+        })
+
+)
+    </fieldset>
+</div>
+<div class="NpcDivBloc_r">
+    <fieldset>
+        <legend>@Informer.Resources.Views.Craft.fds_that</legend>
+        <div id="craft"></div>
+    </fieldset>
+    <fieldset id="NpcSpoilFd" style="margin-top: 5px;">
+        <legend>@Informer.Resources.Views.Craft.fds_consist</legend>
+        @(Html.Telerik().TreeView()
+        .Name("CraftTreeView")
+        .DataBinding(dataBinding => dataBinding
+                .Ajax().Select("_CraftLoading", "Craft")
+        )
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("CraftTVOnDataBinding"))
+        .ClientEvents(clientEvents => clientEvents.OnExpand("CraftValueSelected"))
+)
+
+    </fieldset>
+</div>
+

@@ -1,0 +1,166 @@
+﻿@{
+    Layout = null;
+}
+@model List<Informer.Models.ImageInfoModel>
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+        <meta name="viewport" content="width=device-width" />
+        <style type="text/css">
+            body {
+                background-color: #F1F1E3;
+                margin-bottom: 0;
+                margin-top: 0;
+            }
+
+            form {
+                margin: 0;
+                padding: 0;
+            }
+
+            .Frame {
+                background-color: #F1F1E3;
+                border: thin inset #F1F1E3;
+            }
+
+            body.FileArea {
+                background-color: #FFFFFF;
+                margin: 10px;
+            }
+
+            body, td, input, select {
+                font-family: 'Microsoft Sans Serif',Arial,Helvetica,Verdana;
+                font-size: 11px;
+            }
+
+            .ActualFolder {
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            .PopupButtons {
+                background-color: #E3E3C7;
+                border-top: 1px solid #D5D59D;
+                padding: 7px 10px;
+            }
+
+            .Button, button {
+                background-color: #C7C78F;
+                border: 1px solid #737357;
+                color: #3B3B1F;
+            }
+
+            .FolderListCurrentFolder img {
+                background-image: url("images/FolderOpened.gif");
+            }
+
+            .FolderListFolder img {
+                background-image: url("images/Folder.gif");
+            }
+
+            .fullHeight {
+                height: 100%;
+            }
+
+            #currentFolderPath {
+                background: none repeat scroll 0 0 #C7C78F;
+                border: 1px solid #737357;
+                color: #3B3B1F;
+                font-size: 14px;
+                font-weight: bold;
+                margin-top: 8px;
+                padding: 3px 10px 2px 15px;
+            }
+
+            .thumbList {
+                float: left;
+                margin: 0 10px 20px 0;
+                padding: 6px;
+            }
+
+            .thumbList a {
+                display: block;
+            }
+
+            .thumbList a.file {
+                border: 1px solid #DDDDDD;
+                overflow: hidden;
+                text-align: center;
+            }
+
+            .thumbList a.folder {
+                background-image: url("images/Folder32.gif");
+                background-position: center center;
+                background-repeat: no-repeat;
+                border: 1px solid #DDDDDD;
+            }
+
+            .thumbList a.file img {
+                border-style: none;
+            }
+
+            .thumbList div.name {
+                color: #AAAAAA;
+                font: 11px tahoma;
+                height: 53px;
+                margin-top: 5px;
+                overflow: hidden;
+                text-align: center;
+            }
+
+            .thumbList div.name a {
+                color: #444444;
+                font: 11px tahoma;
+            }
+
+            .thumbList div.delete {
+                border: 1px solid #DDDDDD;
+                position: absolute;
+            }
+
+            .thumbList div.delete a:hover {
+                background: none repeat scroll 0 0 #EE1111;
+            }
+
+            .thumbList div.delete a img {
+                border-style: none;
+            }
+        </style>
+        <title>Картинки</title>
+    </head>
+    <body>
+        @foreach(var item in Model)
+        {
+            <div class="thumbList">
+                <a onclick=" OpenFile('@item.PatchImg');return false; " style="width: 100px; height: 100px;" class="file" href="#">
+                    @if (@item.Height > 110 || @item.Width > 110)
+                    {
+                        <img alt="" style="width: 100px; height: 100px; " src="@item.PatchImg" />
+                    }
+                    else
+                    {   
+                        <img alt=""  src="@item.PatchImg" />
+                    }
+                </a >
+                <div style="width: 100px;" class="name">
+                    (@item.Width×@item.Height) (@(item.ImgLength/1024) КБ)<a onclick=" OpenFolder('@item.PatchImg');return false; " style="width: 100px;" href="#">@item.Name
+                                                                              <br />
+                                                                          </a>
+                </div>
+            </div>
+        }
+    </body>
+</html>
+@if (Model.Count > 0)
+{
+<script type="text/javascript">
+    function OpenFile(fileUrl)
+    {
+        window.opener.CKEDITOR.tools.callFunction(@Model[0].CkEditorFuncNum, fileUrl);
+        window.close() ;
+        window.opener.focus() ;
+    }
+</script>
+}

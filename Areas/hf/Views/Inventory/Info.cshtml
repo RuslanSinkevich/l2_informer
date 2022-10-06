@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "инвентарь, inventory поиск по параметрам и подробная инфа";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Description = "Lineage 2 inventory, инвентарь поиск по параметрам и подробная инфа";
+}
+@using Informer.Areas.hf.Models;
+
+<div style="float: left; width: 300px; height: 440px; background: url(/Images/inventar.jpg) no-repeat scroll 0 0 transparent">
+    <div style="margin: 43px 0 0 15px; position: absolute">
+        <div onclick="imgonclick(this, -32, 0, '10', '0')" onmouseover="imgOnmouseover(this, -32, 0)" onmouseout="imgOnmouseout(this, 0)" class="inventarImg" style="background-position: 0 0;"></div>
+        <div onclick="imgonclick(this, -32, -32, '4', '0')" onmouseover="imgOnmouseover(this, -32, -32)" onmouseout="imgOnmouseout(this, -32)" class="inventarImg" style="background-position: 0 -32px;"></div>
+        <div onclick="imgonclick(this, -32, -64, '20', '0')" onmouseover="imgOnmouseover(this, -32, -64)" onmouseout="imgOnmouseout(this, -64)" class="inventarImg" style="background-position: 0 -64px;"></div>
+        <div onclick="imgonclick(this, -32, -96, '9', '0')" onmouseover="imgOnmouseover(this, -32, -96)" onmouseout="imgOnmouseout(this, -96)" class="inventarImg" style="background-position: 0 -96px;"></div>
+        <div onclick="imgonclick(this, -32, -128, '6', '0')" onmouseover="imgOnmouseover(this, -32, -128)" onmouseout="imgOnmouseout(this, -128)" class="inventarImg" style="background-position: 0 -128px;"></div>
+        <div onclick="imgonclick(this, -32, -160, '2', '0')" onmouseover="imgOnmouseover(this, -32, -160)" onmouseout="imgOnmouseout(this, -160)" class="inventarImg" style="background-position: 0 -160px;"></div>
+        <div onclick="imgonclick(this, -32, -192, '30', '0')" onmouseover="imgOnmouseover(this, -32, -192)" onmouseout="imgOnmouseout(this, -192)" class="inventarImg" style="background-position: 0 -192px;"></div>
+        <div onclick="imgonclick(this, -32, -224, '3', '0')" onmouseover="imgOnmouseover(this, -32, -224)" onmouseout="imgOnmouseout(this, -224)" class="inventarImg" style="background-position: 0 -224px;"></div>
+    </div>
+
+    <div style="margin: 43px 0 0 169px; position: absolute">
+        <div onclick="imgonclick(this, -32, -320, '8', '0')" onmouseover="imgOnmouseover(this, -32, -320)" onmouseout="imgOnmouseout(this, -320)" class="inventarImg" style="background-position: 0 -320px;"></div>
+        <div onclick="imgonclick(this, -32, -352, '11,12,5', '0')" onmouseover="imgOnmouseover(this, -32, -352)" onmouseout="imgOnmouseout(this, -352)" class="inventarImg" style="background-position: 0 -352px;"></div>
+        <div onclick="imgonclick(this, -32, -384, '25', '0')" onmouseover="imgOnmouseover(this, -32, -384)" onmouseout="imgOnmouseout(this, -384)" class="inventarImg" style="background-position: 0 -384px;"></div>
+        <div onclick="imgonclick(this, -32, -384, '25', '0')" onmouseover="imgOnmouseover(this, -32, -384)" onmouseout="imgOnmouseout(this, -384)" class="inventarImg" style="background-position: 0 -384px;"></div>
+        <div onclick="imgonclick(this, -32, -416, '21', '0')" onmouseover="imgOnmouseover(this, -32, -416)" onmouseout="imgOnmouseout(this, -416)" class="inventarImg" style="background-position: 0 -416px;"></div>
+        <div onclick="imgonclick(this, -32, -448, '26', '0')" onmouseover="imgOnmouseover(this, -32, -448)" onmouseout="imgOnmouseout(this, -448)" class="inventarImg" style="background-position: 0 -448px;"></div>
+        <div onclick="imgonclick(this, -32, -448, '26', '0')" onmouseover="imgOnmouseover(this, -32, -448)" onmouseout="imgOnmouseout(this, -448)" class="inventarImg" style="background-position: 0 -448px;"></div>
+        <div onclick="imgonclick(this, -32, -480, '0', '50')" onmouseover="imgOnmouseover(this, -32, -480)" onmouseout="imgOnmouseout(this, -480)" class="inventarImg" style="background-position: 0 -480px;"></div>
+        <div onclick="imgonclick(this, -32, -512, '18', '0')" onmouseover="imgOnmouseover(this, -32, -512)" onmouseout="imgOnmouseout(this, -512)" class="inventarImg" style="background-position: 0 -512px;"></div>
+    </div>
+
+    <div style="margin: 358px 0 0 76px; position: absolute">
+        <div onclick="imgonclick(this, -32, -256, '29', '0')" onmouseover="imgOnmouseover(this, -32, -256)" onmouseout="imgOnmouseout(this, -256)" class="inventarImg" style="background-position: 0 -256px;"></div>
+    </div>
+    <div style="margin: 358px 0 0 119px; position: absolute">
+        <div onclick="imgonclick(this, -32, -288, '15,24,22', '0')" onmouseover="imgOnmouseover(this, -32, -288)" onmouseout="imgOnmouseout(this, -288)" class="inventarImg" style="background-position: 0 -288px;"></div>
+    </div>
+
+    <div style="margin: 65px 0 0 217px; position: absolute">
+        <div onclick="imgonclick(this, -32, -544, '0', '39')" onmouseover="imgOnmouseover(this, -32, -544)" onmouseout="imgOnmouseout(this, -544)" class="inventarImg2" style="background-position: 0 -544px;"></div>
+        <div onclick="imgonclick(this, -32, -576, '0', '13')" onmouseover="imgOnmouseover(this, -32, -576)" onmouseout="imgOnmouseout(this, -576)" class="inventarImg2" style="background-position: 0 -576px;"></div>
+        <div onclick="imgonclick(this, -32, -608, '0', '4')" onmouseover="imgOnmouseover(this, -32, -608)" onmouseout="imgOnmouseout(this, -608)" class="inventarImg2" style="background-position: 0 -608px;"></div>
+        <div onclick="imgonclick(this, -32, -640, '0', '10,12')" onmouseover="imgOnmouseover(this, -32, -640)" onmouseout="imgOnmouseout(this, -640)" class="inventarImg2" style="background-position: 0 -640px;"></div>
+        <div onclick="imgonclick(this, -32, -672, '0', '8,2')" onmouseover="imgOnmouseover(this, -32, -672)" onmouseout="imgOnmouseout(this, -672)" class="inventarImg2" style="background-position: 0 -672px;"></div>
+        <div onclick="imgonclick(this, -32, -704, '0', '30')" onmouseover="imgOnmouseover(this, -32, -704)" onmouseout="imgOnmouseout(this, -704)" class="inventarImg2" style="background-position: 0 -704px;"></div>
+        <div onclick="imgonclick(this, -32, -736, '0', '14')" onmouseover="imgOnmouseover(this, -32, -736)" onmouseout="imgOnmouseout(this, -736)" class="inventarImg2" style="background-position: 0 -736px;"></div>
+        <div onclick="imgonclick(this, -32, -992, '1,10,13,28,31', '0')" onmouseover="imgOnmouseover(this, -32, -992)" onmouseout="imgOnmouseout(this, -992)" class="inventarImg2" style="background-position: 0 -992px;"></div>
+    </div>
+    <div style="margin: 65px 0 0 253px; position: absolute">
+        <div onclick="imgonclick(this, -32, -768, '0', '6')" onmouseover="imgOnmouseover(this, -32, -768)" onmouseout="imgOnmouseout(this, -768)" class="inventarImg2" style="background-position: 0 -768px;"></div>
+        <div onclick="imgonclick(this, -32, -800, '0', '11')" onmouseover="imgOnmouseover(this, -32, -800)" onmouseout="imgOnmouseout(this, -800)" class="inventarImg2" style="background-position: 0 -800px;"></div>
+        <div onclick="imgonclick(this, -32, -832, '0', '27')" onmouseover="imgOnmouseover(this, -32, -832)" onmouseout="imgOnmouseout(this, -832)" class="inventarImg2" style="background-position: 0 -832px;"></div>
+        <div onclick="imgonclick(this, -32, -864, '0', '5')" onmouseover="imgOnmouseover(this, -32, -864)" onmouseout="imgOnmouseout(this, -864)" class="inventarImg2" style="background-position: 0 -864px;"></div>
+        <div onclick="imgonclick(this, -32, -896, '0', '9')" onmouseover="imgOnmouseover(this, -32, -896)" onmouseout="imgOnmouseout(this, -896)" class="inventarImg2" style="background-position: 0 -896px;"></div>
+        <div onclick="imgonclick(this, -32, -928, '0', '1')" onmouseover="imgOnmouseover(this, -32, -928)" onmouseout="imgOnmouseout(this, -928)" class="inventarImg2" style="background-position: 0 -928px;"></div>
+        <div onclick="imgonclick(this, -32, -960, '0', '32,3')" onmouseover="imgOnmouseover(this, -32, -960)" onmouseout="imgOnmouseout(this, -960)" class="inventarImg2" style="background-position: 0 -960px;"></div>
+    </div>
+
+    <div style="margin: 401px 0 0 14px; position: absolute">
+        <div onclick="imgonclick_z(this, -22, 0, 0)" id="invent_ng" onmouseover="imgOnmouseover(this, -22, 0)" onmouseout="imgOnmouseout_z(this, 0)" class="inventarImg3" style="background-position: -22px 0;"></div>
+        <div onclick="imgonclick_z(this, -22, -22, 1)" onmouseover="imgOnmouseover(this, -22, -22)" onmouseout="imgOnmouseout_z(this, -22)" class="inventarImg3" style="background-position: 0 -22px;"></div>
+        <div onclick="imgonclick_z(this, -22, -44, 2)" onmouseover="imgOnmouseover(this, -22, -44)" onmouseout="imgOnmouseout_z(this, -44)" class="inventarImg3" style="background-position: 0 -44px;"></div>
+        <div onclick="imgonclick_z(this, -22, -66, 3)" onmouseover="imgOnmouseover(this, -22, -66)" onmouseout="imgOnmouseout_z(this, -66)" class="inventarImg3" style="background-position: 0 -66px;"></div>
+        <div onclick="imgonclick_z(this, -22, -88, 4)" onmouseover="imgOnmouseover(this, -22, -88)" onmouseout="imgOnmouseout_z(this, -88)" class="inventarImg3" style="background-position: 0 -88px;"></div>
+        <div onclick="imgonclick_z(this, -22, -110, 5)" onmouseover="imgOnmouseover(this, -22, -110)" onmouseout="imgOnmouseout_z(this, -110)" class="inventarImg3" style="background-position: 0 -110px;"></div>
+        <div onclick="imgonclick_z(this, -22, -132, 6)" onmouseover="imgOnmouseover(this, -22, -132)" onmouseout="imgOnmouseout_z(this, -132)" class="inventarImg3" style="background-position: 0 -132px;"></div>
+        <div onclick="imgonclick_z(this, -22, -154, 7)" onmouseover="imgOnmouseover(this, -22, -154)" onmouseout="imgOnmouseout_z(this, -154)" class="inventarImg3" style="background-position: 0 -154px;"></div>
+    </div>
+</div>
+
+<div style="margin-left: 310px; margin-right: 22px">
+    <div>
+        <fieldset>
+            <legend>@Informer.Resources.Views.Item.fd_drop</legend>
+            @(Html.Telerik().Grid<InventoryInfoSql>()
+        .Name("Inventory")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.item_id).Sortable(false)
+                .ClientTemplate("<img class='toltipDrop' title='' itemId ='<#= item_id #>' style='vertical-align: middle;' onerror='NpcdroploadImage(this)' src='" + Url.Content("~/Images/icon/") + "<#= item_img #>.jpg' />")
+                .Title(@Informer.Resources.Views.Npc.drop_vid).Width(36);
+            columns.Bound(c => c.item_id).Sortable(false)
+                .ClientTemplate("<img src='" + Url.Content("~/Images/cri/") + "<#= item_cry_tip #>.gif' />")
+                .Title(@Informer.Resources.Views.Npc.drop_tip).Width(36).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_name)
+                .ClientTemplate(@Html.ActionLink("<#= item_name #><#if(item_add_name  != ''){ #> (<#= item_add_name #>)<#} #>", "details", "Item", new { id = "<#= item_id #>" }, null).ToString())
+                .Title(@Informer.Resources.Views.Npc.drop_name);
+            columns.Bound(c => c.item_cry_count).Width(50).Title(@Informer.Resources.Views.Inventory.cristal).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_patt).Width(50).Title(@Informer.Resources.Views.Inventory.patk).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_matt).Width(50).Title(@Informer.Resources.Views.Inventory.matak).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_pdef).Width(50).Title(@Informer.Resources.Views.Inventory.pdef).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_mdef).Width(50).Title(@Informer.Resources.Views.Inventory.mdef).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_crafr).Title(@Informer.Resources.Views.Inventory.craft).Width(50).HtmlAttributes(new { style = "text-align: center;" })
+                .ClientTemplate(
+                "<#if(item_crafr == 1){#><div class='CraftPlus'></div><#}#>").Sortable(false);
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_inventorySlot", "Inventory"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBound("NpcdropOnDataBound"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("InventoryOnDataBinding"))
+        .Sortable()
+        .Scrollable(scroll => scroll.Height(370))
+        .Pageable(pag => pag.PageSize(50))
+
+)
+        </fieldset>
+    </div>
+
+</div>

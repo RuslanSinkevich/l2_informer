@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Quest информация";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Description = "";
+}
+@using Telerik.Web.Mvc;
+@using Informer.Areas.hf.Models;
+<div style="width:600px">
+    <fieldset>
+        <legend>@Informer.Resources.Views.Item.fd_items</legend>
+        @(Html.Telerik().Grid<questName>()
+        .Name("ItemInform")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.quest_id).Title("Id").Width(35);
+            columns.Bound(c => c.quest_names).Width(700)
+                .ClientTemplate(@Html.ActionLink("<#= quest_names #>", "details_adm", "Quest", new { id = "<#= quest_id #>" }, null).ToString())
+                .Title("Редактор").Sortable(false);
+            columns.Bound(c => c.quest_names).Width(700)
+                .ClientTemplate(@Html.ActionLink("<#= quest_names #>", "details", "Quest", new { id = "<#= quest_id #>" }, null).ToString())
+                .Title("Готовый").Sortable(false);
+            columns.Bound(c => c.quest_end)
+                .ClientTemplate("<#if(quest_end == 1){#> <div class='_quest_end' title='Квест закончен'></div><#} else if(quest_end == -1){#> <div class='_quest_check' title='Квест на проверке'></div><#} else {#><div class='quest_off' title='Квест редактируеться'></div><#}#>")
+                 .Title("Р");
+            columns.Bound(c => c.quest_name_editor).Width(500).Title("Имя редактора");
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_QuestName", "Quest"))
+        .Pageable(pag => pag.PageSize(50))
+        .Sortable(config=>config.OrderBy(c=>c.Add(x => x.quest_end).Ascending()))
+        .RowAction(row =>
+        {
+            row.Selected = row.DataItem.quest_id.Equals("");
+        })
+
+)
+    </fieldset>
+</div>

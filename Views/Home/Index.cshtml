@@ -1,0 +1,82 @@
+﻿@using Calabonga.Mvc.PagedListExt
+@model PagedList<Informer.Models.news_model>
+@{
+    ViewBag.Title = "Домашняя страница";
+    string[] nameRole = { "", "Админ", "Модератор", "Редактор" };
+}
+<div class="news_blog">
+    @foreach (var item in Model)
+    {
+
+        if (User.IsInRole("Admin") == false && item.adm_edit > 0)
+        {
+            continue;
+        }
+        if (User.IsInRole("Admin"))
+        {
+            if (item.adm_edit == 2)
+            {
+        <h3 style="background: #fffacd">@Html.ActionLink(item.news_title, "News", "Home", new { area = "", id = item.news_id }, null) <span style="color: red; font-size: 12px">(Новость скрыта  на модерации)</span></h3>
+            }
+            else if (item.adm_edit == 1)
+            {
+        <h3 style="background: #fffacd">@Html.ActionLink(item.news_title, "News", "Home", new { area = "", id = item.news_id }, null) <span style="color: red; font-size: 12px">(Новость скрыта @Html.ActionLink("редактировать", "EditNews", "EditUser", new { area = "", id = item.news_id }, null))</span></h3>
+            }
+            else
+            {
+        <h3>@Html.ActionLink(item.news_title, "News", "Home", new { area = "", id = item.news_id }, null)</h3>
+            }
+        }
+        else
+        {
+        <h3>@Html.ActionLink(item.news_title, "News", "Home", new { area = "", id = item.news_id }, null)</h3>
+        }
+        <p class="meta">
+            <img width="16" height="16" src="/Images/@string.Format("{0}.png", item.roles_id)" class="icon" title="@nameRole[item.roles_id]"/>
+            @Html.ActionLink(item.user_name, "Users", "Account", new { area = "", id = item.user_name }, null)
+            (@Html.ActionLink(item.category_name, "Category", "Home", new { area = "", id = item.category_id }, null))
+            <span class="date">@if (item.news_data != null)
+                               {
+                @item.news_data.Value.ToShortDateString()
+                               }
+            </span>
+        </p>
+                               /*<div class="thumbnail left image-avatar">
+            <img width="71" height="71" src="/Images/avatar/@item.user_avatar" title="@item.user_name" alt="img">
+        </div>*/
+
+        <div class="clearfix">
+            @Html.Raw(item.news_preview)
+        </div>
+
+        <div class="comment-links">
+            <a href="http://l2mega.net/Home/News/@item.news_id#mc-container">Link</a>
+        </div>
+        <hr />
+    }
+    @if (Model.Count == 0)
+    {
+        <div style="text-align: center; margin-top: 15px">
+            <h3>В данной категории пока нет новостей</h3>
+        </div>
+    }
+</div>
+
+@Html.Partial("_RightPartial")
+
+
+@if (Model.Count > 0)
+{
+    @Html.PrevNextForPagedList(Model.PageIndex, Model, "index", null, "Назад", "Вперед", true, true, "pager")
+}
+
+<script type="text/javascript">
+    var mcSite = '22901';
+    (function () {
+        var mc = document.createElement('script');
+        mc.type = 'text/javascript';
+        mc.async = true;
+        mc.src = '//cackle.me/mc.count-min.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mc);
+    })();
+</script>

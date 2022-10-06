@@ -1,0 +1,155 @@
+﻿@{
+    var itemGrp = ViewBag.ItemGrp as List<item_grp>;
+    var itemName = (ViewBag.ItemName as List<ItemName>);
+    var itemTip = Informer.Resources.Views.Item.item_tip.Split(',');
+    ViewBag.Title = itemName[0].item_name + " " + itemName[0].item_add_name;
+    ViewBag.Description = itemName[0].item_name + " " + itemName[0].item_add_name + " " + itemName[0].item_desc;
+}
+@using Telerik.Web.Mvc;
+@using Informer.Areas.hf.Models;
+<div style="font-size: 13px; color: #e6dfd9">
+    <img  src="/Images/icon/@string.Format("{0}.jpg", itemGrp[0].item_img)" />
+    <div style="font-size: 13px; color: #fcf6ca">@itemName[0].item_name
+        @if (itemGrp[0].item_tag < 2)
+        {
+            <img style="vertical-align: middle; margin-left:5px" onerror="NpcdroploadImage(this)" src="/Images/cri/@string.Format("{0}.gif", itemGrp[0].item_cry_tip)" />
+        }
+        <span class="toolKri">
+            @if (itemGrp[0].item_cry_count > 0)
+            { 
+                @itemGrp[0].item_cry_count 
+            }
+        </span>
+    </div>
+
+    @switch (itemGrp[0].item_tip)
+    {
+        case 16: //тяж бронь
+        <span>(@itemTip[0]) </span>
+            break;
+        case 18: //лайт бронь
+        <span>(@itemTip[1]) </span>
+            break;
+        case 19: //магик бронь
+        <span>(@itemTip[2]) </span>
+            break;
+    }
+
+
+    <table id="tTool">
+        <tbody>
+            <tr>
+                <td>ID: <strong>@itemGrp[0].item_id</strong></td>
+            </tr>
+            @if (itemGrp[0].item_tag == 2) 
+            {
+                if (itemGrp[0].item_weight > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.weight <strong>@itemGrp[0].item_weight</strong></td>
+                </tr>
+                }
+                if (itemGrp[0].item_price > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.price <strong>@itemGrp[0].item_price.ToString("### ### ###")</strong></td>
+                </tr>
+                }
+            }
+            @if (itemGrp[0].item_tag == 0)
+            {
+                if (itemGrp[0].item_cry_count > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.detail_cri_count <strong>@itemGrp[0].item_cry_count</strong></td>
+                </tr>
+                }
+                if (itemGrp[0].item_patt > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.detail_p_atk <strong>@itemGrp[0].item_patt</strong></td>
+                </tr>
+                }
+                if (itemGrp[0].item_patt > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.detail_m_atk <strong>@itemGrp[0].item_matt</strong></td>
+                </tr>
+                }
+                if (itemGrp[0].item_speed_atc > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.detail_spid_atk <strong>@itemGrp[0].item_speed_atc</strong></td>
+                </tr>
+                }
+                if (itemGrp[0].item_ss_count > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.detail_soul_shut <strong>@itemGrp[0].item_ss_count</strong></td>
+                </tr>
+                }
+                if (itemGrp[0].item_sps_count > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.detail_spirit_shut <strong>@itemGrp[0].item_sps_count</strong></td>
+                </tr>
+                }
+                if (itemGrp[0].item_weight > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.weight <strong>@itemGrp[0].item_weight</strong></td>
+                </tr>
+                }
+                if (itemGrp[0].item_price > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.price <strong>@itemGrp[0].item_price.ToString("### ### ###")</strong></td>
+                </tr>
+                }
+            }
+            @if (itemGrp[0].item_tag == 1) 
+            {
+                if (itemGrp[0].item_cry_count > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.detail_cri_count <strong>@itemGrp[0].item_cry_count</strong></td>
+                </tr>
+                }
+                if (itemGrp[0].item_pdef > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.detail_p_def <strong>@itemGrp[0].item_pdef</strong></td>
+                </tr>
+                }
+                if (itemGrp[0].item_mdef > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.detail_m_def <strong>@itemGrp[0].item_mdef</strong></td>
+                </tr>
+                }
+                if (itemGrp[0].item_weight > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.weight <strong>@itemGrp[0].item_weight</strong></td>
+                </tr>
+                }
+                if (itemGrp[0].item_price > 0)
+                {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.price <strong>@itemGrp[0].item_price.ToString("### ### ###")</strong></td>
+                </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+    @if (itemName[0].item_add_name != "")
+    {
+        <div style="margin: 5px 0 0 0; font-weight: normal; color: #fff">
+            @itemName[0].item_add_name
+        </div>
+    }
+    <div style="margin: 5px 0 0 0; font-weight: normal; color: #fff">
+        @itemName[0].item_desc
+    </div>
+</div>

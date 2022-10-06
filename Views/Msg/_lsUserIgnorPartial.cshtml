@@ -1,0 +1,21 @@
+﻿@using Informer.Models
+        @(Html.Telerik().Grid<UserIgnore>()
+                .Name("msgLsIgnor")
+
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.UserName).Title("Имя").HtmlAttributes(new { style = "text-align: center;" })
+                    .ClientTemplate(Html.ActionLink("<#= UserName #>", "Users", "Account", new { id = "<#= UserName #>" }, new { style = "text-align: center;" }).ToString());
+                    columns.Bound(c => c.UserId).Title("Удалить").Width(100).Sortable(false).HtmlAttributes(new { style = "text-align: center;" }).Filterable(false)
+                    .ReadOnly(true).ClientTemplate(@Ajax.ActionLink("Удалить", "_DellIgnor", new { id = "<#= UserName #>" }, new AjaxOptions
+                    {
+                        OnSuccess = "MsgDellIgnor",
+                        HttpMethod = "post"
+                    }, new { @class = "t-button" }).ToString());
+                })
+                .DataBinding(dataBinding => dataBinding.Ajax().Select("_LsIgnorUser", "Msg"))
+                .Pageable()
+                .Scrollable()
+                .Filterable()
+                .Sortable()
+              )

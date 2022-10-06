@@ -1,0 +1,8 @@
+﻿@{
+    var craftitemName = ViewBag.CraftitemName as List<Informer.Areas.hf.Models.ItemCraft>;
+}
+<div id="craft">
+    <img class='toltipSpoil' title='' itemId ='@craftitemName[0].item_id' style="vertical-align: middle; margin:4px 7px 2px 4px" alt="@craftitemName[0].item_name" 
+         onload="NpcspoilOnDataBound()" src="/Images/icon/@string.Format("{0}.jpg", craftitemName[0].item_img)"/>
+    <strong>@Html.ActionLink(craftitemName[0].item_name, "details", "Item", new { id = craftitemName[0].item_id }, null)</strong>
+</div>

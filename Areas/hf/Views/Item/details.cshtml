@@ -1,0 +1,358 @@
+﻿@{
+    var itemGrp = ViewBag.ItemGrp as List<item_grp>;
+    if (itemGrp.Count == 0)
+    {
+        ViewBag.Title = @Informer.Resources.Views.Item.error;
+    <h2 style="text-align: center">@Informer.Resources.Views.Item.error</h2>
+        return;
+    }
+    var itemName = (ViewBag.ItemName as List<ItemName>);
+    var itemCraft = (ViewBag.ItemCraft as List<ItemCraft>);
+    var itemQuest = (ViewBag.ItemQuest as List<QuestItemNpc>);
+    var itemTip = Informer.Resources.Views.Item.item_tip.Split(',');
+    ViewBag.Title = itemName[0].item_name + " " + itemName[0].item_add_name;
+    ViewBag.Description = itemName[0].item_name + " " + itemName[0].item_add_name + " " + itemName[0].item_desc + " (" + itemName[0].item_name_er + " " + itemName[0].item_desc_er + ")";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Informer.Areas.hf.Models;
+<div>
+    <img style="float:left; margin-right:8px"  src="/Images/icon/@string.Format("{0}.jpg", itemGrp[0].item_img)" />
+    <h2 style="float: left;">@itemName[0].item_name</h2>
+    @if (itemGrp[0].item_tag < 2)
+    {
+        <img style="vertical-align: middle; margin-left:5px" onerror="NpcdroploadImage(this)" src="/Images/cri/@string.Format("{0}.gif", itemGrp[0].item_cry_tip)" />
+    }
+    <span class="lvl kri">
+        @if (itemGrp[0].item_cry_count > 0)
+        { 
+            @itemGrp[0].item_cry_count 
+        }
+    </span>
+    @switch (itemGrp[0].item_tip)
+    {
+        case 16: //тяж бронь
+        <span class="lvl tipItem">(@itemTip[0]) </span>
+            break;
+        case 18: //лайт бронь
+        <span class="lvl tipItem">(@itemTip[1]) </span>
+            break;
+        case 19: //магик бронь
+        <span class="lvl tipItem">(@itemTip[2]) </span>
+            break;
+    }
+</div>
+<div style="margin-bottom: 15px; width: 70%; clear: both">
+    @itemName[0].item_desc
+</div>
+<table id="tableNpcDetail">
+    <tbody>
+        
+        @if (itemGrp[0].item_tag == 2)
+        {   //итемы 
+            if (itemGrp[0].item_weight > 0)
+            {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.weight <strong>@itemGrp[0].item_weight</strong></td>
+                </tr>
+            }
+            if (itemGrp[0].item_price > 0)
+            {            
+                <tr>
+                    <td>@Informer.Resources.Views.Item.price <strong>@itemGrp[0].item_price.ToString("### ### ###")</strong></td>
+                </tr>
+            }
+        }
+        @if (itemGrp[0].item_tag == 0)
+        {   // оружие
+        if (itemGrp[0].item_cry_count > 0)
+        {            
+        <tr>
+            <td>@Informer.Resources.Views.Item.detail_cri_count <strong>@itemGrp[0].item_cry_count</strong></td>
+        </tr>
+        }
+        if (itemGrp[0].item_patt > 0)
+        {            
+        <tr>
+            <td>@Informer.Resources.Views.Item.detail_p_atk <strong>@itemGrp[0].item_patt</strong></td>
+        </tr>
+        }
+        if (itemGrp[0].item_patt > 0)
+        {            
+        <tr>
+            <td>@Informer.Resources.Views.Item.detail_m_atk <strong>@itemGrp[0].item_matt</strong></td>
+        </tr>
+        }
+        if (itemGrp[0].item_speed_atc > 0)
+        {            
+        <tr>
+            <td>@Informer.Resources.Views.Item.detail_spid_atk <strong>@itemGrp[0].item_speed_atc</strong></td>
+        </tr>
+        }
+        if (itemGrp[0].item_ss_count > 0)
+        {            
+        <tr>
+            <td>@Informer.Resources.Views.Item.detail_soul_shut <strong>@itemGrp[0].item_ss_count</strong></td>
+        </tr>
+        }
+        if (itemGrp[0].item_sps_count > 0)
+        {            
+        <tr>
+            <td>@Informer.Resources.Views.Item.detail_spirit_shut <strong>@itemGrp[0].item_sps_count</strong></td>
+        </tr>
+        }
+        if (itemGrp[0].item_weight > 0)
+        {            
+        <tr>
+            <td>@Informer.Resources.Views.Item.weight <strong>@itemGrp[0].item_weight</strong></td>
+        </tr>
+        }
+        if (itemGrp[0].item_price > 0)
+        {            
+        <tr>
+            <td>@Informer.Resources.Views.Item.price <strong>@itemGrp[0].item_price.ToString("### ### ###")</strong></td>
+        </tr>
+        }
+        }
+        @if (itemGrp[0].item_tag == 1)
+        { // Шмотки
+        if (itemGrp[0].item_cry_count > 0)
+        {            
+        <tr>
+            <td>@Informer.Resources.Views.Item.detail_cri_count <strong>@itemGrp[0].item_cry_count</strong></td>
+        </tr>
+        }
+        if (itemGrp[0].item_pdef > 0)
+        {            
+        <tr>
+            <td>@Informer.Resources.Views.Item.detail_p_def <strong>@itemGrp[0].item_pdef</strong></td>
+        </tr>
+        }
+        if (itemGrp[0].item_mdef > 0)
+        {            
+        <tr>
+            <td>@Informer.Resources.Views.Item.detail_m_def <strong>@itemGrp[0].item_mdef</strong></td>
+        </tr>
+        }
+        if (itemGrp[0].item_weight > 0)
+        {            
+        <tr>
+            <td>@Informer.Resources.Views.Item.weight <strong>@itemGrp[0].item_weight</strong></td>
+        </tr>
+        }
+        if (itemGrp[0].item_price > 0)
+        {            
+        <tr>
+            <td>@Informer.Resources.Views.Item.price <strong>@itemGrp[0].item_price.ToString("### ### ###")</strong></td>
+        </tr>
+        }
+        }
+
+    </tbody>
+</table>
+
+@{   
+    if (itemGrp[0].item_crafr == 1)
+    {
+    <fieldset style="display: inline; margin: 10px 0 10px 0">
+        <legend>Крафт</legend>
+        <table class="Minion">
+            <tbody>
+                <tr>
+                    <th>img</th>
+                    <th>@Informer.Resources.Views.Npc.minion_name</th>
+                </tr>
+                @if (itemCraft != null)
+                {
+                    foreach (var item in itemCraft)
+                    {
+                        <tr>
+                            <td>
+                                <img src="/Images/icon/@string.Format("{0}.jpg", item.item_img)" onerror="NpcdroploadImage(this)" style="vertical-align: middle;" /></td>
+                            <td>@Html.ActionLink(@item.item_name, "details", "Craft", new { id = @item.item_id }, null)
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </fieldset>
+    }
+    else if (System.Text.RegularExpressions.Regex.IsMatch(itemName[0].item_name, "Рецепт - ") || System.Text.RegularExpressions.Regex.IsMatch(itemName[0].item_name, "Recipe: "))
+    {
+    <fieldset style="display: inline; margin: 10px 0 10px 0">
+        <legend>Крафт</legend>
+        <table class="Minion">
+            <tbody>
+                <tr>
+                    <th>img</th>
+                    <th>@Informer.Resources.Views.Npc.minion_name</th>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="/Images/icon/@string.Format("{0}.jpg", itemGrp[0].item_img)" onerror="NpcdroploadImage(this)" style="vertical-align: middle;" /></td>
+                    <td>
+                        @Html.ActionLink(itemName[0].item_name, "details", "Craft", new { id = itemGrp[0].item_id }, null)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    }
+}
+<br/>
+@if (itemQuest.Count > 0 && itemGrp[0].item_id != 57)
+{
+    <fieldset style="display: inline; margin-bottom: 10px; margin-top: 10px">
+        <legend>@Informer.Resources.Views.Item.fds_quest</legend>
+        <table class="Minion NpcQuest">
+            <tbody>
+                <tr>
+                    <th>Имя</th>
+                    <th>lvl</th>
+                </tr>
+                @foreach (var item in itemQuest)
+                {
+                    <tr>
+                        <td>
+                            <strong><a>@Html.ActionLink(@item.quest_names, "details", "Quest", new { id = @item.quest_id }, null)</a></strong>
+                        </td>
+
+                        <td>
+                            @item.quest_lvl_min <span>-</span> @item.quest_lvl_max
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </fieldset>
+}
+<div id="itemLike" style="margin-top: 10px;">
+    @Ajax.ActionLink(@Informer.Resources.Views.Inventory.showItemLike, "_ItemLikePartial",
+    new {itemName[0].item_name },
+    new AjaxOptions
+    {
+        UpdateTargetId = "itemLike",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET"
+    },
+    new
+    {
+        @class = "css3button",
+        Style = "color: #333333;text-decoration: none; padding: 4px 5px"
+    })
+</div>
+
+<div class="NpcDivBloc_r">
+    <fieldset id="ItemDropFd">
+        <legend>@Informer.Resources.Views.Item.fd_drop</legend>
+        @(Html.Telerik().Grid<ItemDropSpoil>()
+        .Name("Itemdrop")
+        .BindTo((IEnumerable<ItemDropSpoil>)ViewBag.ItemDrop)
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.npc_id).Hidden(true);
+            columns.Bound(c => c.npc_level).Width(36).Title("lvl").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_name).Sortable(false)
+                .ClientTemplate(@Html.ActionLink("<#= npc_name #> <span  style='color:#29088A' ><#= npc_titl #></span>", "details", "Npc", new { id = "<#= npc_id #>" }, null).ToString())
+                .Template(
+                     @<text>
+                          @if (item.npc_name != "")
+                          {
+                              @Html.ActionLink(item.npc_name , "details", "Npc", new { id = @item.npc_id }, null)
+                          }
+                          <span style='color: #29088A'>@item.npc_titl </span>
+        </text>
+                        )
+                .Title(@Informer.Resources.Views.Npc.drop_name);
+            columns.Bound(c => c.item_min).Width(65).Title("min").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_max).Width(65).Title("max").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_change).ClientTemplate("<#= item_change #>").Width(100).Title(@Informer.Resources.Views.Npc.drop_chance).HtmlAttributes(new { style = "text-align: center;" });
+        })
+        .CellAction(cell => 
+        {
+            if (cell.Column.Member == "item_change")
+            {
+                var items = Convert.ToDouble(cell.DataItem.item_change);
+                if (items >= 100)
+                    items = 100;
+                if (items < 0.09)
+                {
+                    cell.Text = "1/" +  Math.Round((100 /items), 0).ToString("### ### ###").Trim();
+                }
+                else 
+                {
+                      cell.Text = Math.Round(items,2) + "%";
+                }
+            }
+        })
+        .ClientEvents(clientEvents => clientEvents.OnRowDataBound("ItemdropOnRowDataBound"))
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_Select_ItemDrop", "Item", new { itemGrp[0].item_id }))
+        .Sortable(config => config.OrderBy(c => c.Add(x => x.item_change).Descending()))
+        .Scrollable(scroll => scroll.Height(295))
+        .Pageable(page => page.PageSize(13))
+        )
+    </fieldset>
+    <fieldset id="NpcSpoilFd" style="margin-top: 5px;">
+        <legend>@Informer.Resources.Views.Item.fd_spoil</legend>
+        @(Html.Telerik().Grid<ItemDropSpoil>()
+        .Name("ItemSpoil")
+        .BindTo((IEnumerable<ItemDropSpoil>)ViewBag.ItemSpoil)
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.npc_id).Hidden(true);
+            columns.Bound(c => c.npc_level).Width(36).Title("lvl").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_name).Sortable(false)
+                .ClientTemplate(@Html.ActionLink("<#= npc_name #> <span  style='color:#29088A' ><#= npc_titl #></span>", "details", "Npc", new { id = "<#= npc_id #>" }, null).ToString())
+                .Template(
+                    @<text>
+                         @if (item != null)
+                         {
+                             @Html.ActionLink(item.npc_name, "details", "Npc", new {id = item.npc_id}, null)
+                             <span style='color: #29088A'>@item.npc_titl </span>
+                         }.
+                    </text>
+                        )
+                .Title(@Informer.Resources.Views.Npc.drop_name);
+            columns.Bound(c => c.item_min).Width(65).Title("min").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_max).Width(65).Title("max").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_change).Width(100).Title(@Informer.Resources.Views.Npc.drop_chance).HtmlAttributes(new { style = "text-align: center;" });
+        })
+        .CellAction(cell => 
+        {
+            if (cell.Column.Member == "item_change")
+            {
+                var items = Convert.ToDouble(cell.DataItem.item_change);
+                if (items >= 100)
+                    items = 100;
+                if (items < 0.09)
+                {
+                    cell.Text = "1/" + (100 / Math.Round(items, 2));
+                }
+                else 
+                {
+                      cell.Text = Math.Round(items,2) + "%";
+                }
+            }
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_Select_ItemSpoil", "Item", new {itemGrp[0].item_id }))
+        .Sortable(config=>config.OrderBy(c=>c.Add(x => x.item_change).Descending()))
+        .ClientEvents(clientEvents => clientEvents.OnLoad("ItemDetailOnLoad"))  
+        .ClientEvents(clientEvents => clientEvents.OnRowDataBound("ItemSpoilOnRowDataBound"))        
+        .Pageable(page => page.PageSize(5))
+        .Scrollable(scroll => scroll.Height(111))
+)
+    </fieldset>
+</div>
+
+<div id="mc-container">
+    <script type="text/javascript">
+        var mcSite = '22901';
+        (function () {
+            var mc = document.createElement('script');
+            mc.type = 'text/javascript';
+            mc.async = true;
+            mc.src = '//cackle.me/mc.widget-min.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mc);
+        })();
+    </script>
+</div>

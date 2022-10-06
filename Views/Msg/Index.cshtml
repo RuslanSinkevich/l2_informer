@@ -1,0 +1,330 @@
+﻿@using Informer.Models
+@model lsMessages
+
+@{
+    ViewBag.Title = "Личные сообщения";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+<div class="news_blog">
+    @{ Html.Telerik().TabStrip()
+           .Name("TabStrip")
+           .Items(tabstrip =>
+           {
+               tabstrip.Add()
+                       .Text("Личные сообшения")
+                       .Content(@<text>
+        @(Html.Telerik().Grid<MsgLsFrom>()
+                                               .Name("msgLsFrom")
+                                               .Columns(columns =>
+                                               {
+                                                   columns.Bound(o => o.Id)
+                                                          .ClientTemplate("<input class='msgInp' type='checkbox' name='checkedRecords' value='<#= Id #>' />")
+                                                          .Title("").Width(30).HtmlAttributes(new { style = "text-align:center" }).Filterable(false).Sortable(false);
+                                                   columns.Bound(c => c.Status).Title("").Width(30).Filterable(false)
+                                                          .ClientTemplate(
+                                                              "<#if(Status == 0){#>" +
+                                                              @"<div title=""Не прочитанно"" style=""background: url('/Images/unread.png') no-repeat center right;display:block; height:18px; width:20px;""><#}#>" +
+                                                              "<#if(Status == 1){#>" +
+                                                              @"<div title=""Прочитанно"" style=""background: url('/Images/send.png') no-repeat center right;display:block; height:18px; width:20px;""><#}#>");
+                                                   columns.Bound(c => c.Title).Title("Тема сообщения").HtmlAttributes(new { style = "text-align: center;" })
+                                                          .ClientTemplate(
+                                                              "<#if(Status == 0){#>" +
+                                                              @Ajax.ActionLink("<#= Title #>", "_ReadLsFrom", new { id = "<#= Id #>" }, new AjaxOptions
+                                                                              {
+                                                                                  UpdateTargetId = "LsRead",
+                                                                                  OnSuccess = "MsgReadLs",
+                                                                              }, new { style = "text-align: center; font-weight: bold;" }).ToString() + "<#}#>" +
+                                                              "<#if(Status == 1){#>" +
+                                                              @Ajax.ActionLink("<#= Title #>", "_ReadLsFrom", new { id = "<#= Id #>" }, new AjaxOptions
+                                                              {
+                                                                  UpdateTargetId = "LsRead",
+                                                                  OnSuccess = "MsgReadLs",
+                                                              }, new { style = "text-align: center;" }).ToString() + "<#}#>");
+                                                   columns.Bound(c => c.UserName).Title("Отправитель").HtmlAttributes(new { style = "text-align: center;" }).Width(150)
+                                                          .ClientTemplate(Html.ActionLink("<#= UserName #>", "Users", "Account", new { id = "<#= UserName #>" }, new { style = "text-align: center;" }).ToString());
+                                                   columns.Bound(p => p.MsgData).Width(150).Title("Дата").HtmlAttributes(new { style = "text-align: center;" }).Format("{0:dd.MM.yyyy}");
+
+                                               })
+                                               .DataBinding(dataBinding => dataBinding.Ajax().Select("_LsFrom", "Msg"))
+                                               .Pageable()
+                                               .Scrollable()
+                                               .Filterable()
+                                               .Sortable(sorting => sorting
+                                                                        .OrderBy(sortOrder => sortOrder.Add(o => o.Status)))
+                                               )
+        <p>
+            <button class="t-button t-state-default" onclick="MsgAdd()">Новое сообщение</button>
+            <button class="t-button t-state-default" onclick="MsgRead()">Прочитанные</button>
+            <button class="t-button t-state-default" onclick="MsgDel()">В корзину</button>
+            <button class="t-button t-state-default" onclick="MsgIgnor()">В игнор</button>
+        </p>
+        </text>);
+               tabstrip.Add()
+                       .Text("Отправленные")
+                       .LoadContentFrom("PartialTo", "Msg");
+               tabstrip.Add()
+                       .Text("Корзина сообшений")
+                       .LoadContentFrom("PartialDell", "Msg");
+
+               tabstrip.Add()
+                       .Text("Игнор пользователей")
+                       .LoadContentFrom("PartialUserIgnor", "Msg");
+           })
+           .SelectedIndex(0)
+           .Render();
+    }
+
+</div>
+
+@{ Html.Telerik().Window()
+        .Name("WindowLs")
+        .Title("Новое сообщение")
+        .Visible(false)
+        .Buttons(b => b.Close())
+        .Width(750)
+        .Height(450)
+        .Draggable(true)
+        .Visible(false)
+        .Modal(true)
+        .Content(@<text>
+    @{
+        Ajax.BeginForm("_AddLs", "Msg", new AjaxOptions
+        {
+            HttpMethod = "post",
+            UpdateTargetId = "errorUser",
+            LoadingElementId = "loadImg"
+        }, new { id = "form1" });
+        @Html.AntiForgeryToken()
+        <ol>
+            <li class="name">Имя
+               @Html.TextBox("toName", null, new { style = "margin-left: 30px" })
+                <img id="loadImg" src="/Images/loading.gif" style="display: none; width: 16px; height: 16px; margin-left: 20px" />
+                <div style="margin-top: 10px; text-align: left; width: 350px; float: right" class="validation-summary-errors">
+                    <div id="errorUser"></div>
+                    <div id="AddUserLs" style="color: green"></div>
+                </div>
+            </li>
+            <li class="name">Название
+                @Html.TextBox("title")
+            </li>
+            <li>
+                @Html.TextArea("subj")
+            </li>
+        </ol>
+        <button style="margin-top: 10px" type="submit" onclick="ErorLs()" class="t-button t-state-default">Добавить</button>
+    }
+    <div style="margin-top: 10px" onclick="TimeoutClose()" class="t-button t-state-default">Отмена</div>
+
+    </text>)
+        .Render();
+}
+
+@{ Html.Telerik().Window()
+        .Name("WindowLsRead")
+        .Title("Cообщение")
+        .Visible(false)
+        .Buttons(b => b.Close())
+        .Draggable(true)
+        .Visible(false)
+        .Modal(true)
+        .Width(900)
+        .Height(500)
+        .Content(@<text>
+    <fieldset style="margin: 10px; height: 88%;overflow: auto;">
+        <legend style="display: none"></legend>
+        <div id="LsRead" style="margin-top: 10px; height: 97%;overflow: auto;"></div>
+    </fieldset>
+    <button style="margin-bottom: 8px; margin-left: 10px" onclick="WindowLsEdit()" class="t-button t-state-default">Ответить</button>
+    <button style="margin-bottom: 8px;" onclick="WindowLsReadclose()" class="t-button t-state-default">Отмена</button>
+
+    </text>)
+        .Render();
+}
+<form></form>
+@{ Html.Telerik().Window()
+        .Name("LsEdit")
+        .Title("Ответ на сообшение")
+        .Visible(false)
+        .Buttons(b => b.Close())
+        .Width(900)
+        .Height(500)
+        .Draggable(true)
+        .Visible(false)
+        .Modal(true)
+        .Content(@<text>
+    @{
+        Ajax.BeginForm("_EditLs", "Msg", new AjaxOptions
+            {
+                HttpMethod = "post",
+                UpdateTargetId = "errorUser2",
+                LoadingElementId = "loadImg2"
+            }, new {id = "form3"});
+        @Html.AntiForgeryToken()
+
+        <ol>
+            <input type="hidden" value="0" name="idLs" id="idLs" />
+            <li>
+                <fieldset style="margin: 8px; height: 250px;overflow: auto;">
+                    <legend style="display: none"></legend>
+                    <div id="editLsSubj" style="margin-top: 8px; height: 240px;overflow: auto;"></div>
+                </fieldset>
+            </li>
+            <li>
+                @Html.TextArea("subjEdit")
+            </li>
+        </ol>
+                <button style="margin-top: 10px" type="submit" onclick="ErorLs()" class="t-button t-state-default">Отправить</button>
+
+    }
+        <span style="margin-top: 10px; " onclick="TimeoutCloseEdit()" class="t-button t-state-default">Отмена</span>
+                    <span style="position: absolute;margin-left: 20px; margin-top: 10px;">
+                <img id="loadImg2" src="/Images/loading.gif" style="display: none; width: 16px; height: 16px; " />
+                <div  class="validation-summary-errors">
+                    <div id="errorUser2"></div>
+                    <div id="AddUserLs2" style="color: green"></div>
+                </div></span>
+    </text>)
+        .Render();
+}
+
+<script type="text/javascript" src="../Scripts/ckeditor/ckeditor.js"></script>
+
+
+<script type="text/javascript">
+    function MsgAdd() {
+        ErorLs();
+        var window = $("#WindowLs").data("tWindow");
+        window.center().open();
+    }
+
+    function WindowLsEdit() {
+        var window = $("#LsEdit").data("tWindow");
+        var window2 = $("#WindowLsRead").data("tWindow");
+        $("#editLsSubj").html($("#LsRead").html());
+        $("#idLs").val($("#lsId").text());
+        window2.close();
+        window.center().open();
+    }
+
+    function MsgReadLs() {
+        var window = $("#WindowLsRead").data("tWindow");
+        window.center().open();
+    }
+
+    function ErorLs() {
+        $("#errorUser").text("");
+        $("#errorUser2").text("");
+    }
+
+    function WindowClose() {
+        $("#AddUserLs").text("Сообшение отправленно!");
+        setTimeout(TimeoutClose, 500);
+    }
+
+    function WindowCloseEdit() {
+        $("#AddUserLs2").text("Сообшение отправленно!");
+        setTimeout(TimeoutCloseEdit, 500);
+    }
+
+    function TimeoutCloseEdit() {
+        $("#AddUserLs2").text("");
+        var window = $("#LsEdit").data("tWindow");
+        window.close();
+        RebindLsGrid();
+    }
+
+    function WindowLsReadclose() {
+        var window = $("#WindowLsRead").data("tWindow");
+        window.close();
+        RebindLsGrid();
+    }
+
+    function TimeoutClose() {
+        $("#AddUserLs").text("");
+        var window = $("#WindowLs").data("tWindow");
+        window.close();
+        RebindLsGrid();
+    }
+
+    function MsgRead() {
+        jQuery.ajaxSettings.traditional = true;
+        var matches = $.map($('.msgInp:checked'), function (e) {
+            return +e.value;
+        });
+        $.get('../../Msg/_ReadLs', { id: matches }, function () {
+            RebindLsGrid();
+        });
+    }
+    function MsgDel() {
+        jQuery.ajaxSettings.traditional = true;
+        var matches = $.map($('.msgInp:checked'), function (e) {
+            return +e.value;
+        });
+        $.get('../../Msg/_DelLs', { id: matches }, function () {
+            RebindLsGrid();
+        });
+    }
+    function MsgDellIgnor() {
+        $('#msgLsIgnor').data('tGrid').rebind();
+    }
+
+    function MsgIgnor() {
+        jQuery.ajaxSettings.traditional = true;
+        var matches = $.map($('.msgInp:checked'), function (e) {
+            return +e.value;
+        });
+        $.get('../../Msg/_AddIgnor', { id: matches }, function () {
+            RebindLsGrid();
+        });
+    }
+
+    function RebindLsGrid() {
+        ErorLs();
+        $('#msgLsFrom').data('tGrid').sort("Status-asc");
+        var from = $('#msgLsRead').data('tGrid');
+        if (from != null)
+            from.rebind();
+        var ignor = $('#msgLsIgnor').data('tGrid');
+        if (ignor != null)
+            ignor.rebind();
+        var dell = $('#msgLsDell').data('tGrid');
+        if (dell != null)
+            dell.rebind();
+    }
+
+
+    CKEDITOR.replace('subj', {
+        toolbar: 'Basic',
+        uiColor: '#BEDDF7',
+        toolbar_Basic: //индивидуальная настройка режима Basic
+        [
+            ['Bold', 'Italic', '-', 'BulletedList', '-', 'Link', 'Unlink', '-', 'Smiley', 'Blockquote']
+        ],
+        width: 745,
+        height: 260,
+        language: 'ru',
+        filebrowserUploadUrl: '/Image/Upload',
+        filebrowserBrowseUrl: '/Image/Browser',
+        scayt_autoStartup: false,
+        disableNativeSpellChecker: false,
+        removePlugins: 'liststyle,tabletools,scayt,menubutton,contextmenu'
+    });
+    CKEDITOR.replace('subjEdit', {
+        toolbar: 'Basic',
+        uiColor: '#BEDDF7',
+        toolbar_Basic: //индивидуальная настройка режима Basic
+        [
+            ['Bold', 'Italic', '-', 'BulletedList', '-', 'Link', 'Unlink', '-', 'Smiley', 'Blockquote']
+        ],
+        width: 895,
+        height: 100,
+        language: 'ru',
+        filebrowserUploadUrl: '/Image/Upload',
+        filebrowserBrowseUrl: '/Image/Browser',
+        scayt_autoStartup: false,
+        disableNativeSpellChecker: false,
+        removePlugins: 'liststyle,tabletools,scayt,menubutton,contextmenu'
+    });
+</script>
+

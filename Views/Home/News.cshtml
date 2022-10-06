@@ -1,0 +1,74 @@
+﻿@model List<Informer.Models.news_model>
+@{
+    ViewBag.Title = Model[0].news_title;
+    ViewBag.Description = Model[0].news_title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[] nameRole = { "", "Админ", "Модератор", "Редактор" };    
+}
+
+<div style="width:70%;float: left">
+    @foreach (var item in Model)
+    {
+        if (User.IsInRole("Admin"))
+        {
+            if (item.adm_edit == 2)
+            {
+        <h4 style="background: #fffacd">@Html.ActionLink(item.news_title, "News", "Home", new { area = "", id = item.news_id }, null) <span style="color: red; font-size: 12px">(Новость скрыта  на модерации)</span></h4>
+            }
+            else if (item.adm_edit == 1)
+            {
+        <h4 style="background: #fffacd">@Html.ActionLink(item.news_title, "News", "Home", new { area = "", id = item.news_id }, null) <span style="color: red; font-size: 12px">(Новость скрыта @Html.ActionLink("редактировать", "EditNews", "EditUser", new { area = "", id = item.news_id }, null))</span></h4>
+            }
+            else
+            {
+        <h4>@Html.ActionLink(item.news_title, "News", "Home", new { area = "", id = item.news_id }, null)</h4>
+            }
+        }
+        else
+        {
+        <h4>@Html.ActionLink(item.news_title, "News", "Home", new { area = "", id = item.news_id }, null)</h4>
+        }        <p class="meta">
+            <img width="16" height="16" src="/Images/@string.Format("{0}.png", item.roles_id)" class="icon" title="@nameRole[item.roles_id]" />
+            @Html.ActionLink(item.user_name, "Users", "Account", new { area = "", id = item.user_id }, null)
+            (@item.category_name)
+            <span class="date">@if (item.news_data != null)
+                               {
+                                   @item.news_data.Value.ToShortDateString()
+                               }
+            </span>
+        </p>
+        <div class="clearfix">
+            @Html.Raw(item.news_content)
+        </div>
+    }
+
+</div>
+@Html.Partial("_RightPartial")
+<div id="mc-container">
+    <script type="text/javascript">
+        var mcSite = '22901';
+        (function () {
+            var mc = document.createElement('script');
+            mc.type = 'text/javascript';
+            mc.async = true;
+            mc.src = '//cackle.me/mc.widget-min.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mc);
+        })();
+    </script>
+</div>
+@{  Html.Telerik().Window()
+        .Name("MapWindow")
+        .Title("Submit")
+        .Effects(fx => fx
+            .Expand())
+        .Content(@<text>
+    <div id="MapL2">Установите <a href="http://get.adobe.com/ru/flashplayer/otherversions/">flash player</a></div>
+    </text>)
+        .Width(450)
+        .Height(450)
+        .Draggable(true)
+        .Visible(false)
+        .Modal(true)
+        .Render();
+}
+

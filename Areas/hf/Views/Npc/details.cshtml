@@ -1,0 +1,307 @@
+﻿@{
+    var detailss = ViewBag.details as List<NpcDetails>;
+    Debug.Assert(detailss != null, "detailss != null");
+    if (detailss.Count == 0)
+    {
+        ViewBag.Title = @Informer.Resources.Views.Npc.error;
+    <h2 style="text-align: center">@Informer.Resources.Views.Npc.error</h2>
+        return;
+    }
+    var detailSkil = (ViewBag.detailSkil as List<NpcDetailsSkils>);
+    var minion = (ViewBag.minion as List<NpcMinion>);
+    var npcQuest = (ViewBag.NpcQuest as List<QuestItemNpc>);
+    var descRb = ViewBag.descRb as List<string>;
+    ViewBag.Title = detailss[0].npc_name + " " + detailss[0].npc_title + "(" + detailss[0].npc_level + ") lvl";
+    ViewBag.Description = detailss[0].npc_name + " " + detailss[0].npc_title + "(" + detailss[0].npc_level + ") lvl" + "  (" + detailss[0].npc_name_er + " " + detailss[0].npc_title_er + ")";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Diagnostics
+@using Informer.Areas.hf.Models;
+
+
+<div style="overflow: hidden;" onload="toolNpcDetail()">
+    <h1>@detailss[0].npc_name <span style="color: #29088A; font-size: 13px">@detailss[0].npc_title </span><span class="lvl">(@detailss[0].npc_level lvl)</span></h1>
+
+    @if (descRb.Count > 0)
+    {
+        if (descRb[0] != "")
+        {
+        <div style="margin-bottom: 15px; width: 70%">
+            @descRb[0]
+        </div>
+        }
+    }
+    <table id="tableNpcDetail" style="float: left; margin-right: 5em;">
+        <tbody>
+            <tr>
+                <th>@Informer.Resources.Views.Npc.details_skils</th>
+                <td class="skills">
+                    @foreach (var item in detailSkil)
+                    {
+                        <img class="toolNpcDetail"  title="<strong style='color:blue'>@item.skil_name</strong></br>@item.skil_desc" src="/Images/icon/@string.Format("{0}.jpg", item.skil_img)">                    
+                    }
+                </td>
+            </tr>
+
+            <tr>
+                <th>@Informer.Resources.Views.Npc.details_lvl</th>
+                <td><strong>@detailss[0].npc_level</strong></td>
+            </tr>
+            @if (detailss[0].npc_hp > 0)
+            {  
+                <tr>
+                    <th>HP</th>
+                    <td><strong>@detailss[0].npc_hp.ToString("### ### ###")</strong></td>
+                </tr>
+            }
+            @if (detailss[0].npc_exp > 0)
+            {   
+                <tr>
+                    <th>Exp</th>
+                    <td><strong>@detailss[0].npc_exp.ToString("### ### ###")</strong></td>
+                </tr>
+            }
+            @if (detailss[0].npc_sp > 0)
+            {   
+                <tr>
+                    <th>SP</th>
+                    <td><strong>@detailss[0].npc_sp.ToString("### ### ###")</strong></td>
+                </tr>
+            }
+            @if (@detailss[0].npc_spawn > 0)
+            {
+                <tr>
+                    <th>@Informer.Resources.Views.Npc.details_map</th>
+                    <td>
+                        @Ajax.ActionLink(" ", "SpawnNpc",
+                new { @id = detailss[0].npc_id },
+                new AjaxOptions { HttpMethod = "POST", OnSuccess = "_Map", OnBegin = "MapName('" + detailss[0].npc_name + " (" + detailss[0].npc_level + ") lvl', true)" },
+                new { style = "background: url('/Images/map_detail.png') no-repeat center right;display:block; height:32px; width:32px;" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @{
+        var url = "/Images/save_npc/" + @detailss[0].npc_img + ".jpg";
+        var urlThubs = "/Images/save_npc/thumbnail/" + @detailss[0].npc_img + ".jpg";
+    }
+    <a title="@detailss[0].npc_name" rel="lightbox[plants]" href="@url"><img alt="" src="@urlThubs"/></a>
+</div>
+
+@if (minion.Count > 0)
+{
+    <fieldset style="display: inline; margin-bottom: 20px">
+        <legend>@Informer.Resources.Views.Npc.fds_minion</legend>
+        <table class="Minion">
+            <tbody>
+                <tr>
+                    <th>@Informer.Resources.Views.Npc.minion_name</th>
+                    <th>@Informer.Resources.Views.Npc.minion_count</th>
+                </tr>
+                @foreach (var item in minion)
+                {
+                    <tr>
+                        <td>
+                            <a>@Html.ActionLink(@item.npc_name, "details", "Npc", new { id = @item.npc_minion_id }, null)</a>
+                        </td>
+                        <td>@item.npc_minion_count</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </fieldset>
+}
+<br/>
+@if (npcQuest.Count > 0)
+{
+    <fieldset style="display: inline; margin-bottom: 10px; margin-top: 10px">
+        <legend>@Informer.Resources.Views.Npc.fds_quest</legend>
+        <table class="Minion NpcQuest">
+            <tbody>
+                <tr>
+                  <th>Имя</th>
+                  <th>lvl</th>
+                </tr>
+                @foreach (var item in npcQuest)
+                {
+                    <tr>
+                        <td>
+                            <strong><a>@Html.ActionLink(@item.quest_names, "details", "Quest", new { id = @item.quest_id }, null)</a></strong>
+                        </td>
+                        <td>
+                            @item.quest_lvl_min <span>-</span> @item.quest_lvl_max
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </fieldset>
+}
+
+<div id="NpcDetailDpSp">
+    <fieldset id="NpcDropFd" class="NpcDivBloc_r">
+        <legend>@Informer.Resources.Views.Npc.drop_box_fds</legend>
+        @(Html.Telerik().Grid<NpcDropSpoil>()
+        .Name("Npcdrop")
+        .BindTo((IEnumerable<NpcDropSpoil>)ViewBag.Npcdrop)
+        .Columns(columns =>
+        {
+            columns.Template(
+                     @<text>
+        <img itemId ='@item.item_id' class='toltipDrop' title='' style='vertical-align: middle;' onerror='NpcdroploadImage(this)'
+                        alt="@item.item_name " 
+                        src= "@Url.Content("~/Images/icon/" + item.item_img + ".jpg") " 
+                      />
+        </text>
+                        ).Title(@Informer.Resources.Views.Npc.drop_vid).Width(36);
+            columns.Template(
+                     @<text>
+        <img 
+                        src= "@Url.Content("~/Images/cri/" + item.item_cry_tip + ".gif") " 
+                      />
+        </text>
+                        ).Title(@Informer.Resources.Views.Npc.drop_tip).Width(36).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Template(
+                     @<text>
+        @Html.ActionLink(item.item_name, "details", "Item", new { id = item.item_id }, null)
+        </text>
+                        ).Title(@Informer.Resources.Views.Npc.drop_name);
+            columns.Bound(c => c.npc_min).Width(65).Title("min").Sortable(false).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_max).Width(65).Title("max").Sortable(false).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Template(
+                     @<text>
+        @{string cahce;
+          if (item.npc_chance >= 100)
+              {
+                  item.npc_chance = 100;
+              }
+          if (item.npc_chance < 0.09)
+          {
+              cahce = "1/" + Math.Round((100 / item.npc_chance), 0).ToString("# ### ### ### ###");
+          }
+          else
+          {
+              cahce = Math.Round(item.npc_chance, 2).ToString() + "%";
+          }
+            @Html.Name(cahce);
+        }
+        </text>
+                        ).Title(@Informer.Resources.Views.Npc.drop_chance).Width(100).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.category).Hidden(true);
+        })
+        .ClientEvents(clientEvents => clientEvents.OnLoad("NpcOnLoad"))
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_Select_Npcdrop", "Npc", new { npc_id = detailss[0].npc_id }))
+        .Sortable(config => config.OrderBy(c => c.Add(x => x.npc_chance).Descending()))
+        .Scrollable(scroll => scroll.Height(295))
+        )
+    </fieldset>
+    <fieldset id="NpcSpoilFd" class="NpcDivBloc_r">
+        <legend>@Informer.Resources.Views.Npc.spoil_box_fds</legend>
+        @(Html.Telerik().Grid<NpcDropSpoil>()
+        .BindTo((IEnumerable<NpcDropSpoil>)ViewBag.NpcSpoil)
+        .Name("NpcSpoil")
+        .Columns(columns =>
+        {
+            columns.Template(
+                     @<text>
+        <img itemId ='@item.item_id' class='toltipDrop' title='' style='vertical-align: middle;' onerror='NpcdroploadImage(this)'
+                        alt="@item.item_name " 
+                        src= "@Url.Content("~/Images/icon/" + item.item_img + ".jpg") " 
+                      />
+        </text>
+                        ).Title(@Informer.Resources.Views.Npc.drop_vid).Width(36);
+            columns.Template(
+                     @<text>
+        <img 
+                        src= "@Url.Content("~/Images/cri/" + item.item_cry_tip + ".gif") " 
+                      />
+        </text>
+                        ).Title(@Informer.Resources.Views.Npc.drop_tip).Width(36).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Template(
+                     @<text>
+        @Html.ActionLink(item.item_name, "details", "Item", new { id = item.item_id }, null)
+        </text>
+                        ).Title(@Informer.Resources.Views.Npc.drop_name);
+            columns.Bound(c => c.npc_min).Width(65).Title("min").Sortable(false).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_max).Width(65).Title("max").Sortable(false).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Template(
+                     @<text>
+        @{string cahce;
+              if (item.npc_chance >= 100)
+              {
+                  item.npc_chance = 100;
+              }
+          if (item.npc_chance < 0.09)
+          {
+              cahce = "1/" + Math.Round((100 / item.npc_chance), 0).ToString("# ### ### ### ###");
+          }
+          else
+          {
+              cahce = Math.Round(item.npc_chance, 2).ToString() + "%";
+          }
+            @Html.Name(cahce);
+        }
+        </text>
+                        ).Title(@Informer.Resources.Views.Npc.drop_chance).Width(100).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.category).Hidden(true);
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_Select_NpcSpoil", "Npc", new { npc_id = detailss[0].npc_id }))
+        .Sortable(config => config.OrderBy(c => c.Add(x => x.npc_chance).Descending()))
+
+)
+    </fieldset>
+</div>
+
+<div id="mc-container">
+    <script type="text/javascript">
+        var mcSite = '22901';
+        (function () {
+            var mc = document.createElement('script');
+            mc.type = 'text/javascript';
+            mc.async = true;
+            mc.src = '//cackle.me/mc.widget-min.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mc);
+        })();
+    </script>
+</div>
+
+@{  Html.Telerik().Window()
+        .Name("MapWindow")
+        .Title("Submit")
+        .Effects(fx => fx
+            .Expand())
+        .Content(@<text>
+    <div id="MapL2">Установите <a href="http://get.adobe.com/ru/flashplayer/otherversions/">flash player</a></div>
+    </text>)
+        .Width(450)
+        .Height(450)
+        .Draggable(true)
+        .Visible(false)
+        .Modal(true)
+        .Render();
+}
+
+<script type="text/javascript">
+    $('.toltipDrop').poshytip({
+        className: 'tip-darkgray',
+        offsetX: -25,
+        alignY: 'left',
+        followCursor: true,
+        slide: false,
+        hideTimeout: 0,
+        hideAniDuration: 0,
+        content: function (data2) {
+            var html = $(this).attr("itemId");
+            $.get(
+                "../../Item/itemTooltip/",
+                { item_id: html },
+                function (data) {
+                    data2(data);
+                }
+            );
+            return "load";
+        }
+    });
+
+</script>

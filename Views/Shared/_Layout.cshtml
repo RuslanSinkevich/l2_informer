@@ -1,0 +1,198 @@
+﻿@using Telerik.Web.Mvc.UI;
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <!--[if lte IE 7]>
+<style>
+.content { margin-right: -1px; } 
+ul.nav a { zoom: 1; } 
+</style>
+<![endif]-->
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="/Content/menu.css" type="text/css" media="screen, projection" />
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/Scripts/l2mega/scriptbreaker-multiple-accordion-1.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/l2mega")
+    @(Html.Telerik().StyleSheetRegistrar()
+                      .DefaultGroup(group => group
+                          .Add("telerik.common.css")
+                          .Add("telerik.vista.css")
+                          .Add("telerik.rtl.css")
+                          .Compress(true))
+                     )
+</head>
+@{
+    string ares;
+    var cookie = Request.Cookies["Area"];
+    ares = cookie != null ? cookie.Value : "hf";
+}
+<body>
+    <script src="@Url.Content("/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+            <div class="spoiler_body">
+            @Html.Partial("~/Views/Menu/_HomePartial.cshtml")
+        </div>
+    <div class="spoiler_links">
+
+    </div>
+    <div class="container">
+        <div class="header">
+            <div id="areaName">
+                <span>Хроники: </span>
+                <select onchange="AreasClick($('#area_select :selected').val())" name="_area_select" id="area_select" size="1">
+                    <option value="hf">High Five</option>
+                </select>
+                <span style="margin-left: 10px;" title="множитель дропа">Рейты дропа: </span>
+
+                @(Html.Telerik().IntegerTextBox()
+                      .Name("reitSelect")
+                      .MinValue(1)
+                      .MaxValue(1000)
+                      .Value(1)
+                      .InputHtmlAttributes(new { width = "45px" })
+                      .ClientEvents(events => events.OnChange("onChangeReit"))
+                      )
+            </div>
+            <div style="float: right; width: 60%">
+                <section id="login">
+                    @Html.Partial("_LoginPartial")
+                </section>
+            </div>
+        </div>
+        <div id="ModLog">
+            <div class="logo_png">
+            </div>
+            <div class="modulecontent">
+                <a href='http://vps-server.ru/rp/pl.php?1150' class="img-banners" target='_blank'>
+                    <img src='http://vps-server.ru/rp/_rootimages/banners/server8.gif' /></a>
+            </div>
+        </div>
+        <div id="menux">
+
+            @{Html.Telerik().Menu()
+                  .Name("MenuNews")
+                  .HtmlAttributes(new { style = "border-radius: 5px 5px 5px 5px;" })
+                  .Items(menu =>
+                      {
+                          menu.Add()
+                              .Text(@Informer.Resources.Layout.menu.home)
+                              .Action("Index", "Home", new { area = "", id = "" })
+                              .HtmlAttributes(new { onclick = "catClick(0)" })
+                              .ImageUrl("~/Images/icon/etc_blessed_kalie_i00.jpg");
+                          menu.Add()
+                              .Text("Мобы")
+                              .Url("~/" + ares + "/Npc/Info/")
+                              .ImageUrl("~/Images/icon/etc_skull_white_i00.jpg");
+                          menu.Add()
+                              .Text("Предметы")
+                              .Url("~/" + ares + "/Item/Info/")
+                              .ImageUrl("~/Images/icon/etc_box_of_adventure_2_i00.jpg");
+                          menu.Add()
+                              .Text("Инвентарь")
+                              .Url("~/" + ares + "/Inventory/Info/")
+                              .ImageUrl("~/Images/icon/weapon_tysandy_dagger_i01.jpg");
+                          menu.Add()
+                              .Text("Крафт")
+                              .Url("~/" + ares + "/Craft/Info/")
+                              .ImageUrl("~/Images/icon/skill0172.jpg");
+                          menu.Add()
+                              .Text("Скилы")
+                              .Url("~/" + ares + "/Skils/Info/")
+                              .ImageUrl("~/Images/icon/skill0163.jpg");
+                          menu.Add()
+                              .Text("Квесты")
+                              .Url("~/" + ares + "/Quest/Info/")
+                              .ImageUrl("~/Images/icon/etc_musical_note_i02.jpg");
+                      })
+                  .ItemAction(item =>
+                      {
+                          if (item.Selected)
+                              item.HtmlAttributes["class"] = "t-state-selected";
+                      })
+                  .Render();
+            }
+
+        </div>
+
+        <div class="content">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content">
+                @RenderBody()
+            </section>
+            <!-- end .content -->
+        </div>
+        <div class="sidebar1">
+            <!-- Правая панель --!>
+                <!-- end .sidebar1 -->
+        </div>
+        <div class="footer">
+            <div style="float: left; margin-left: 10px">
+                <p>&copy; @DateTime.Now.Year — l2mega.net  Lineage 2 информер</p>
+            </div>
+
+
+
+            <div style="float: right; margin: 10px 5px 0 0">
+
+                <div style="margin: 4px 5px 7px 3px">
+
+                    <!--LiveInternet counter-->
+                    <script type="text/javascript"><!--document.write("<a href='http://www.liveinternet.ru/click' " +
+    "target=_blank><img src='//counter.yadro.ru/hit?t17.5;r" +
+    escape(document.referrer) + ((typeof(screen) == "undefined") ? "" :
+        ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ?
+            screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) +
+    ";" + Math.random() +
+    "' alt='' title='LiveInternet: показано число просмотров за 24" +
+    " часа, посетителей за 24 часа и за сегодня' " +
+    "border='0' width='88' height='31'><\/a>");
+    //--></script>
+                    <!--/LiveInternet-->
+
+                </div>
+            </div>
+            <div style="float: right; margin: 17px 17px 0 0; color: #A3A3A3;">
+                <a href="http://l2mega.reformal.ru" onclick="Reformal.widgetOpen();return false;" style="color: #A3A3A3" onmouseover="Reformal.widgetPreload();">Oтзывы и предложения</a><script type="text/javascript">
+                                                                                                                                                                                             var reformalOptions = {
+                                                                                                                                                                                                 project_id: 132633,
+                                                                                                                                                                                                 show_tab: false,
+                                                                                                                                                                                                 project_host: "l2mega.reformal.ru"
+                                                                                                                                                                                             };
+
+                                                                                                                                                                                             (function () {
+                                                                                                                                                                                                 var script = document.createElement('script');
+                                                                                                                                                                                                 script.type = 'text/javascript'; script.async = true;
+                                                                                                                                                                                                 script.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'media.reformal.ru/widgets/v3/reformal.js';
+                                                                                                                                                                                                 document.getElementsByTagName('head')[0].appendChild(script);
+                                                                                                                                                                                             })();
+                </script><noscript><a href="http://reformal.ru"><img src="http://media.reformal.ru/reformal.png" /></a><a href="http://l2mega.reformal.ru">Oтзывы и предложения для l2mega.net</a></noscript>
+
+            </div>
+            <!-- end .footer -->
+        </div>
+        <!-- end .container -->
+    </div>
+    @RenderSection("scripts", required: false)
+    @(Html.Telerik().ScriptRegistrar().Globalization(true).jQuery(false))
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.spoiler_links').mouseenter(function(){
+                $('div.spoiler_body').slideDown('normal');
+            });
+            $('.spoiler_links').mouseleave(function(){
+                $('div.spoiler_body').slideUp('normal');
+            });
+            
+
+        });
+    </script>
+</body>
+</html>

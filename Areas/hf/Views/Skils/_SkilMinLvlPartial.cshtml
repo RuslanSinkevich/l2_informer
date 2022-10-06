@@ -1,0 +1,41 @@
+﻿@{
+    var skilsTree = ViewBag.skilsTree as List<Informer.Areas.hf.Models.skils_tree>;
+}
+<div id="skils">
+    @if (skilsTree.Count < 16)
+    {
+        <ul class="tabbernav">
+            @for (int i = 0; i < skilsTree.Count; i++)
+            {
+                <li><span class="SkilsML" onclick="SkilClickGrid(@ViewBag.skilClass, @skilsTree[i].skil_min_level)">@skilsTree[i].skil_min_level</span></li>
+            }
+        </ul>
+    }
+    @if (skilsTree.Count > 16)
+    {
+        <ul class="tabbernav_l">
+            @for (int i = 0; i < skilsTree.Count; i++)
+            {
+                if (i == 4)
+                { break; }     
+                <li><span class="SkilsML" onclick="SkilClickGrid(@ViewBag.skilClass, @skilsTree[i].skil_min_level)">@skilsTree[i].skil_min_level</span></li>
+            }
+        </ul>
+        <ul class="tabbernav_l" style="margin-left:20px"> 
+            <li class="SkilsML">обшие для всех</li>
+            @for (int i = 4; i < skilsTree.Count; i++)
+            {   
+                <li><span class="SkilsML" onclick="SkilClickGrid(@ViewBag.skilClass, @skilsTree[i].skil_min_level)">@skilsTree[i].skil_min_level</span></li>
+            }
+        </ul>
+    }
+</div>
+<script type="text/javascript">
+    $(".SkilsML:first").css("color", "white" );
+    skil_class = @ViewBag.skilClass;
+    skil_min_lvl = @skilsTree[0].skil_min_level;
+    var NpcSpoil = $('#SkilsTree').data('tGrid');
+    NpcSpoil.sort("skil_id-desc");;
+</script>
+
+

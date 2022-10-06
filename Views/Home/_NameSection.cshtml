@@ -1,0 +1,25 @@
+﻿<div class="news_blog_right">
+    <fieldset class="comment_all">
+        <legend>Меню</legend>
+            @Html.Partial("~/Views/Menu/_HomePartial.cshtml")
+    </fieldset>
+</div>
+@* ReSharper disable UnusedLocals *@
+<script type="text/javascript">
+    $(document).ready(function () {
+        var cuk = readCookie("CatId");
+        if (cuk == null || cuk > 0)
+            $('li#0').removeAttr('class');
+
+        $('li#' + cuk).attr('class', "active");
+
+        $(".topnav").accordion({
+            accordion: false,
+            speed: 500,
+            closedSign: '[+]',
+            openedSign: '[-]'
+        });
+    });
+
+</script>
+@* ReSharper restore UnusedLocals *@

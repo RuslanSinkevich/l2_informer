@@ -1,0 +1,167 @@
+﻿@{
+    ViewBag.Title = "Item, итемы подробная информация и поиск по всем параметрам";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Description = "lineage 2 Item, итемы подробная информация и поиск по всем параметрам";
+}
+@using Informer.Areas.hf.Models;
+<fieldset style="width: 90%;">
+    <legend>@Informer.Resources.Views.Npc.search_fds</legend>
+    <div style="float: left">
+        @(Html.Telerik().AutoComplete()
+                 .HtmlAttributes(new { style = "border-radius:5px; height:15px; width:350px" })
+                .Name("SearchByNameItem")
+                .DataBinding(binding => binding.Ajax().Select("_searchByNameItem", "Item"))
+                .ClientEvents(events => events.OnChange("ItemInfoSearch"))
+                .Filterable(filtering =>
+                      {
+                          filtering.FilterMode(AutoCompleteFilterMode.Contains);
+                          filtering.MinimumChars(3);
+                      })
+        )
+        <span style="margin-left: 10px">@Informer.Resources.Views.Item.search_span</span>
+    </div>
+</fieldset>
+<div id="itemSelect">
+
+    @{Html.Telerik().Menu()
+        .Name("Menu2")
+        .HtmlAttributes(new { style = "border-radius: 5px 5px 5px 5px;" })
+        .Items(menu =>
+        {
+            menu.Add()
+                .Text(@Informer.Resources.Views.Item.menu_money)
+                .HtmlAttributes(new { onclick = "ItemOptionSelected(22)" })
+                .ImageUrl("~/Images/icon/etc_adena_i00.jpg")
+                .ImageHtmlAttributes(new { @class = "img18" });
+            menu.Add()
+                .Text(@Informer.Resources.Views.Item.menu_potion)
+                .HtmlAttributes(new { onclick = "ItemOptionSelected(28)" })
+                .ImageUrl("~/Images/icon/etc_potion_blue_i00.jpg")
+                .ImageHtmlAttributes(new { @class = "img18" });
+            menu.Add()
+                .Text(@Informer.Resources.Views.Item.menu_scroll)
+                .HtmlAttributes(new { onclick = "ItemOptionSelected(34)" })
+                .ImageUrl("~/Images/icon/etc_scroll_of_return_i00.jpg")
+                .ImageHtmlAttributes(new { @class = "img18" });
+            menu.Add()
+                .Text(@Informer.Resources.Views.Item.menu_resi)
+                .HtmlAttributes(new { onclick = "ItemOptionSelected(20)" })
+                .ImageUrl("~/Images/icon/etc_adamantite_i00.jpg")
+                .ImageHtmlAttributes(new { @class = "img18" });
+            menu.Add()
+                .Text(@Informer.Resources.Views.Item.menu_quest)
+                .HtmlAttributes(new { onclick = "ItemOptionSelected(29)" })
+                .ImageUrl("~/Images/icon/etc_scroll_gray_i00.jpg")
+                .ImageHtmlAttributes(new { @class = "img18" });
+            menu.Add()
+                .Text(@Informer.Resources.Views.Item.menu_pet)
+                .HtmlAttributes(new { onclick = "ItemOptionSelected(26)" })
+                .ImageUrl("~/Images/icon/etc_bugle_i00.jpg")
+                .ImageHtmlAttributes(new { @class = "img18" });
+            menu.Add()
+                .Text(@Informer.Resources.Views.Item.menu_ss)
+                .HtmlAttributes(new { onclick = "ItemOptionSelected(36)" })
+                .ImageUrl("~/Images/icon/br_cash_spiritshot_a_i00.jpg")
+                .ImageHtmlAttributes(new { @class = "img18" });
+            menu.Add()
+                .Text(@Informer.Resources.Views.Item.menu_book)
+                .HtmlAttributes(new { onclick = "ItemOptionSelected(38)" })
+                .ImageUrl("~/Images/icon/etc_spell_books_white_i00.jpg")
+                .ImageHtmlAttributes(new { @class = "img18" });
+            menu.Add()
+                .Text(@Informer.Resources.Views.Item.menu_runa)
+                .HtmlAttributes(new { onclick = "ItemOptionSelected(33)" })
+                .ImageUrl("~/Images/icon/br_cash_rune_of_rp_i00.jpg")
+                .ImageHtmlAttributes(new { @class = "img18" });
+            menu.Add()
+                .Text(@Informer.Resources.Views.Item.menu_mercenaru)
+                .HtmlAttributes(new { onclick = "ItemOptionSelected(21)" })
+                .ImageUrl("~/Images/icon/mticket_cleric_fix_i00.jpg")
+                .ImageHtmlAttributes(new { @class = "img18" });
+        })
+        .Render();
+    }
+
+</div>
+<div class="NpcDivBloc_h">
+    <fieldset>
+        <legend>@Informer.Resources.Views.Item.fd_items</legend>
+        @(Html.Telerik().Grid<ItemInfo>()
+        .Name("ItemInform")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.item_id).Hidden(true);
+            columns.Bound(c => c.item_id).Sortable(false)
+                .ClientTemplate(
+                " <img class='toltipDrop' title='' itemId ='<#= item_id #>' style='vertical-align: middle;' onerror='NpcdroploadImage(this)' src='" + Url.Content("~/Images/icon/") + "<#= item_img #>.jpg' />").Title(@Informer.Resources.Views.Npc.drop_vid).Width(36);
+            columns.Bound(c => c.item_name)
+                .Title(@Informer.Resources.Views.Npc.info_name)
+                .Width(300);
+            columns.Bound(c => c.item_id).Title("D").Width(30).HeaderHtmlAttributes(new { id = "infoHedGrid", title = @Informer.Resources.Views.Npc.info_details }).Sortable(false)
+                .ClientTemplate(@Html.ActionLink(" ", "details", "Item", new { id = "<#= item_id #>" }, new { style = "background: url('/Images/info.png') no-repeat center right;display:block; height:18px; width:20px;" }).ToString());
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_searchItemInform", "Item", new { item_name = "pusto" }))
+        .Pageable(pag => pag.PageSize(13).Style(GridPagerStyles.NextPrevious))
+        .Selectable()
+        .Sortable()
+        .ClientEvents(events => events.OnRowSelect("ItemInfoRowSelected"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("ItemOnDataBinding"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBound("NpcdropOnDataBound"))
+        .RowAction(row =>
+        {
+            row.Selected = false;
+        })
+
+)
+    </fieldset>
+</div>
+<div class="NpcDivBloc_r">
+    <fieldset>
+        <legend>@Informer.Resources.Views.Item.fd_drop</legend>
+        @(Html.Telerik().Grid<ItemDropSpoil>()
+        .Name("Itemdrop")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.npc_id).Hidden(true);
+            columns.Bound(c => c.npc_level).Width(36).Title("lvl").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_name)
+                .ClientTemplate(@Html.ActionLink("<#= npc_name #> <span  style='color:#29088A' ><#= npc_titl #></span>", "details", "Npc", new { id = "<#= npc_id #>" }, null).ToString())
+                .Title(@Informer.Resources.Views.Npc.drop_name);
+            columns.Bound(c => c.item_min).Width(65).Title("min").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_max).Width(65).Title("max").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_change).Width(100).Title(@Informer.Resources.Views.Npc.drop_chance).HtmlAttributes(new { style = "text-align: center;" });
+        })
+        .Sortable()
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_Select_ItemDrop", "Item"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("ItemDropOnDataBinding"))
+        .ClientEvents(clientEvents => clientEvents.OnRowDataBound("ItemdropOnRowDataBound"))
+        .Sortable()
+        .Scrollable(scroll => scroll.Height(295))
+        .Pageable(page => page.PageSize(13))
+
+)
+    </fieldset>
+    <fieldset id="NpcSpoilFd" style="margin-top: 5px;">
+        <legend>@Informer.Resources.Views.Item.fd_spoil</legend>
+        @(Html.Telerik().Grid<ItemDropSpoil>()
+        .Name("ItemSpoil")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.npc_id).Hidden(true);
+            columns.Bound(c => c.npc_level).Width(36).Title("lvl").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_name)
+                .ClientTemplate(@Html.ActionLink("<#= npc_name #> <span  style='color:#29088A' ><#= npc_titl #></span>", "details", "Npc", new { id = "<#= npc_id #>" }, null).ToString())
+                .Title(@Informer.Resources.Views.Npc.drop_name);
+            columns.Bound(c => c.item_min).Width(65).Title("min").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_max).Width(65).Title("max").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_change).Width(100).Title(@Informer.Resources.Views.Npc.drop_chance).HtmlAttributes(new { style = "text-align: center;" });
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_Select_ItemSpoil", "Item"))
+        .Sortable()
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("ItemDropOnDataBinding"))
+        .ClientEvents(clientEvents => clientEvents.OnRowDataBound("ItemSpoilOnRowDataBound"))
+        .Pageable(page => page.PageSize(5))
+        .Scrollable(scroll => scroll.Height(111))
+)
+    </fieldset>
+</div>

@@ -1,0 +1,41 @@
+﻿@model Informer.Models.RegisterExternalLoginModel
+@{
+    ViewBag.Title = "Регистрация";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>Свяжите свою учетную запись в @ViewBag.ProviderDisplayName.</h2>
+</hgroup>
+<div id="manageForm">
+    @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Форма связывания</legend>
+                Вы прошли проверку через <strong>@ViewBag.ProviderDisplayName</strong>.
+            Введите имя пользователя на этом сайте ниже и нажмите кнопку "Подтвердить", чтобы
+                завершить вход.
+            <p></p>
+            <ol>
+                <li class="name">
+                    @Html.LabelFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </li>
+                 <li>
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email)
+                    @Html.ValidationMessageFor(m => m.Email)
+                </li>
+            </ol>
+            @Html.HiddenFor(m => m.ExternalLoginData)
+            <input class="css3button" type="submit" value="Регистрация" />
+        </fieldset>
+    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

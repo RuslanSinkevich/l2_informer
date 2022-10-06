@@ -1,0 +1,162 @@
+﻿@{
+    ViewBag.Title = "Админка";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model System.Collections.IEnumerable
+
+@{ Html.Telerik().TabStrip()
+        .Name("TabStrip")
+        .Items(tabstrip =>
+        {
+            tabstrip.Add()
+             .Text("Новости")
+             .Content(@<text>
+    @(Html.Telerik().Grid<Informer.Models.home_news>()
+                .Name("news")
+                .DataKeys(keys => keys.Add(p => p.id))
+                .DataBinding(dataBinding => dataBinding.Ajax()
+                    .Select("_SelectNews", "EditUser")
+                    .Delete("_DeleteNews", "EditUser")
+                    .Update("_UpdateNews", "EditUser"))
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.id).Width(20).Title("id").HtmlAttributes(new { style = "text-align: center;" }).ReadOnly(true).Filterable(false);
+                    columns.Bound(p => p.title).HtmlAttributes(new { style = "text-align: center;" })
+                        .ClientTemplate(@Html.ActionLink("<#= title #>", "News", "Home", new { id = "<#= id #>" }, null).ToString())
+                                     .Width(180).Title("Название");
+                    columns.Bound(p => p.data).Width(50).Title("Дата").ReadOnly(true).HtmlAttributes(new { style = "text-align: center;" });
+                    columns.Bound(p => p.category_id).Width(50).Title("Категория").HtmlAttributes(new { style = "text-align: center;" });
+                    columns.Bound(p => p.autor_id).Width(30).Title("Автор").HtmlAttributes(new { style = "text-align: center;" });
+                    columns.Bound(p => p.adm_edit).Width(30).Title("Модер").HtmlAttributes(new { style = "text-align: center;" });
+                    columns.Command(commands =>
+                        {
+                            commands.Edit().Text("Радактировать");
+                            commands.Delete().Text("Удалить");
+                        }).Width(90).Title("Команды");
+                    columns.Bound(c => c.id).Title("Edit").Width(40).Sortable(false).HtmlAttributes(new { style = "text-align: center;" }).Filterable(false)
+    .ReadOnly(true).ClientTemplate(@Html.ActionLink("Изменить", "EditNews", "EditUser", new { id = "<#= id #>" }, new { @class = "t-button" }).ToString());
+                })
+                .Pageable()
+                .Scrollable()
+                .Filterable()
+                .Sortable(sorting => sorting
+                  .OrderBy(sortOrder => sortOrder.Add(o => o.adm_edit).Descending()))       
+                  )
+            <ul>
+                <li style="list-style: none; margin: 8px 0 2px">
+                    <img src="/Images/ok.png" class="toolNpcQ" />
+                    - Статья проверенна = 0</li>
+                <li style="list-style: none">
+                    <img src="/Images/ediror.png" class="toolNpcQ" />
+                    - Статья редактируеться = 1</li>
+                <li style="list-style: none">
+                    <img src="/Images/modr.png" class="toolNpcQ" />
+                    - Статья на модерации = 2</li>
+                <li style="list-style: none">
+                    <img src="/Images/ban.png" class="toolNpcQ" />
+                    - Запрещена к публикации >= 3</li>   
+            </ul>
+    </text>);
+            tabstrip.Add()
+                        .Text("Пользователи")
+                        .Content(@<text>
+    @(Html.Telerik().Grid<Informer.Models.UserProfile>()
+                .Name("user")
+                .DataKeys(keys => keys.Add(p => p.UserId))
+                .DataBinding(dataBinding => dataBinding.Ajax()
+                                                       .Select("_SelectUser", "EditUser")
+                                                       .Insert("_InsertUser", "EditUser")
+                                                       .Update("_SaveUser", "EditUser")
+                                                       .Delete("_DeleteUser", "EditUser"))
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.UserId).Width(30).ReadOnly(true).Title("id").HtmlAttributes(new { style = "text-align: center;" });
+                    columns.Bound(p => p.UserName).Width(150).Title("Имя").HtmlAttributes(new { style = "text-align: center;" });
+                    columns.Bound(p => p.Email).Width(150);
+                    columns.Bound(p => p.Avatar).Width(100);
+                    columns.Bound(p => p.Icq).Width(60).HtmlAttributes(new { style = "text-align: center;" });
+                    columns.Bound(p => p.Skype).Width(60).HtmlAttributes(new { style = "text-align: center;" });
+                    columns.Bound(p => p.baned).Width(60).Title("Бан").HtmlAttributes(new { style = "text-align: center;" });
+                    columns.Command(commands =>
+                    {
+                        commands.Edit().Text("Радактировать").InsertText("Вставить").CancelText("Сбросить").UpdateText("Апгрейд");
+                        commands.Delete().Text("Удалить");
+                    }).Width(220).Title("Команды");
+                })
+                .Pageable()
+                .Scrollable()
+                .Sortable()
+                .Filterable()
+
+        )
+
+    </text>);
+            tabstrip.Add()
+                        .Text("Роли юзеров")
+                        .Content(@<text>
+    @(Html.Telerik().Grid<Informer.Models.webpages_UsersInRoles>()
+                .Name("user_role")
+                .DataKeys(keys => keys.Add(p => p.UserId))
+                .ToolBar(commands => commands.Insert().Text("Добавить"))
+                .DataBinding(dataBinding => dataBinding.Ajax()
+                                                       .Select("_SelectUserRole", "EditUser")
+                                                       .Insert("_InsertUserRole", "EditUser")
+                                                       .Update("_SaveUserRole", "EditUser")
+                                                       .Delete("_DeleteUserRole", "EditUser"))
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.UserId).Width(50).Title("Юзер id").HtmlAttributes(new { style = "text-align: center;" });
+                    columns.Bound(p => p.RoleId).Width(50).Title("Роль id").HtmlAttributes(new { style = "text-align: center;" });
+                    columns.Command(commands =>
+                    {
+                        commands.Edit().InsertText("Вставить");
+                        commands.Delete().Text("Удалить");
+                    }).Width(220).Title("Команды");
+                })
+                .Pageable()
+                .Scrollable()
+                .Sortable()
+        )
+
+    </text>);
+            tabstrip.Add()
+                        .Text("Категории новостей")
+                        .Content(@<text>
+    @(Html.Telerik().Grid<Informer.Models.category_news>()
+                .Name("catNews")
+                .DataKeys(keys => keys.Add(p => p.cat_id))
+                .ToolBar(commands => commands.Insert().Text("Добавить"))
+                .DataBinding(dataBinding => dataBinding.Ajax()
+                                                       .Select("_SelectСatNews", "EditUser")
+                                                       .Insert("_InsertСatNews", "EditUser")
+                                                       .Update("_SaveСatNews", "EditUser")
+                                                       .Delete("_DeleteСatNews", "EditUser"))
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.cat_id).Width(90).Title("Категория id").ReadOnly(true).HtmlAttributes(new { style = "text-align: center;" });
+                    columns.Bound(p => p.cat_name).Title("Имя категории").HtmlAttributes(new { style = "text-align: center;" });
+                    columns.Command(commands =>
+                    {
+                        commands.Edit().Text("Радактировать").InsertText("Вставить").CancelText("Сбросить").UpdateText("Апгрейд");
+                        commands.Delete().Text("Удалить");
+                    }).Width(200).Title("Команды");
+                })
+                .Pageable()
+                .Scrollable()
+                .Sortable()
+        )
+
+    </text>);
+            tabstrip.Add()
+             .Text("Карта сайта")
+             .Content(@<text>
+    @Html.ActionLink("Добавить итемы в карту сайта", "add_map", "Admin")
+    </text>);
+        })
+        .SelectedIndex(0)
+        .Render();
+}
+
+
+
+

@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "О программе";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+
+<article>
+    <p>
+        В этой области можно указать дополнительные сведения.
+    </p>
+
+    <p>
+        В этой области можно указать дополнительные сведения.
+    </p>
+
+    <p>
+        В этой области можно указать дополнительные сведения.
+    </p>
+</article>
+
+<aside>
+    <h3>Заголовок боковой панели</h3>
+    <p>
+        В этой области можно указать дополнительные сведения.
+    </p>
+    <ul>
+        <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
+        <li>@Html.ActionLink("О программе", "About", "Home")</li>
+        <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
+    </ul>
+</aside>

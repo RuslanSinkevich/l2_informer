@@ -1,0 +1,49 @@
+﻿@using Informer.Areas.hf.Models;
+
+<div class="NpcDivBloc_r">
+    <fieldset>
+        <legend>@Informer.Resources.Views.Item.fd_drop</legend>
+        @(Html.Telerik().Grid<ItemDropSpoil>()
+        .Name("Itemdrop")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.npc_id).Hidden(true);
+            columns.Bound(c => c.npc_level).Width(36).Title("lvl").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_level).Sortable(false)
+                .ClientTemplate(@Html.ActionLink("<#= npc_name #> <span  style='color:#29088A' ><#= npc_titl #></span>", "details", "Npc", new { id = "<#= npc_id #>" }, null).ToString())
+                .Title(@Informer.Resources.Views.Npc.drop_name);
+            columns.Bound(c => c.item_min).Width(65).Title("min").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_max).Width(65).Title("max").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_change).Width(100).Title(@Informer.Resources.Views.Npc.drop_chance).HtmlAttributes(new { style = "text-align: center;" });
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_Select_ItemDrop", "Item", new { item_id = Model }))
+        .ClientEvents(clientEvents => clientEvents.OnRowDataBound("ItemdropOnRowDataBound"))
+        .Sortable(config=>config.OrderBy(c=>c.Add(x => x.item_change).Descending()))
+        .Scrollable(scroll => scroll.Height(295))
+        .Pageable(page => page.PageSize(13))
+
+)
+    </fieldset>
+    <fieldset id="NpcSpoilFd" style="margin-top: 5px;">
+        <legend>@Informer.Resources.Views.Item.fd_spoil</legend>
+        @(Html.Telerik().Grid<ItemDropSpoil>()
+        .Name("ItemSpoil")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.npc_id).Hidden(true);                        
+            columns.Bound(c => c.npc_level).Width(36).Title("lvl").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.npc_level).Sortable(false)
+                .ClientTemplate(@Html.ActionLink("<#= npc_name #> <span  style='color:#29088A' ><#= npc_titl #></span>", "details", "Npc", new { id = "<#= npc_id #>" }, null).ToString())
+                .Title(@Informer.Resources.Views.Npc.drop_name);
+            columns.Bound(c => c.item_min).Width(65).Title("min").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_max).Width(65).Title("max").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.item_change).Width(100).Title(@Informer.Resources.Views.Npc.drop_chance).HtmlAttributes(new { style = "text-align: center;" });
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_Select_ItemSpoil", "Item", new { item_id = Model }))
+        .Sortable(config=>config.OrderBy(c=>c.Add(x => x.item_change).Descending()))
+        .ClientEvents(clientEvents => clientEvents.OnRowDataBound("ItemdropOnRowDataBound"))
+        .Pageable(page => page.PageSize(5))
+        .Scrollable(scroll => scroll.Height(111))
+)
+    </fieldset>
+</div>

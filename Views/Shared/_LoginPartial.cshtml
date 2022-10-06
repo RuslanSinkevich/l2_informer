@@ -1,0 +1,36 @@
+﻿@using Informer.Models
+    <div style="float:left; width: 160px">
+        <a id="LocalizatiOn" href="#" onclick="LocalizationClick()"></a>
+    </div>
+
+@if (Request.IsAuthenticated)
+{
+    <text>
+        Здравствуйте, 
+        @Html.ActionLink(User.Identity.Name, "Users", "Account", new  { area = "", id=User.Identity.Name }, new { @class = "username", title = "Управление" })
+        @{
+            var db = new home();
+            var userInfo = WebSecurity.GetUserId(User.Identity.Name);
+            var ls = db.lsMessages.Count(x => x.from_id == userInfo && x.status == 0);
+            if (ls > 0)
+            {
+                @Html.ActionLink("сообшения " + @ls, "Index", "Msg", new { area = "" }, new { style="text-transform: none;"})
+
+            }
+        }
+        @Html.ActionLink("Добавить новость", "AddNews", "Home", new { area = "" }, new { style="text-transform: none;"})
+        @using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new {  id = "logoutForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
+        }
+
+    </text>
+}
+else
+{
+    <ul>
+        <li>@Html.ActionLink("Регистрация", "Register", "Account", new  { area = "" }, new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Вход", "Login", "Account", new  { area = "" }, new { id = "loginLink" })</li>
+    </ul>
+}

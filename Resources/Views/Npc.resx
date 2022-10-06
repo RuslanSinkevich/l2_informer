@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="all" xml:space="preserve">
+    <value>Все</value>
+    <comment>выбор  (вкладке мобы)</comment>
+  </data>
+  <data name="button_hiden" xml:space="preserve">
+    <value>Скрыть</value>
+    <comment>Кнопка скрываюшая доп параметры поиска</comment>
+  </data>
+  <data name="button_reset" xml:space="preserve">
+    <value>X</value>
+    <comment>Сбросить параметры нпс </comment>
+  </data>
+  <data name="button_reset_tool" xml:space="preserve">
+    <value>Сбросить уровень мобов</value>
+    <comment>Тултип кнопки сброс уровень мобов</comment>
+  </data>
+  <data name="button_tooltip" xml:space="preserve">
+    <value>Скрыть\Показать панель дополнительных кнопок</value>
+    <comment>Тултип кнопки  Скрыть\Показать</comment>
+  </data>
+  <data name="combo_npc" xml:space="preserve">
+    <value>Тип мобов:</value>
+    <comment>имя комбобокса   (вкладке мобы)</comment>
+  </data>
+  <data name="combo_vulnerability" xml:space="preserve">
+    <value>Подбор по уязвимостям:</value>
+    <comment>имя комбобокса  (вкладке мобы)</comment>
+  </data>
+  <data name="DropDownListReita_1" xml:space="preserve">
+    <value>Hp 1х</value>
+    <comment>Дроп лист рейтов</comment>
+  </data>
+  <data name="DropDownListReita_1_2" xml:space="preserve">
+    <value>1/2 Hp</value>
+    <comment>Дроп лист рейтов</comment>
+  </data>
+  <data name="DropDownListReita_1_4" xml:space="preserve">
+    <value>1/4 Hp</value>
+    <comment>Дроп лист рейтов</comment>
+  </data>
+  <data name="DropDownListReita_2x" xml:space="preserve">
+    <value>Hp увеличены (2х)</value>
+    <comment>Дроп лист рейтов</comment>
+  </data>
+  <data name="DropDownListReita_3x" xml:space="preserve">
+    <value>Hp увеличены (3х)</value>
+    <comment>Дроп лист рейтов</comment>
+  </data>
+  <data name="DropDownListReita_4x" xml:space="preserve">
+    <value>Hp увеличены (4х)</value>
+    <comment>Дроп лист рейтов</comment>
+  </data>
+  <data name="DropDownListReita_5x" xml:space="preserve">
+    <value>Hp увеличены (5х)</value>
+    <comment>Дроп лист рейтов</comment>
+  </data>
+  <data name="DropDownListReita_6x_" xml:space="preserve">
+    <value>Hp увеличены (6х и выше)</value>
+    <comment>Дроп лист рейтов</comment>
+  </data>
+  <data name="DropDownListReita_all" xml:space="preserve">
+    <value>Все</value>
+    <comment>Дроп лист рейтов</comment>
+  </data>
+  <data name="drop_box_fds" xml:space="preserve">
+    <value>Дроп</value>
+    <comment>Имя комбобокса fieldset</comment>
+  </data>
+  <data name="drop_chance" xml:space="preserve">
+    <value>Шанс</value>
+    <comment>имя  столбца грида Npcdrop NpcSpoil</comment>
+  </data>
+  <data name="drop_name" xml:space="preserve">
+    <value>Название</value>
+    <comment>имя  столбца грида Npcdrop NpcSpoil</comment>
+  </data>
+  <data name="drop_tip" xml:space="preserve">
+    <value>Тип</value>
+    <comment>имя  столбца грида Npcdrop NpcSpoil</comment>
+  </data>
+  <data name="drop_vid" xml:space="preserve">
+    <value>Вид</value>
+    <comment>имя  столбца грида Npcdrop NpcSpoil</comment>
+  </data>
+  <data name="grand_rb" xml:space="preserve">
+    <value>Гранд РБ</value>
+    <comment>выбор  (вкладке мобы)</comment>
+  </data>
+  <data name="info_box_fds" xml:space="preserve">
+    <value>Список мобов</value>
+    <comment>Имя комбобокса fieldset</comment>
+  </data>
+  <data name="info_lvl" xml:space="preserve">
+    <value>Ур.</value>
+    <comment>имя  столбца грида NpcInform</comment>
+  </data>
+  <data name="info_name" xml:space="preserve">
+    <value>Название</value>
+    <comment>имя  столбца грида NpcInform</comment>
+  </data>
+  <data name="mobs" xml:space="preserve">
+    <value>Мобы</value>
+    <comment>выбор  (вкладке мобы)</comment>
+  </data>
+  <data name="npc" xml:space="preserve">
+    <value>Npc</value>
+    <comment>выбор  (вкладке мобы)</comment>
+  </data>
+  <data name="rb" xml:space="preserve">
+    <value>Рейд босс</value>
+    <comment>выбор  (вкладке мобы)</comment>
+  </data>
+  <data name="search_fds" xml:space="preserve">
+    <value>Поиск</value>
+    <comment>Загаловок fieldset</comment>
+  </data>
+  <data name="search_span" xml:space="preserve">
+    <value>Введите имя NPC для поиска (русское или английское).</value>
+  </data>
+  <data name="spoil_box_fds" xml:space="preserve">
+    <value>Споил</value>
+    <comment>Имя комбобокса fieldset</comment>
+  </data>
+  <data name="vb_darc" xml:space="preserve">
+    <value>Тьма</value>
+    <comment>уязвимость  (вкладке мобы)</comment>
+  </data>
+  <data name="vb_earth" xml:space="preserve">
+    <value>Земля</value>
+    <comment>уязвимость  (вкладке мобы)</comment>
+  </data>
+  <data name="vb_faer" xml:space="preserve">
+    <value>Огонь</value>
+    <comment>уязвимость  (вкладке мобы)</comment>
+  </data>
+  <data name="vb_holy" xml:space="preserve">
+    <value>Свет</value>
+    <comment>уязвимость  (вкладке мобы)</comment>
+  </data>
+  <data name="vb_water" xml:space="preserve">
+    <value>Вода</value>
+    <comment>уязвимость  (вкладке мобы)</comment>
+  </data>
+  <data name="vb_wind" xml:space="preserve">
+    <value>Ветер</value>
+    <comment>уязвимость  (вкладке мобы)</comment>
+  </data>
+  <data name="fd_npc_lvl" xml:space="preserve">
+    <value>Уровень</value>
+    <comment>имя комбобокса  (вкладке мобы)</comment>
+  </data>
+  <data name="fd_npc_raites" xml:space="preserve">
+    <value>Рейты</value>
+    <comment>имя комбобокса  (вкладке мобы)</comment>
+  </data>
+  <data name="vb_blunt" xml:space="preserve">
+    <value>Тупое</value>
+    <comment>уязвимость  (вкладке мобы)</comment>
+  </data>
+  <data name="vb_bow" xml:space="preserve">
+    <value>Лук</value>
+    <comment>уязвимость  (вкладке мобы)</comment>
+  </data>
+  <data name="vb_dager" xml:space="preserve">
+    <value>Дагер</value>
+    <comment>уязвимость  (вкладке мобы)</comment>
+  </data>
+  <data name="vb_dual" xml:space="preserve">
+    <value>Дуал</value>
+    <comment>уязвимость  (вкладке мобы)</comment>
+  </data>
+  <data name="vb_kastet" xml:space="preserve">
+    <value>Кастет</value>
+    <comment>уязвимость  (вкладке мобы)</comment>
+  </data>
+  <data name="vb_spear" xml:space="preserve">
+    <value>Копьё</value>
+    <comment>уязвимость  (вкладке мобы)</comment>
+  </data>
+  <data name="vb_sword" xml:space="preserve">
+    <value>Мечь</value>
+    <comment>уязвимость  (вкладке мобы)</comment>
+  </data>
+  <data name="localiz_en" xml:space="preserve">
+    <value>English information</value>
+    <comment>выбор языка отображения информации</comment>
+  </data>
+  <data name="localiz_fds" xml:space="preserve">
+    <value>Язык инфы</value>
+    <comment>выбор языка отображения информации</comment>
+  </data>
+  <data name="localiz_ru" xml:space="preserve">
+    <value>Русский язык инфы</value>
+    <comment>выбор языка отображения информации</comment>
+  </data>
+  <data name="info_details" xml:space="preserve">
+    <value>Подробная информация</value>
+    <comment>Тултип</comment>
+  </data>
+  <data name="info_map" xml:space="preserve">
+    <value>Карта</value>
+    <comment>Тултип </comment>
+  </data>
+  <data name="button_show" xml:space="preserve">
+    <value>дроп / споил npc</value>
+    <comment>Кнопка показываюшая доп параметры </comment>
+  </data>
+  <data name="details_lvl" xml:space="preserve">
+    <value>Уровень</value>
+    <comment>npc детали</comment>
+  </data>
+  <data name="details_map" xml:space="preserve">
+    <value>Карта</value>
+    <comment>npc детали</comment>
+  </data>
+  <data name="details_skils" xml:space="preserve">
+    <value>Скилы</value>
+    <comment>npc детали</comment>
+  </data>
+  <data name="fds_minion" xml:space="preserve">
+    <value>Охрана</value>
+    <comment>вкладка detail имя комбобокса</comment>
+  </data>
+  <data name="minion_count" xml:space="preserve">
+    <value>Кол-во</value>
+    <comment>вкладка detail столбец</comment>
+  </data>
+  <data name="minion_name" xml:space="preserve">
+    <value>Имя</value>
+    <comment>вкладка detail столбец </comment>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Ошибка! Npc не найден</value>
+  </data>
+  <data name="fds_quest" xml:space="preserve">
+    <value>Квесты где встречается нпц</value>
+  </data>
+</root>

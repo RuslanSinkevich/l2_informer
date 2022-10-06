@@ -1,0 +1,13 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error | " + Model.Exception.Message;
+}
+
+<h2>
+    К сожалению, произошла ошибка при обработке запроса</h2>
+<h3>@Model.Exception.GetType()</h3>
+<div>
+  <span style="color:#f00">@Model.Exception.Message</span>
+  <pre style="overflow: auto; background-color: #FFFB97; color: #134D82; font-size: 11px;">@Model.Exception.StackTrace</pre>
+</div>

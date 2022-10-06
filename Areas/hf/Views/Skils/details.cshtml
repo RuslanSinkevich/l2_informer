@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var skilViev = (ViewBag.SkilViev as List<SkilDetail>);
+    ViewBag.Title = skilViev[0].skil_name;
+    ViewBag.Description = skilViev[0].skil_name + " (" + skilViev[0].skil_desc + ") " + " (" + skilViev[0].skil_name_er + ") ";
+}
+@using Informer.Areas.hf.Models;
+
+<div>
+    <img style="float:left; margin-right:8px"  src="/Images/icon/@string.Format("{0}.jpg", skilViev[0].skil_img)" />
+    <h1>@skilViev[0].skil_name</h1>
+</div>
+
+<table style="text-align:left; width:70%;" >
+    <tbody>
+        <tr>
+            <th>@Informer.Resources.Views.Skils.th_desc</th>
+            <td style="padding:3px">
+                @skilViev[0].skil_desc
+            </td>
+        </tr>
+        <tr>
+            <th>@Informer.Resources.Views.Skils.th_tip</th>
+            <td style="padding:3px">
+                @skilViev[0].skil_oper_type
+            </td>
+        </tr>
+    </tbody>
+</table>
+@model IEnumerable<SkilDetail>
+
+    <fieldset style=" width:80%; margin-top:15px">
+        <legend>@Informer.Resources.Views.Skils.fd_tochka</legend>
+        @(Html.Telerik().Grid(Model.OrderBy(x => x.skil_lvl))
+        .Name("Itemdrop")
+        .PrefixUrlParameters(false)
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.skil_lvl).Width(35).Title("lvl").HtmlAttributes(new { style = "text-align: center;" });            
+            columns.Bound(c => c.skil_desc_add1).Sortable(false).Width(80).Title(@Informer.Resources.Views.Skils.grid_lvl_detail).HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.skil_desc_add2).Sortable(false).Width(150).Title(@Informer.Resources.Views.Skils.grid_add1_detail);
+            columns.Bound(c => c.skil_desc).Sortable(false).Width(300).Title(@Informer.Resources.Views.Skils.grid_desc_detail);
+        })
+        .Scrollable(scroll => scroll.Height(400))
+)
+    </fieldset>
+
+<div id="mc-container">
+    <script type="text/javascript">
+        var mcSite = '22901';
+        (function () {
+            var mc = document.createElement('script');
+            mc.type = 'text/javascript';
+            mc.async = true;
+            mc.src = '//cackle.me/mc.widget-min.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mc);
+        })();
+    </script>
+</div>

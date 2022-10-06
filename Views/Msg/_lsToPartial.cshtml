@@ -1,0 +1,22 @@
+﻿@using Informer.Models
+        @(Html.Telerik().Grid<MsgLsFrom>()
+                .Name("msgLsRead")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.Title).Title("Тема сообщения").HtmlAttributes(new { style = "text-align: center;" })
+                        .ClientTemplate(@Ajax.ActionLink("<#= Title #>", "_ReadLsTo", new { id = "<#= Id #>" }, new AjaxOptions
+                                                              {
+                                                                  UpdateTargetId = "LsRead",
+                                                                  OnSuccess = "MsgReadLs",
+                                                              }, new { style = "text-align: center;" }).ToString()); 
+                    columns.Bound(c => c.UserName).Title("Кому").HtmlAttributes(new { style = "text-align: center;" }).Width(150)
+                    .ClientTemplate(Html.ActionLink("<#= UserName #>", "Users", "Account", new { id = "<#= UserName #>" }, new { style = "text-align: center;" }).ToString());
+                    columns.Bound(p => p.MsgData).Width(150).Title("Дата").HtmlAttributes(new { style = "text-align: center;" }).Format("{0:dd.MM.yyyy}");
+                })
+                .DataBinding(dataBinding => dataBinding.Ajax().Select("_LsTo", "Msg"))
+                .Pageable()
+                .Scrollable()
+                .Filterable()
+                .Sortable(sorting => sorting
+                    .OrderBy(sortOrder => sortOrder.Add(o => o.MsgData).Descending()))
+                    )

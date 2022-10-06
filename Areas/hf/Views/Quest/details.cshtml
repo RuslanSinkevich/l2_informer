@@ -1,0 +1,59 @@
+﻿@using Informer.Areas.hf.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var questFull = (List<questFull>)ViewBag.QuestFull;
+    var questName = (List<questName>)ViewBag.QuestName;
+    ViewBag.Title = questName[0].quest_names;
+    ViewBag.Description = "Квест: " + questName[0].quest_names +" - " + questName[0].quest_short_desc + " (" + questName[0].quest_names_er + " - " + questName[0].quest_short_desc_er + ")";
+}
+@if (questFull.Count > 0)
+{
+    if (questFull[0].quest_end == 1)
+    {
+    <div class="_quest_end" title="Квест закончен"></div>
+    }
+    else if (questFull[0].quest_end == -1)
+    {
+    <div class="_quest_check" title="Квест на проверке"></div>
+    }
+    else
+    {
+    <div class="quest_off" title="Квест редактируеться"></div>
+    }
+}
+<h1>@questName[0].quest_names</h1>
+<div style="margin-bottom: 15px">@questName[0].quest_short_desc</div>
+@if (questFull.Count > 0)
+{
+    @Html.Raw(questFull[0].quest_fulls)
+}
+
+@{  Html.Telerik().Window()
+        .Name("MapWindow")
+        .Title("Submit")
+        .Effects(fx => fx
+            .Expand())
+        .Content(@<text>
+    <div id="MapL2">Установите <a href="http://get.adobe.com/ru/flashplayer/otherversions/">flash player</a></div>
+    </text>)
+        .Width(450)
+        .Height(450)
+        .Draggable(true)
+        .Visible(false)
+        .Modal(true)
+        .Render();
+}
+<script type="text/javascript">NpcdropOnDataBound(); toolNpcDetail();</script>
+
+<div id="mc-container">
+    <script type="text/javascript">
+        var mcSite = '22901';
+        (function () {
+            var mc = document.createElement('script');
+            mc.type = 'text/javascript';
+            mc.async = true;
+            mc.src = '//cackle.me/mc.widget-min.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mc);
+        })();
+    </script>
+</div>

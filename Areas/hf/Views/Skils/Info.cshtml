@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Lineage 2 Скилы, классы описание и тип";
+    ViewBag.Description = "Скилы, классы описание и тип";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Informer.Areas.hf.Models;
+
+<fieldset style="overflow: hidden; width: 63%; margin-left: 10px;">
+    <legend>@Informer.Resources.Views.Skils.fd_class</legend>
+    <div>
+        <div title="@Informer.Resources.Views.Skils.tool_human" onclick="imgonclick_skil(this, -97, 0, '0, 10')" onmouseover="imgOnmouseover(this, -97, 0)" onmouseout="imgOnmouseout(this, 0)" class="SkilsImg" style="background-position: 0 0;"></div>
+        <div title="@Informer.Resources.Views.Skils.tool_elf"  onclick="imgonclick_skil(this, -97, -57, '18, 25')" onmouseover="imgOnmouseover(this, -97, -57)" onmouseout="imgOnmouseout(this, -57)" class="SkilsImg" style="background-position: 0 -57px;"></div>
+        <div title="@Informer.Resources.Views.Skils.tool_darc_elf" onclick="imgonclick_skil(this, -97, -114, '31 , 38')" onmouseover="imgOnmouseover(this, -97, -114)" onmouseout="imgOnmouseout(this, -114)" class="SkilsImg" style="background-position: 0 -114px;"></div>
+        <div title="@Informer.Resources.Views.Skils.tool_orc"  onclick="imgonclick_skil(this, -97, -171, '44 , 49')" onmouseover="imgOnmouseover(this, -97, -171)" onmouseout="imgOnmouseout(this, -171)" class="SkilsImg" style="background-position: 0 -171px;"></div>
+        <div title="@Informer.Resources.Views.Skils.tool_kamael"  onclick="imgonclick_skil(this, -97, -228, '123 , 124')" onmouseover="imgOnmouseover(this, -97, -228)" onmouseout="imgOnmouseout(this, -228)" class="SkilsImg" style="background-position: 0 -228px;"></div>
+        <div title="@Informer.Resources.Views.Skils.tool_dvarf"  onclick="imgonclick_skil(this, -97, -285, '53')" onmouseover="imgOnmouseover(this, -97, -285)" onmouseout="imgOnmouseout(this, -285)" class="SkilsImg" style="background-position: 0 -285px;"></div>
+    </div>
+</fieldset>
+
+<div style="width: 22%; float: left; margin: 3px;">
+    <fieldset>
+        <legend>@Informer.Resources.Views.Skils.fd_prof</legend>
+        @(Html.Telerik().TreeView()
+        .Name("SkilsTreeView")
+        .DataBinding(dataBinding => dataBinding
+                .Ajax().Select("_CharLoading", "Skils")
+        )
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("SkilsOnDataBinding"))
+        .ClientEvents(clientEvents => clientEvents.OnExpand("SkilsOnExpand"))
+        .ClientEvents(clientEvents => clientEvents.OnSelect("SkilsOnSelect"))
+)
+    </fieldset>
+</div>
+
+
+<div class="NpcDivBloc_r NpcDivBloc_r2">
+    <fieldset style="height:45px">
+        <legend>@Informer.Resources.Views.Skils.fd_lvl_class</legend>
+        <div id="skils"></div>
+    </fieldset>
+    <fieldset id="NpcSpoilFd" style="margin-top: 5px;">
+        <legend>@Informer.Resources.Views.Skils.fd_clas_skils</legend>
+        @(Html.Telerik().Grid<SkilTree>()
+        .Name("SkilsTree")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.skil_id).Sortable(false)
+                .ClientTemplate("<img style='vertical-align: middle;' onerror='NpcdroploadImage(this)' src='" + Url.Content("~/Images/icon/") + "<#= skil_img #>.jpg' />")
+                .Title(@Informer.Resources.Views.Npc.drop_vid).Width(32);
+            columns.Bound(c => c.skil_lvl).Width(35).Title("lvl").HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.skil_id)
+                .ClientTemplate(@Html.ActionLink("<#= skil_name #>", "details", "Skils", new { id = "<#= skil_id #>" }, null).ToString())
+                .Width(140).Title(@Informer.Resources.Views.Skils.grid_name);
+            columns.Bound(c => c.skil_desc).Width(350).Title(@Informer.Resources.Views.Skils.grid_desc_detail);
+            columns.Bound(c => c.skil_oper_type).Width(100).Title(@Informer.Resources.Views.Skils.grid_tip);
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_GetScilsGrid", "Skils"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("SkilsTreeOnDataBinding"))
+        .Scrollable(scroll => scroll.Height(490))
+        .Pageable(page => page.PageOnScroll(true).PageSize(150).Style(GridPagerStyles.Status))
+        .Sortable()
+)
+    </fieldset>
+</div>
+
+<script type="text/javascript">
+    $(".SkilsImg").poshytip({
+        className: 'tip-yellowsimple',
+        alignX: 'center',
+        offsetY: 5,
+        alignTo: 'target'
+    });
+</script>

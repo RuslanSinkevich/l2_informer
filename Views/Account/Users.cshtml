@@ -1,0 +1,206 @@
+﻿@using System.Globalization
+@{
+    var userInfo = (Informer.Models.UserProfile)ViewBag.userInfo;
+    var userLsCount = (int)ViewBag.userLsCount;
+    ViewBag.Title = "Учётная запись";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<fieldset style="width: 60%">
+    <legend>Пользователь <b>@userInfo.UserName</b></legend>
+    <div id="avatar" style="float: right">
+        <h3>Аватар</h3>
+
+        @if (!string.IsNullOrEmpty(userInfo.Avatar))
+        {
+            <img src="/Images/avatar/@userInfo.Avatar" alt="image" />
+        }
+        else
+        {
+            <img src="/Images/avatar/noavatar.jpg" class="t-image" alt="image" />                
+        }
+    </div>
+    <div id="usrInfo">
+        <table class="usrInfo values">
+            <tbody>
+                @if (userInfo.baned == 1)
+                {
+                    <tr>
+                        <th>ICQ</th>
+                        <td style="color: red">Забанен
+                        </td>
+                    </tr>
+                }
+                @if (userInfo.data != null)
+                {
+                    <tr>
+                        <th>Дата регистрации:</th>
+                        <td>
+                            @userInfo.data
+                        </td>
+                    </tr>
+                }
+                @if (!string.IsNullOrEmpty(userInfo.Icq))
+                {
+                    <tr>
+                        <th>ICQ</th>
+                        <td>
+                            @userInfo.Icq
+                        </td>
+                    </tr>
+                }
+                @if (!string.IsNullOrEmpty(userInfo.Skype))
+                {
+                    <tr>
+                        <th>Skype</th>
+                        <td>
+                            @userInfo.Skype
+                        </td>
+                    </tr>
+                }
+                @if (!string.IsNullOrEmpty(userInfo.country))
+                {
+                    <tr>
+                        <th>Страна</th>
+                        <td>
+                            @userInfo.country
+                        </td>
+                    </tr>
+                }
+                @if (!string.IsNullOrEmpty(userInfo.city))
+                {
+                    <tr>
+                        <th>Город</th>
+                        <td>
+                            @userInfo.city
+                        </td>
+                    </tr>
+                }
+                @if (!string.IsNullOrEmpty(userInfo.signs))
+                {
+                    <tr>
+                        <th>Подпись</th>
+                        <td style="width: 400px">
+                            <div>@Html.Raw(@userInfo.signs)</div>
+                        </td>
+                    </tr>
+                }
+                @if (HttpContext.Current.User.Identity.Name == userInfo.UserName)
+                {
+                    <tr>
+                        <th><b>@Html.ActionLink("Личные сообщения", "Index", "Msg", new {area = ""}, null)</b></th>
+                        <td>
+                            <b>@Html.ActionLink(userLsCount.ToString(CultureInfo.InvariantCulture), "Index", "Msg", new {area = ""}, null)</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Редактировать профиль</th>
+                        <td>
+                            <b>@Html.ActionLink(User.Identity.Name, "Manage", "Account", new {area = ""}, new {@class = "username", title = "Управление"})</b>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <th></th>
+                        <td>
+                            <button class="t-button t-state-default" onclick="MsgAdd()">Отправить сообщение @userInfo.UserName</button>
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</fieldset>
+
+@{ Html.Telerik().Window()
+        .Name("WindowLs")
+        .Title("Новое сообщение")
+        .Visible(false)
+        .Buttons(b => b.Close())
+        .Width(750)
+        .Height(450)
+        .Draggable(true)
+        .Visible(false)
+        .Modal(true)
+        .Content(@<text>
+    @{
+        Ajax.BeginForm("_AddLs", "Msg", new AjaxOptions
+        {
+            HttpMethod = "post",
+            UpdateTargetId = "errorUser",
+            LoadingElementId = "loadImg"
+        });
+        @Html.AntiForgeryToken()
+        <ol>
+            <li id="name">Имя
+               @Html.TextBox("toName", null, new { style = "margin-left: 30px" })
+                <img id="loadImg" src="/Images/loading.gif" style="display: none; width: 16px; height: 16px; margin-left: 20px" />
+                <div style="margin-top: 10px; text-align: left; width: 350px; float: right" class="validation-summary-errors">
+                    <div id="errorUser"></div>
+                    <div id="AddUserLs" style="color: green"></div>
+                </div>
+            </li>
+            <li class="name">Название
+                @Html.TextBox("title")
+            </li>
+            <li>
+                @Html.TextArea("subj")
+            </li>
+        </ol>
+        <button style="margin-top: 10px" type="submit" onclick="ErorLs()" class="t-button t-state-default">Добавить</button>
+    }
+    <div style="margin-top: 10px" onclick="TimeoutClose()" class="t-button t-state-default">Отмена</div>
+
+    </text>)
+        .Render();
+}
+
+<script type="text/javascript" src="../../Scripts/ckeditor/ckeditor.js"></script>
+
+
+<script type="text/javascript">
+    function MsgAdd() {
+        ErorLs();
+        var window = $("#WindowLs").data("tWindow");
+        window.center().open();
+    }
+    
+    function ErorLs() {
+        $("#errorUser").text("");
+        $("#toName").val("@userInfo.UserName");
+    }
+    
+    function TimeoutClose() {
+        $("#AddUserLs").text("");
+        var window = $("#WindowLs").data("tWindow");
+        window.close();
+        $("#title").val("");
+    }
+    
+    function WindowClose() {
+        $("#AddUserLs").text("Сообшение отправленно!");
+        setTimeout(TimeoutClose, 500);
+    }
+
+    CKEDITOR.replace('subj', {
+        toolbar: 'Basic',
+        uiColor: '#BEDDF7',
+        toolbar_Basic: //индивидуальная настройка режима Basic
+        [
+            ['Bold', 'Italic', '-', 'BulletedList', '-', 'Link', 'Unlink', '-', 'Smiley', 'Blockquote']
+        ],
+        width: 745,
+        height: 260,
+        language: 'ru',
+        filebrowserUploadUrl: '/Image/Upload',
+        filebrowserBrowseUrl: '/Image/Browser',
+        scayt_autoStartup: false,
+        disableNativeSpellChecker: false,
+        removePlugins: 'liststyle,tabletools,scayt,menubutton,contextmenu'
+    });
+
+</script>

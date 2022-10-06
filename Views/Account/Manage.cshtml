@@ -1,0 +1,121 @@
+﻿@model Informer.Models.LocalPasswordModel
+@{
+    ViewBag.Title = "Управление учетной записью";
+    var userProfile = (Informer.Models.UserProfile)ViewBag.Users;
+}
+<div>
+
+    <hgroup class="title">
+        <h1>@ViewBag.Title</h1>
+    </hgroup>
+
+    <p class="message-success">@ViewBag.StatusMessage</p>
+    <fieldset id="mgFd">
+        <legend>Форма изменения пароля</legend>
+        <div class="validation-summary-errors">
+            @TempData["Error"]
+        </div>
+        <div id="avatar">
+            <h3>Аватар</h3>
+            @if (!string.IsNullOrEmpty(@userProfile.Avatar))
+            {
+                <img src="/Images/avatar/@userProfile.Avatar" alt="image"/>
+            }
+            else
+            {
+                <img src="/Images/avatar/noavatar.jpg" class="t-image" alt="image"/>                
+            }
+            <ol>
+                <li>Тип картинки (gif jpeg png)</li>
+                <li>Размер max (64x64)</li>
+                <li>Вес max (30кб)</li>
+            </ol>
+            @using (Html.BeginForm("UploadAvatar", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="file" name="file" id="file" /><br />
+                <input class="css3button" type="submit" value="Изменить" />
+            }
+            <div id="admin">
+                        @Html.ActionLink("Добавить новость", "AddNews", "Home", new { area = "" }, new { @class = "css3button" })
+                </div>
+        </div>
+        <div id="usrInfo">
+            <p>Вы вошли как <strong>@User.Identity.Name</strong>.</p>
+            @using (Html.BeginForm("UploadInfoUser", "Account", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <table class="values">
+                    <tbody>
+                        <tr>
+                            <th>Email</th>
+                            <td>
+                                @userProfile.Email
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>ICQ</th>
+                            <td>
+                                @Html.TextBox("Icq", userProfile.Icq)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Skype</th>
+                            <td>
+                                @Html.TextBox("Skype", userProfile.Skype)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Страна</th>
+                            <td>
+                                @Html.TextBox("country", userProfile.country)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Город</th>
+                            <td>
+                                @Html.TextBox("city", userProfile.city)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Подпись</th>
+                            <td>
+                                <textarea name="signs" id="signs">@userProfile.signs</textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input class="css3button" type="submit" value="Сохранить" />
+            }
+        </div>
+
+        <div id="chPass">
+            @(ViewBag.HasLocalPassword ? Html.Partial("_ChangePasswordPartial") : Html.Partial("_SetPasswordPartial"))
+
+        </div>
+    </fieldset>
+    <section id="externalLogins">
+        @Html.Action("RemoveExternalLogins")
+    </section>
+</div>
+
+
+<script type="text/javascript" src="../Scripts/ckeditor/ckeditor.js"></script>
+
+<script type="text/javascript">
+    CKEDITOR.replace('signs', {
+        toolbar: 'Basic',
+        uiColor: '#BEDDF7',
+        toolbar_Basic: //индивидуальная настройка режима Basic
+        [
+            ['Bold', 'Italic', '-',   'BulletedList', '-', 'Link', 'Unlink','-','Smiley']
+        ],
+        width: 265,
+        language: 'ru',
+        filebrowserUploadUrl: '/Image/Upload',
+        filebrowserBrowseUrl: '/Image/Browser',
+        scayt_autoStartup: false,
+        disableNativeSpellChecker: false,
+        removePlugins: 'liststyle,tabletools,scayt,menubutton,contextmenu'
+    });
+</script>

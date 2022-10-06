@@ -1,0 +1,190 @@
+﻿@{
+    ViewBag.Title = "Квесты описание и  поиск";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Description = "Lineage 2 Квесты, Quest описание и поиск";
+}
+@using System.Globalization
+@using Informer.Areas.hf.Models;
+@using Informer.Resources.Views;
+<fieldset style="width: 68%;">
+    <legend>@Npc.search_fds</legend>
+    <div style="float: left">
+        @(Html.Telerik().AutoComplete()
+                 .HtmlAttributes(new { style = "border-radius:5px; height:15px; width:350px" })
+                .Name("SearchByNameQuest")
+                .DataBinding(binding => binding.Ajax().Select("_searchByNameQuest", "Quest"))
+                .ClientEvents(events => events.OnChange("QuestInfoSearch"))
+                .Filterable(filtering =>
+                      {
+                          filtering.FilterMode(AutoCompleteFilterMode.Contains);
+                          filtering.MinimumChars(2);
+                      })
+        )
+        <span style="margin-left: 10px">@Quest.search_span</span>
+    </div>
+</fieldset>
+<fieldset style="float: left; width: 226px; margin-right: 4px; padding-left: 14px; height: 55px">
+    <legend>@Quest.fd_lvl</legend>
+    @(Html.Telerik().RangeSlider<int>()
+              .Name("QuestSlider")
+              .Min(0)
+              .Max(84)
+              .Values(70, 84)
+              .SmallStep(1)
+              .LargeStep(20)
+              .ClientEvents(events => events
+                  .OnChange("QuestSlSelected"))
+              .HtmlAttributes(new { style = "width:210px;margin:5px 15px 10px 0" })
+        )
+</fieldset>
+<fieldset style="width: 250px; height: 55px">
+    <legend>@Quest.fd_type</legend>
+    @(Html.Telerik().DropDownList()
+                      .Name("QuestDropDown")
+                      .Items(items =>
+                      {
+                          items.Add().Text(@Quest.img_all).Value("0,1,2,3,4");
+                          items.Add().Text(Quest.img_0).Value("0");
+                          items.Add().Text(Quest.img_1).Value("1");
+                          items.Add().Text(Quest.img_2).Value("2");
+                          items.Add().Text(Quest.img_3).Value("3");
+
+                      })
+                      .SelectedIndex(0)
+                      .ClientEvents(events => events.OnClose("QuestSlSelected"))
+                      .HtmlAttributes(new { style = "width:250px;margin:5px 13px 7px 3px" })
+              )
+</fieldset>
+<div style="float: left">
+    <fieldset style="margin-right: 12px;">
+        <legend>@Quest.fd_quest</legend>
+        @(Html.Telerik().Grid<quest_info>()
+        .Name("QuestInform")
+        .BindTo((IEnumerable<quest_info>)ViewBag.questInform)
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.quest_type).HtmlAttributes(new { style = " text-align: center;height:26px;" }).Title("T").Width(23)
+                .Template(
+                     @<text>
+                        @{var img = "4";
+
+                            switch (item.quest_type)
+                            {
+                                case 0:
+                                    img = Quest.img_0;
+                                    break;
+                                case 1:
+                                    img = Quest.img_1;
+                                    break;
+                                case 2:
+                                    img = Quest.img_2;
+                                    break;
+                                case 3:
+                                    img = Quest.img_3;
+                                    break;
+                            }
+
+                            <img  class="toolNpcDetail" title="@img" src= "@Url.Content("~/Images/quest/" + @item.quest_type + ".jpg") " />
+                            }
+                     </text>
+                        )
+                .ClientTemplate(@"<img class=""toolNpcDetail"" title='<#if(quest_type == 0){#>" + Quest.img_0 +
+                "<#} else if(quest_type == 1){#>" + Quest.img_1 +
+                "<#} else if(quest_type == 2){#>" + Quest.img_2 +
+                "<#} else if(quest_type == 3){#>" + Quest.img_3 +
+                "<#}#>' style='vertical-align: middle;' src='" + Url.Content("~/Images/quest/") + "<#= quest_type #>.jpg' />");
+            columns.Bound(c => c).HtmlAttributes(new { style = "padding:0 0 0 5px;" }).Width(335)
+                .ClientTemplate(@Html.ActionLink("<#= quest_names #>", "details", "Quest", new { id = "<#= quest_id #>" }, null).ToString())
+                .Template(
+                     @<text>
+                        <a href="/hf/Quest/details/@item.quest_id">@item.quest_names</a>
+                     </text>
+                        )
+                .Title(Npc.drop_name);
+            columns.Bound(c => c.quest_lvl_min)
+                .ClientTemplate("<#if(quest_lvl_max > 0){#><#= quest_lvl_min #> - <#= quest_lvl_max #><#}else{#><#= quest_lvl_min #>+<#}#>")
+                .Template(
+                     @<text>
+                          @{string questLvl;
+
+                            if (item.quest_lvl_max > 0)
+                            { questLvl = @item.quest_lvl_min + " - " + @item.quest_lvl_max; }
+                          else 
+                          { questLvl =  @item.quest_lvl_min.ToString(CultureInfo.InvariantCulture); }
+                          
+                            @questLvl
+                            }
+                     </text>
+                        )
+                .Title("Min - Max").Width(55)
+                .HtmlAttributes(new { style = "text-align: center;" });
+            columns.Bound(c => c.quest_complete).HtmlAttributes(new { style = "padding:0 0 0 5px;" }).Width(305)
+                .ClientTemplate("<#if(quest_complete_id > 0){#>" +
+                @Html.ActionLink("<#= quest_complete #>", "details", "Quest", new { id = "<#= quest_complete_id #>" }, null).ToString()
+                +"<#}#>")
+                .Template(
+                    @<text>
+                         @if (item.quest_complete_id > 0)
+                         {
+                             Html.ActionLink(item.quest_complete + " ", "details", "Quest", new {id = item.quest_complete_id}, null);
+                         }
+                     </text>
+                        )
+                .Title(Quest.menu_end);
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_searchQuestInform", "Quest"))
+        .DetailView(ordersDetailView => ordersDetailView.ClientTemplate(
+            Html.Telerik().Grid<QuestItemInfo>()
+            .Name("Item_<#= quest_id #>")
+            .HtmlAttributes(new { style="width:332px;"})
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.item_id).Sortable(false)
+                    .ClientTemplate(
+                    " <img class='toltipDrop' title='' itemId ='<#= item_id #>' style='vertical-align: middle;' onerror='NpcdroploadImage(this)' src='" + Url.Content("~/Images/icon/") + "<#= item_img #>.jpg' />")
+                    .Title(Npc.drop_vid).Width(32);
+                columns.Bound(c => c.item_name).Width(300)
+                    .ClientTemplate(@Html.ActionLink("<#= item_name #>", "details", "Item", new { id = "<#= item_id #>" }, null).ToString())
+                    .Title(Npc.drop_name).Sortable(false);
+                columns.Bound(c => c.quest_item_count).Width(55).Title(Quest.menu_count).HtmlAttributes(new { style = " text-align: center;" });
+            })
+            .DataBinding(dataBinding => dataBinding.Ajax().Select("_questItemGet", "Quest", new { quest_id = "<#= quest_id #>" }))
+            .ClientEvents(clientEvents => clientEvents.OnDataBound("NpcdropOnDataBound"))
+            .Pageable(page => page.PageSize(150).Style(GridPagerStyles.Status))
+            .Sortable()
+            .ToHtmlString()
+            ))
+        .Pageable(pag => pag.PageSize(30))
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("QuestOnDataBinding"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBound("toolNpcDetail"))
+        .ClientEvents(clientEvents => clientEvents.OnLoad("QuestOnLoad"))
+        .Sortable()
+)
+    </fieldset>
+</div>
+<div id="quests_hom">
+    <fieldset>
+        <legend>Гранд боссы</legend>
+        <ul>
+            <li>@Html.ActionLink("Антарас (Antharas)", "details", "Quest", new { id = 337 }, null)</li>
+            <li>@Html.ActionLink("Баюм (Baium)", "details", "Quest", new { id = 348 }, null)</li>
+            <li>@Html.ActionLink("Валакас (Valakas)", "details", "Quest", new { id = 618 }, null)</li>
+            <li>@Html.ActionLink("Фринтеза (Frintezza)", "details", "Quest", new { id = 119 }, null)</li>
+            <li>@Html.ActionLink("повторное посещение", "details", "Quest", new { id = 654 }, null)</li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <legend>Питомцы</legend>
+        <ul>
+            <li>@Html.ActionLink("Волк (Wolf)", "details", "Quest", new { id = 419 }, null)</li>
+            <li>@Html.ActionLink("Дракончик (Hatchling)", "details", "Quest", new { id = 421 }, null)</li>
+            <li>@Html.ActionLink("Ездовой Дракон (Strider)", "details", "Quest", new { id = 421 }, null)</li>
+            <li>@Html.ActionLink("Буйвол (Buffalo)", "details", "Quest", new { id = 42 }, null)</li>
+            <li>@Html.ActionLink("Кугуар (Cougar)", "details", "Quest", new { id = 43 }, null)</li>
+            <li>@Html.ActionLink("Кукабарра (Kookaburra)", "details", "Quest", new { id = 44 }, null)</li>
+        </ul>
+    </fieldset>
+
+</div>
+
+

@@ -1,0 +1,32 @@
+﻿@{
+    var itemCaftName = (ViewBag.ItemCaftName as List<Informer.Areas.hf.Models.ItemCraft>);
+    if (itemCaftName.Count == 0)
+    {
+        ViewBag.Title = @Informer.Resources.Views.Craft.error;
+        <h2 style="text-align:center">@Informer.Resources.Views.Craft.error</h2>
+        return; }    
+    ViewBag.Title = "крафт - " + itemCaftName[0].item_name;
+    ViewBag.Description = "крафт - " + itemCaftName[0].item_name; 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="NpcDivBloc_r">
+    <fieldset>
+        <legend>@Informer.Resources.Views.Craft.fds_that</legend>
+        <img class='toltipDrop' title='' itemId ='@itemCaftName[0].item_id' style="vertical-align: middle; margin:4px 7px 2px 4px" alt="@itemCaftName[0].item_name" 
+            onload="NpcdropOnDataBound()" src="/Images/icon/@string.Format("{0}.jpg", itemCaftName[0].item_img)">
+        <strong>@Html.ActionLink(itemCaftName[0].item_name, "details", "Item", new { id = itemCaftName[0].item_id }, null)</strong>                   
+    </fieldset>
+    <fieldset id="NpcSpoilFd" style="margin-top: 5px;">
+        <legend>@Informer.Resources.Views.Craft.fds_consist</legend>
+        @(Html.Telerik().TreeView()
+        .Name("CraftTreeView") 
+        .DataBinding(dataBinding => dataBinding
+                .Ajax().Select("_CraftLoading", "Craft")
+        )
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("CraftTVOnDataBinding"))
+        .ClientEvents(clientEvents => clientEvents.OnExpand("CraftValueSelected"))
+        .ClientEvents(clientEvents => clientEvents.OnLoad("CraftTreeOnLoad("+ViewBag.CraftItemId+")"))
+)
+    </fieldset>
+</div>

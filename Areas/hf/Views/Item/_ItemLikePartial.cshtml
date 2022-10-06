@@ -1,0 +1,24 @@
+﻿@using Informer.Areas.hf.Models;
+<fieldset style="width:400px">
+    <legend>@Informer.Resources.Views.Item.fd_items</legend>
+    @(Html.Telerik().Grid<ItemInfo>()
+        .Name("ItemInform")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.item_id).Hidden(true);
+            columns.Bound(c => c.item_id).Sortable(false)
+                .ClientTemplate(
+                " <img class='toltipDrop' title='' itemId ='<#= item_id #>' style='vertical-align: middle;' onerror='NpcdroploadImage(this)' src='" + Url.Content("~/Images/icon/") + "<#= item_img #>.jpg' />")
+                .Title(@Informer.Resources.Views.Npc.drop_vid).Width(36);
+            columns.Bound(c => c.item_name)
+                .Title(@Informer.Resources.Views.Npc.info_name)
+                .ClientTemplate(@Html.ActionLink("<#= item_name #><#if(item_add_name  != ''){ #> (<#= item_add_name #>)<#} #>", "details", "Item", new { id = "<#= item_id #>" }, null).ToString())
+                .Width(300);
+        })
+        .DataBinding(dataBinding => dataBinding.Ajax().Select("_searchItemInform", "Item", new { item_name = Model , item_tip = -100 }))
+        .Sortable()
+        .ClientEvents(clientEvents => clientEvents.OnDataBinding("ItemOnDataBinding"))
+        .ClientEvents(clientEvents => clientEvents.OnDataBound("PartialOnDataBound"))
+
+)
+</fieldset>
